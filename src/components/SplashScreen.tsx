@@ -1,0 +1,69 @@
+import { useEffect } from 'react';
+import { motion } from 'motion/react';
+
+interface SplashScreenProps {
+  onComplete: () => void;
+}
+
+export default function SplashScreen({ onComplete }: SplashScreenProps) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      onComplete();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [onComplete]);
+
+  return (
+    <div id="splash-screen" className="fixed inset-0 bg-black flex flex-col items-center justify-center z-50">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className="flex flex-col items-center"
+      >
+        {/* Sleek slanted minimalist logo */}
+        <div className="relative w-20 h-20 mb-6 flex items-center justify-center">
+          <motion.div 
+            initial={{ scale: 0.8, rotate: -15 }}
+            animate={{ scale: 1, rotate: 0 }}
+            transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
+            className="absolute inset-0 border-2 border-white rounded-2xl transform skew-x-[-10deg] flex items-center justify-center bg-neutral-900"
+          >
+            <span className="text-4xl font-bold text-white font-sans italic transform skew-x-[10deg]">G</span>
+          </motion.div>
+          <div className="absolute -inset-1 border border-white/20 rounded-2xl transform skew-x-[-10deg] scale-110 pointer-events-none" />
+        </div>
+
+        {/* Gradence Wordmark */}
+        <motion.h1 
+          initial={{ opacity: 0, tracking: "0.2em" }}
+          animate={{ opacity: 1, tracking: "0.05em" }}
+          transition={{ delay: 0.4, duration: 1 }}
+          className="text-3xl tracking-wider uppercase text-white font-odoo-slant font-bold text-center"
+        >
+          GRADENCE
+        </motion.h1>
+
+        {/* Subtle tagline */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 0.4 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="text-xs text-neutral-400 font-mono mt-2"
+        >
+          offline academic companion
+        </motion.p>
+      </motion.div>
+
+      {/* Progress line */}
+      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-48 h-[1px] bg-neutral-900 overflow-hidden">
+        <motion.div 
+          initial={{ left: "-100%" }}
+          animate={{ left: "100%" }}
+          transition={{ duration: 1.8, ease: "easeInOut", repeat: 0 }}
+          className="absolute top-0 bottom-0 w-1/2 bg-white/40"
+        />
+      </div>
+    </div>
+  );
+}

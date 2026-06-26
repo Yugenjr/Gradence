@@ -1,0 +1,6 @@
+{
+  "name": "Gradence",
+  "description": "A premium offline-first academic companion for students to beautifully manage CGPA, attendance, exams, GPA predictions, and academic progress.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

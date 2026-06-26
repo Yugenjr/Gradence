@@ -1,0 +1,55 @@
+export interface UserProfile {
+  name: string;
+  university: string;
+  currentSemester: number;
+  theme: 'dark' | 'light' | 'system';
+  gpaScale: 4 | 10;
+}
+
+export interface Subject {
+  id: string;
+  name: string;
+  credits: number;
+  grade: string; // e.g. "A", "B+", "O", etc.
+  gradePoints: number;
+}
+
+export interface Semester {
+  id: string;
+  number: number;
+  name: string;
+  sgpa: number;
+  totalCredits: number;
+  subjects: Subject[];
+}
+
+export interface AttendanceSubject {
+  id: string;
+  name: string;
+  present: number;
+  total: number;
+  requiredPercentage: number;
+}
+
+export interface Exam {
+  id: string;
+  subject: string;
+  date: string; // YYYY-MM-DD
+  priority: 'high' | 'medium' | 'low';
+}
+
+export interface Activity {
+  id: string;
+  type: 'cgpa' | 'attendance' | 'exam' | 'converter' | 'profile';
+  title: string;
+  detail: string;
+  timestamp: string; // ISO string
+}
+
+export interface Quote {
+  text: string;
+  author: string;
+}
+
+export type TabType = 'home' | 'tools' | 'progress' | 'settings';
+export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter';
