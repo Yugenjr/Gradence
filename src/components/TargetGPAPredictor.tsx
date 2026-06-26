@@ -156,7 +156,7 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
           <div className="space-y-2">
             <label htmlFor="target-cgpa" className="text-xs font-mono text-neutral-400 uppercase">Target CGPA</label>
             <input
-              id="target-gpa"
+              id="target-cgpa"
               type="number"
               step="0.01"
               value={targetCgpa}

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   UserProfile, 
@@ -29,6 +29,15 @@ export default function App() {
   const [isInitialized, setIsInitialized] = useState(false);
   const [currentTab, setCurrentTab] = useState<TabType>('home');
   const [activeTool, setActiveTool] = useState<ToolType | null>(null);
+
+  const mainContentRef = useRef<HTMLElement>(null);
+
+  // Scroll to top on tab or tool change
+  useEffect(() => {
+    if (mainContentRef.current) {
+      mainContentRef.current.scrollTop = 0;
+    }
+  }, [currentTab, activeTool]);
 
   // Core Persistent States
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -308,18 +317,18 @@ export default function App() {
   };
 
   return (
-    <div id="app-root-shell" className="min-h-screen bg-black text-white relative">
+    <div id="app-root-shell" className="h-[100dvh] min-h-[100dvh] overflow-hidden bg-black text-white relative flex flex-col">
       <AnimatePresence mode="wait">
         {/* Splash Screen */}
         {showSplash && (
-          <div key="splash">
+          <div key="splash" className="h-full w-full">
             <SplashScreen onComplete={() => setShowSplash(false)} />
           </div>
         )}
 
         {/* Onboarding screen if first time */}
         {!showSplash && !isInitialized && (
-          <div key="onboarding" className="w-full min-h-screen bg-black">
+          <div key="onboarding" className="w-full h-full bg-black overflow-y-auto">
             <Onboarding onComplete={handleOnboardingComplete} />
           </div>
         )}
@@ -330,13 +339,13 @@ export default function App() {
             key="main-app"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="w-full min-h-screen pb-24"
+            className="w-full h-full flex flex-col overflow-hidden relative"
           >
             {/* Ambient subtle glow background */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-neutral-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neutral-900/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <main className="max-w-4xl mx-auto px-6 pt-8 pb-12">
+            <main ref={mainContentRef} className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-32 overflow-y-auto scrollbar-none">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${currentTab}-${activeTool || 'list'}`}
