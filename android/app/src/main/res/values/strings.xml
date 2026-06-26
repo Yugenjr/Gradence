@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Gradence</string>
+    <string name="title_activity_main">Gradence</string>
+    <string name="package_name">com.gradence.app</string>
+    <string name="custom_url_scheme">com.gradence.app</string>
+</resources>
