@@ -111,7 +111,7 @@ export default function Converter({ onBack }: ConverterProps) {
             setActiveTab('gpa-percent');
             setCgpaInput('8.5');
           }}
-          className={`flex-1 py-3 text-xs font-semibold rounded-2xl transition-all cursor-pointer ${
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
             activeTab === 'gpa-percent'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'
@@ -124,7 +124,7 @@ export default function Converter({ onBack }: ConverterProps) {
             setActiveTab('grade-points');
             setSelectedGrade(scaleType === 10 ? 'A+' : 'A');
           }}
-          className={`flex-1 py-3 text-xs font-semibold rounded-2xl transition-all cursor-pointer ${
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
             activeTab === 'grade-points'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'
@@ -134,7 +134,7 @@ export default function Converter({ onBack }: ConverterProps) {
         </button>
         <button
           onClick={() => setActiveTab('credits')}
-          className={`flex-1 py-3 text-xs font-semibold rounded-2xl transition-all cursor-pointer ${
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
             activeTab === 'credits'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'

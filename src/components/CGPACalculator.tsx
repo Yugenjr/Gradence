@@ -255,7 +255,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
               <button
                 onClick={() => handleRemoveSubject(sub.id)}
                 disabled={subjects.length <= 1}
-                className="w-10 h-10 border border-neutral-800 hover:border-red-900/50 hover:bg-red-950/20 rounded-xl flex items-center justify-center text-neutral-500 hover:text-red-400 transition-all cursor-pointer shrink-0 align-self-end sm:align-self-auto"
+                className="w-10 h-10 border border-neutral-800 hover:border-red-900/50 hover:bg-red-950/20 rounded-xl flex items-center justify-center text-neutral-500 hover:text-red-400 transition-all cursor-pointer shrink-0 self-end sm:self-auto"
               >
                 <Trash2 className="w-4 h-4" />
               </button>
