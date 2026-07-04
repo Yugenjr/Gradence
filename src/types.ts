@@ -4,6 +4,7 @@ export interface UserProfile {
   currentSemester: number;
   theme: 'dark' | 'light' | 'system';
   gpaScale: 4 | 10;
+  groqApiKey?: string;
 }
 
 export interface Subject {
@@ -51,5 +52,5 @@ export interface Quote {
   author: string;
 }
 
-export type TabType = 'home' | 'tools' | 'progress' | 'settings';
-export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter';
+export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
+export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding';

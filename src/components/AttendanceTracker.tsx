@@ -15,23 +15,23 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
   const [newSubName, setNewSubName] = useState('');
   const [newSubTarget, setNewSubTarget] = useState(75);
   const [isAddFormOpen, setIsAddFormOpen] = useState(false);
+  const [simAttended, setSimAttended] = useState<number>(0);
+  const [simMissed, setSimMissed] = useState<number>(0);
 
   // Initialize from saved state or load defaults
   useEffect(() => {
+    setSubjects(savedSubjects);
     if (savedSubjects && savedSubjects.length > 0) {
-      setSubjects(savedSubjects);
-      setSelectedSubId(savedSubjects[0].id);
+      setSelectedSubId(prev => savedSubjects.some(s => s.id === prev) ? prev : savedSubjects[0].id);
     } else {
-      const defaults: AttendanceSubject[] = [
-        { id: 'att-1', name: 'Advanced Mathematics', present: 18, total: 24, requiredPercentage: 75 },
-        { id: 'att-2', name: 'Software Engineering', present: 22, total: 25, requiredPercentage: 80 },
-        { id: 'att-3', name: 'Data Structures Lab', present: 14, total: 20, requiredPercentage: 75 }
-      ];
-      setSubjects(defaults);
-      setSelectedSubId(defaults[0].id);
-      onSaveSubjects(defaults);
+      setSelectedSubId('');
     }
   }, [savedSubjects]);
+
+  useEffect(() => {
+    setSimAttended(0);
+    setSimMissed(0);
+  }, [selectedSubId]);
 
   const activeSubject = subjects.find(s => s.id === selectedSubId) || subjects[0] || null;
 
@@ -153,6 +153,12 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
 
   const stats = calculateAttendanceStats(activeSubject);
 
+  const simulatedPresent = activeSubject ? activeSubject.present + simAttended : 0;
+  const simulatedTotal = (activeSubject && (simAttended > 0 || simMissed > 0)) ? activeSubject.total + simAttended + simMissed : 0;
+  const simulatedPercent = simulatedTotal > 0 ? parseFloat(((simulatedPresent / simulatedTotal) * 105).toFixed(1)) : 0;
+  // Cap at 100%
+  const simulatedPercentCapped = Math.min(100, simulatedTotal > 0 ? parseFloat(((simulatedPresent / simulatedTotal) * 100).toFixed(1)) : 0);
+
   // SVG parameters for standard circular progress
   const radius = 70;
   const strokeWidth = 10;
@@ -160,7 +166,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
   const strokeDashoffset = stats ? circumference - (Math.min(stats.percentage, 100) / 100) * circumference : circumference;
 
   return (
-    <div id="attendance-tracker" className="space-y-8 pb-32">
+    <div id="attendance-tracker" className="space-y-8 pb-6">
       {/* Top Header */}
       <div className="flex items-center gap-3">
         <button 
@@ -392,7 +398,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
               </div>
 
               {/* Live projection result card */}
-              {stats && activeSubject.total > 0 && (
+              {stats && activeSubject && activeSubject.total > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -438,8 +444,71 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                 </motion.div>
               )}
 
+              {/* Interactive Attendance Rescue Engine Simulator */}
+              {activeSubject && activeSubject.total > 0 && (
+                <div className="bg-black/30 p-5 rounded-[24px] border border-neutral-900 space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block">
+                      RESCUE ENGINE SIMULATOR
+                    </span>
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
+                      simulatedTotal > 0 && simulatedPercentCapped >= activeSubject.requiredPercentage
+                        ? 'border-white text-white'
+                        : 'border-neutral-850 text-neutral-500'
+                    }`}>
+                      {simulatedTotal > 0 ? `Simulated: ${simulatedPercentCapped}%` : 'No simulation'}
+                    </span>
+                  </div>
+                  
+                  <p className="text-[11px] text-neutral-400 leading-relaxed">
+                    Test hypothetical future schedules to predict if they rescue your attendance requirements.
+                  </p>
+
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-1">
+                      <label htmlFor="sim-attended" className="text-[9px] font-mono text-neutral-500 uppercase">Will Attend</label>
+                      <input
+                        id="sim-attended"
+                        type="number"
+                        min="0"
+                        value={simAttended || ''}
+                        onChange={(e) => setSimAttended(Math.max(0, parseInt(e.target.value) || 0))}
+                        placeholder="0 classes"
+                        className="w-full bg-black border border-neutral-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-neutral-600 font-medium"
+                      />
+                    </div>
+                    <div className="space-y-1">
+                      <label htmlFor="sim-missed" className="text-[9px] font-mono text-neutral-500 uppercase">Will Miss</label>
+                      <input
+                        id="sim-missed"
+                        type="number"
+                        min="0"
+                        value={simMissed || ''}
+                        onChange={(e) => setSimMissed(Math.max(0, parseInt(e.target.value) || 0))}
+                        placeholder="0 classes"
+                        className="w-full bg-black border border-neutral-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-neutral-600 font-medium"
+                      />
+                    </div>
+                  </div>
+
+                  {simulatedTotal > 0 && (
+                    <div className={`p-4 rounded-xl border text-xs leading-relaxed ${
+                      simulatedPercentCapped >= activeSubject.requiredPercentage
+                        ? 'bg-neutral-900/40 border-neutral-800 text-neutral-200'
+                        : 'bg-red-950/20 border-red-900/30 text-red-300'
+                    }`}>
+                      {simulatedPercentCapped >= activeSubject.requiredPercentage ? (
+                        <span>✓ This schedule <strong>rescues</strong> your attendance! You will sit at <strong>{simulatedPercentCapped}%</strong> (above target {activeSubject.requiredPercentage}%).</span>
+                      ) : (
+                        <span>✗ Critical! This schedule leaves you at <strong>{simulatedPercentCapped}%</strong>, which is below your target of {activeSubject.requiredPercentage}%.</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+
               {/* Adjust class history manually */}
-              {activeSubject.total > 0 && (
+              {activeSubject && activeSubject.total > 0 && (
                 <div className="flex justify-between items-center bg-black/10 p-4 rounded-2xl border border-neutral-900 text-xs">
                   <span className="text-neutral-400 font-mono">Manual logs adjustments</span>
                   <div className="flex items-center gap-1.5">

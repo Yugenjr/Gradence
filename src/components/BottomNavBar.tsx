@@ -1,4 +1,4 @@
-import { Home, Compass, BarChart2, Settings } from 'lucide-react';
+import { Home, Compass, BarChart2, Settings, Sparkles } from 'lucide-react';
 import { TabType } from '../types';
 
 interface BottomNavBarProps {
@@ -10,6 +10,7 @@ export default function BottomNavBar({ activeTab, onChangeTab }: BottomNavBarPro
   const tabs = [
     { id: 'home' as TabType, label: 'Home', icon: Home },
     { id: 'tools' as TabType, label: 'Tools', icon: Compass },
+    { id: 'ai' as TabType, label: 'AI Space', icon: Sparkles },
     { id: 'progress' as TabType, label: 'Progress', icon: BarChart2 },
     { id: 'settings' as TabType, label: 'Settings', icon: Settings },
   ];

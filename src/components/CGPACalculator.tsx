@@ -132,7 +132,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
   };
 
   return (
-    <div id="cgpa-calculator" className="space-y-8 pb-32">
+    <div id="cgpa-calculator" className="space-y-8 pb-4">
       {/* Top Header */}
       <div className="flex items-center gap-3">
         <button 

@@ -62,7 +62,7 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
   };
 
   return (
-    <div id="exam-planner" className="space-y-8 pb-32">
+    <div id="exam-planner" className="space-y-8 pb-4">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">

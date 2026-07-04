@@ -89,7 +89,7 @@ export default function Converter({ onBack }: ConverterProps) {
   const grades4 = ['A', 'A-', 'B+', 'B', 'B-', 'C+', 'C', 'D', 'F'];
 
   return (
-    <div id="converter" className="space-y-8 pb-32">
+    <div id="converter" className="space-y-8 pb-4">
       {/* Header */}
       <div className="flex items-center gap-3">
         <button 

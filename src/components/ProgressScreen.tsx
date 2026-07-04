@@ -209,7 +209,7 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
   };
 
   return (
-    <div id="progress-screen" className="space-y-8 pb-32">
+    <div id="progress-screen" className="space-y-8 pb-4">
       {/* Header */}
       <div>
         <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
