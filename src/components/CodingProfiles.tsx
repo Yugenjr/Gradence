@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { ArrowLeft, Code, Github, Award, Flame, Save, RefreshCw } from 'lucide-react';
+import { useGradence } from '../context/GradenceContext';
 
 interface CodingProfilesProps {
   onBack: () => void;
@@ -19,29 +20,25 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
   const [atcoder, setAtcoder] = useState<ProfileData>({ username: '', solved: 0, rating: 'Grey' });
   const [codechef, setCodechef] = useState<ProfileData>({ username: '', solved: 0, rating: '1-Star' });
 
+  const { codingProfiles, saveCodingProfiles } = useGradence();
+
   const [isSaved, setIsSaved] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
 
-  // Load from local storage on mount
+  // Sync with context on load
   useEffect(() => {
-    const saved = localStorage.getItem('gradence_coding_profiles');
-    if (saved) {
-      try {
-        const parsed = JSON.parse(saved);
-        if (parsed.leetcode) setLeetcode(parsed.leetcode);
-        if (parsed.github) setGithub(parsed.github);
-        if (parsed.codeforces) setCodeforces(parsed.codeforces);
-        if (parsed.atcoder) setAtcoder(parsed.atcoder);
-        if (parsed.codechef) setCodechef(parsed.codechef);
-      } catch (e) {
-        console.error('Failed to load coding profiles', e);
-      }
+    if (codingProfiles) {
+      if (codingProfiles.leetcode) setLeetcode(codingProfiles.leetcode);
+      if (codingProfiles.github) setGithub(codingProfiles.github);
+      if (codingProfiles.codeforces) setCodeforces(codingProfiles.codeforces);
+      if (codingProfiles.atcoder) setAtcoder(codingProfiles.atcoder);
+      if (codingProfiles.codechef) setCodechef(codingProfiles.codechef);
     }
-  }, []);
+  }, [codingProfiles]);
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const data = { leetcode, github, codeforces, atcoder, codechef };
-    localStorage.setItem('gradence_coding_profiles', JSON.stringify(data));
+    await saveCodingProfiles(data);
     setIsSaved(true);
     setTimeout(() => setIsSaved(false), 2000);
   };

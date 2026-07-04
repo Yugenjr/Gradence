@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
+import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
+import { CapgoFilePicker } from '@capgo/capacitor-file-picker';
 import { UserProfile } from '../types';
 import { 
   User, 
@@ -18,8 +20,8 @@ interface SettingsScreenProps {
   profile: UserProfile;
   onUpdateProfile: (profile: UserProfile) => void;
   onResetData: () => void;
-  onImportData: (dataString: string) => boolean;
-  onExportData: () => string;
+  onImportData: (dataString: string) => Promise<boolean>;
+  onExportData: () => Promise<string>;
 }
 
 export default function SettingsScreen({ 
@@ -42,6 +44,7 @@ export default function SettingsScreen({
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [activeInfoPage, setActiveInfoPage] = useState<'about' | 'faq' | 'privacy' | 'terms' | null>(null);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const handleSaveProfile = () => {
     onUpdateProfile({
@@ -59,25 +62,47 @@ export default function SettingsScreen({
     }, 2000);
   };
 
-  const handleBackup = () => {
+  const handleBackup = async () => {
     try {
-      const dataStr = onExportData();
-      const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
-      
-      const exportFileDefaultName = `gradence_backup_${new Date().toISOString().split('T')[0]}.json`;
-      
-      const linkElement = document.createElement('a');
-      linkElement.setAttribute('href', dataUri);
-      linkElement.setAttribute('download', exportFileDefaultName);
-      linkElement.click();
-    } catch (e) {
-      console.error(e);
+      const dataStr = await onExportData();
+      const filename = `gradence_backup_${new Date().toISOString().split('T')[0]}.json`;
+
+      // 1. Save backup as a physical JSON file using Capacitor Filesystem
+      const result = await Filesystem.writeFile({
+        path: filename,
+        data: dataStr,
+        directory: Directory.Documents,
+        encoding: Encoding.UTF8,
+        recursive: true
+      });
+
+      // 2. Alert the user with the success state and native path
+      alert(`Backup exported successfully!\n\nSaved to Documents folder:\n${result.uri}`);
+
+      // 3. Optionally launch the native share sheet
+      if (navigator.share) {
+        try {
+          const file = new File([dataStr], filename, { type: 'application/json' });
+          if (navigator.canShare && navigator.canShare({ files: [file] })) {
+            await navigator.share({
+              files: [file],
+              title: 'Gradence Backup JSON',
+              text: 'Gradence offline data profile backup file.'
+            });
+          }
+        } catch (shareErr) {
+          console.warn('Optional native share sheet was cancelled or failed', shareErr);
+        }
+      }
+    } catch (e: any) {
+      console.error('Backup trigger failed', e);
+      alert(`Failed to save backup file: ${e.message || e}`);
     }
   };
 
-  const handleCopyBackup = () => {
+  const handleCopyBackup = async () => {
     try {
-      const dataStr = onExportData();
+      const dataStr = await onExportData();
       navigator.clipboard.writeText(dataStr);
       setCopySuccess(true);
       setTimeout(() => setCopySuccess(false), 2000);
@@ -87,9 +112,53 @@ export default function SettingsScreen({
     }
   };
 
-  const handleImport = () => {
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const resultText = event.target?.result;
+      if (typeof resultText === 'string') {
+        setImportText(resultText);
+        setImportStatus('idle');
+      }
+    };
+    reader.onerror = () => {
+      alert('Failed to read file. Please verify it is a valid JSON document.');
+    };
+    reader.readAsText(file);
+  };
+
+  const handleUploadFileClick = async () => {
+    try {
+      const result = await CapgoFilePicker.pickFiles({
+        types: ['application/json'],
+        readData: true
+      });
+
+      if (result.files && result.files.length > 0) {
+        const file = result.files[0];
+        if (file.data) {
+          // Decode base64 file data string
+          const decoded = atob(file.data);
+          setImportText(decoded);
+          setImportStatus('idle');
+          alert(`Backup file "${file.name}" loaded successfully.\n\nClick "Verify and Restore" to import.`);
+        }
+      }
+    } catch (e: any) {
+      console.warn('Native FilePicker failed, falling back to hidden HTML file input click', e);
+      const hiddenInput = document.getElementById('hidden-file-input');
+      if (hiddenInput) {
+        hiddenInput.click();
+      }
+    }
+  };
+
+  const handleImport = async () => {
     if (!importText.trim()) return;
-    const success = onImportData(importText.trim());
+    const success = await onImportData(importText.trim());
     if (success) {
       setImportStatus('success');
       setImportText('');
@@ -105,10 +174,7 @@ export default function SettingsScreen({
   };
 
   const handleClearEverything = () => {
-    if (window.confirm('Are you absolutely sure you want to clear all archived semesters, attendance logs, and customized profile parameters? This action is non-reversible.')) {
-      onResetData();
-      window.location.reload();
-    }
+    setIsDeleteModalOpen(true);
   };
 
   if (activeInfoPage === 'about') {
@@ -416,6 +482,27 @@ export default function SettingsScreen({
               className="w-full bg-black border border-neutral-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-neutral-600 font-mono"
             />
             
+            <div className="border-t border-neutral-800/60 pt-3 space-y-1.5">
+              <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block">
+                OR SELECT BACKUP JSON FILE
+              </span>
+              <button
+                type="button"
+                onClick={handleUploadFileClick}
+                className="w-full py-2.5 bg-black/40 border border-neutral-900 hover:border-neutral-700 rounded-xl text-xs text-neutral-350 transition-all font-semibold flex items-center justify-center gap-1.5 cursor-pointer font-mono"
+              >
+                <Upload className="w-4 h-4" />
+                <span>Upload JSON File</span>
+              </button>
+              <input
+                id="hidden-file-input"
+                type="file"
+                accept=".json"
+                onChange={handleFileChange}
+                style={{ display: 'none' }}
+              />
+            </div>
+            
             {importStatus === 'success' && (
               <p className="text-xs text-green-400 font-mono">✓ Backup data imported successfully. Reloading workspace...</p>
             )}
@@ -487,6 +574,53 @@ export default function SettingsScreen({
           <span>DESIGNED FOR PRIVACY-FIRST FOCUS</span>
         </div>
       </div>
+
+      {isDeleteModalOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+          <div className="bg-[#121213] border border-[#2A2A2A] rounded-[28px] max-w-sm w-full p-6 space-y-6 shadow-2xl animate-in fade-in zoom-in duration-200">
+            <div className="space-y-2 text-center">
+              <ShieldAlert className="w-12 h-12 text-red-500 mx-auto" />
+              <h3 className="text-base font-bold text-white font-mono uppercase tracking-wider">
+                Erase All Database Records?
+              </h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Deleting all data is permanent. We strongly recommend exporting a backup before continuing.
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <button
+                onClick={async () => {
+                  await handleBackup();
+                }}
+                className="w-full py-2.5 bg-neutral-900 border border-neutral-800 hover:border-neutral-600 text-white text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <Download className="w-4 h-4" />
+                <span>Export Backup First</span>
+              </button>
+              
+              <button
+                onClick={async () => {
+                  await onResetData();
+                  setIsDeleteModalOpen(false);
+                  window.location.reload();
+                }}
+                className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-semibold rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              >
+                <Trash2 className="w-4 h-4" />
+                <span>Delete Anyway</span>
+              </button>
+
+              <button
+                onClick={() => setIsDeleteModalOpen(false)}
+                className="w-full py-2.5 bg-transparent border border-neutral-900 hover:border-neutral-800 text-neutral-400 text-xs font-semibold rounded-xl transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

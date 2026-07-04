@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { UserProfile, Semester, Exam, Activity, ToolType, Quote } from '../types';
+import { useGradence } from '../context/GradenceContext';
 import { 
   Calculator, 
   Calendar, 
@@ -44,34 +45,16 @@ export default function HomeDashboard({
   const [greeting, setGreeting] = useState('Good Evening');
   const [quote, setQuote] = useState<Quote>(QUOTES[0]);
 
-  const [habits, setHabits] = useState<{ id: string; name: string; completed: boolean }[]>(() => {
-    const saved = localStorage.getItem('gradence_habits');
-    if (saved) return JSON.parse(saved);
-    return [
-      { id: 'hab-1', name: 'Attend All Lectures', completed: false },
-      { id: 'hab-2', name: 'Solve 1 Coding Challenge', completed: false },
-      { id: 'hab-3', name: 'Revise Core Notes', completed: false }
-    ];
-  });
-
-  const [timetable, setTimetable] = useState<{ id: string; subject: string; time: string; room: string }[]>(() => {
-    const saved = localStorage.getItem('gradence_timetable');
-    if (saved) return JSON.parse(saved);
-    return [
-      { id: '1', subject: 'Software Architecture', time: '09:30 AM', room: 'Room 402' },
-      { id: '2', subject: 'Cryptography Lab', time: '11:15 AM', room: 'Lab 2A' }
-    ];
-  });
-
-  const [customCountdowns, setCustomCountdowns] = useState<{ id: string; title: string; date: string }[]>(() => {
-    const saved = localStorage.getItem('gradence_countdowns');
-    return saved ? JSON.parse(saved) : [];
-  });
+  const {
+    habits,
+    timetable,
+    countdowns: customCountdowns,
+    saveHabits
+  } = useGradence();
 
   const toggleHabit = (id: string) => {
     const updated = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
-    setHabits(updated);
-    localStorage.setItem('gradence_habits', JSON.stringify(updated));
+    saveHabits(updated);
   };
 
   const getDaysRemaining = (dateString: string) => {

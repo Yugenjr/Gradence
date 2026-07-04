@@ -1,30 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Map, CheckCircle2, Circle, Trash2, Calendar, Target, AlertTriangle } from 'lucide-react';
 import { CareerRoadmap } from '../types';
+import { useGradence } from '../context/GradenceContext';
 
 interface RoadmapsManagerProps {
   onBack?: () => void;
 }
 
 export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
-  const [roadmaps, setRoadmaps] = useState<CareerRoadmap[]>([]);
-
-  // Load from local storage
-  useEffect(() => {
-    const saved = localStorage.getItem('gradence_followed_roadmaps');
-    if (saved) {
-      try {
-        setRoadmaps(JSON.parse(saved));
-      } catch (e) {
-        console.error('Failed to parse followed roadmaps', e);
-      }
-    }
-  }, []);
-
-  const saveRoadmaps = (updated: CareerRoadmap[]) => {
-    setRoadmaps(updated);
-    localStorage.setItem('gradence_followed_roadmaps', JSON.stringify(updated));
-  };
+  const { roadmaps, saveRoadmaps } = useGradence();
 
   const handleToggleStage = (roadmapId: string, stageId: string) => {
     const updated = roadmaps.map(rm => {

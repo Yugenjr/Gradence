@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Clock, CheckSquare, Calendar, Plus, Trash2, Save } from 'lucide-react';
+import { useGradence } from '../context/GradenceContext';
 
 interface DailyPlannerProps {
   onBack: () => void;
@@ -27,10 +28,14 @@ interface HabitItem {
 export default function DailyPlanner({ onBack }: DailyPlannerProps) {
   const [activeTab, setActiveTab] = useState<'timetable' | 'habits' | 'countdowns'>('timetable');
 
-  // Core states
-  const [timetable, setTimetable] = useState<TimetableItem[]>([]);
-  const [habits, setHabits] = useState<HabitItem[]>([]);
-  const [countdowns, setCountdowns] = useState<CountdownItem[]>([]);
+  const {
+    timetable,
+    habits,
+    countdowns,
+    saveTimetable,
+    saveHabits,
+    saveCountdowns
+  } = useGradence();
 
   // Form states
   const [classSubject, setClassSubject] = useState('');
@@ -41,51 +46,6 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
 
   const [cdTitle, setCdTitle] = useState('');
   const [cdDate, setCdDate] = useState('');
-
-  // Load datasets on mount
-  useEffect(() => {
-    const storedTimetable = localStorage.getItem('gradence_timetable');
-    const storedHabits = localStorage.getItem('gradence_habits');
-    const storedCountdowns = localStorage.getItem('gradence_countdowns');
-
-    if (storedTimetable) setTimetable(JSON.parse(storedTimetable));
-    else {
-      const defaultTimetable = [
-        { id: '1', subject: 'Software Architecture', time: '09:30 AM', room: 'Room 402' },
-        { id: '2', subject: 'Cryptography Lab', time: '11:15 AM', room: 'Lab 2A' }
-      ];
-      setTimetable(defaultTimetable);
-      localStorage.setItem('gradence_timetable', JSON.stringify(defaultTimetable));
-    }
-
-    if (storedHabits) setHabits(JSON.parse(storedHabits));
-    else {
-      const defaultHabits = [
-        { id: 'hab-1', name: 'Attend All Lectures', completed: false },
-        { id: 'hab-2', name: 'Solve 1 Coding Challenge', completed: false },
-        { id: 'hab-3', name: 'Revise Core Notes', completed: false }
-      ];
-      setHabits(defaultHabits);
-      localStorage.setItem('gradence_habits', JSON.stringify(defaultHabits));
-    }
-
-    if (storedCountdowns) setCountdowns(JSON.parse(storedCountdowns));
-  }, []);
-
-  const saveTimetable = (list: TimetableItem[]) => {
-    setTimetable(list);
-    localStorage.setItem('gradence_timetable', JSON.stringify(list));
-  };
-
-  const saveHabits = (list: HabitItem[]) => {
-    setHabits(list);
-    localStorage.setItem('gradence_habits', JSON.stringify(list));
-  };
-
-  const saveCountdowns = (list: CountdownItem[]) => {
-    setCountdowns(list);
-    localStorage.setItem('gradence_countdowns', JSON.stringify(list));
-  };
 
   // Actions
   const handleAddClass = () => {

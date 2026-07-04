@@ -27,10 +27,35 @@ import AISpace from './components/AISpace';
 import CodingProfiles from './components/CodingProfiles';
 import RoadmapsManager from './components/RoadmapsManager';
 import DailyPlanner from './components/DailyPlanner';
+import { GradenceProvider, useGradence } from './context/GradenceContext';
 
 export default function App() {
+  return (
+    <GradenceProvider>
+      <AppContent />
+    </GradenceProvider>
+  );
+}
+
+function AppContent() {
+  const {
+    profile,
+    semesters,
+    attendanceSubjects,
+    exams,
+    activities,
+    isInitialized,
+    isStorageLoading,
+    updateProfile,
+    saveSemester,
+    saveAttendance,
+    saveExams,
+    resetData,
+    importData,
+    exportData
+  } = useGradence();
+
   const [showSplash, setShowSplash] = useState(true);
-  const [isInitialized, setIsInitialized] = useState(false);
   const [currentTab, setCurrentTab] = useState<TabType>('home');
   const [activeTool, setActiveTool] = useState<ToolType | null>(null);
 
@@ -42,48 +67,6 @@ export default function App() {
       mainContentRef.current.scrollTop = 0;
     }
   }, [currentTab, activeTool]);
-
-  // Core Persistent States
-  const [profile, setProfile] = useState<UserProfile | null>(null);
-  const [semesters, setSemesters] = useState<Semester[]>([]);
-  const [attendanceSubjects, setAttendanceSubjects] = useState<AttendanceSubject[]>([]);
-  const [exams, setExams] = useState<Exam[]>([]);
-  const [activities, setActivities] = useState<Activity[]>([]);
-
-  // Load from local storage
-  useEffect(() => {
-    try {
-      const storedProfile = localStorage.getItem('gradence_profile');
-      const storedSemesters = localStorage.getItem('gradence_semesters');
-      const storedAttendance = localStorage.getItem('gradence_attendance_subjects');
-      const storedExams = localStorage.getItem('gradence_exams');
-      const storedActivities = localStorage.getItem('gradence_activities');
-
-      if (storedProfile) {
-        setProfile(JSON.parse(storedProfile));
-        setIsInitialized(true);
-      }
-
-      if (storedSemesters) setSemesters(JSON.parse(storedSemesters));
-      if (storedAttendance) setAttendanceSubjects(JSON.parse(storedAttendance));
-      
-      if (storedExams) {
-        setExams(JSON.parse(storedExams));
-      } else {
-        setExams([]);
-        localStorage.setItem('gradence_exams', JSON.stringify([]));
-      }
-
-      if (storedActivities) {
-        setActivities(JSON.parse(storedActivities));
-      } else {
-        setActivities([]);
-        localStorage.setItem('gradence_activities', JSON.stringify([]));
-      }
-    } catch (e) {
-      console.error('Failed to load local storage values', e);
-    }
-  }, []);
 
   // Sync profile values to root DOM to allow light/dark themes easily
   useEffect(() => {
@@ -103,132 +86,22 @@ export default function App() {
     }
   }, [profile]);
 
-  // Log activity helper
-  const logActivity = (type: Activity['type'], title: string, detail: string) => {
-    const newActivity: Activity = {
-      id: `act-${Date.now()}`,
-      type,
-      title,
-      detail,
-      timestamp: new Date().toISOString()
-    };
-    const updated = [newActivity, ...activities].slice(0, 20);
-    setActivities(updated);
-    localStorage.setItem('gradence_activities', JSON.stringify(updated));
-  };
-
   // Onboarding Complete Handler
   const handleOnboardingComplete = (newProfile: UserProfile, initialSemesters?: { number: number, sgpa: number }[]) => {
-    setProfile(newProfile);
-    localStorage.setItem('gradence_profile', JSON.stringify(newProfile));
+    updateProfile(newProfile);
     
     if (initialSemesters && initialSemesters.length > 0) {
-      const sems: Semester[] = initialSemesters.map(item => ({
-        id: `sem-${item.number}`,
-        number: item.number,
-        name: `Semester ${item.number}`,
-        sgpa: item.sgpa,
-        totalCredits: 20, // default credits
-        subjects: []
-      }));
-      setSemesters(sems);
-      localStorage.setItem('gradence_semesters', JSON.stringify(sems));
-    } else {
-      setSemesters([]);
-      localStorage.setItem('gradence_semesters', JSON.stringify([]));
+      initialSemesters.forEach(item => {
+        saveSemester({
+          id: `sem-${item.number}`,
+          number: item.number,
+          name: `Semester ${item.number}`,
+          sgpa: item.sgpa,
+          totalCredits: 20, // default credits
+          subjects: []
+        });
+      });
     }
-
-    setIsInitialized(true);
-    logActivity('profile', 'Workspace Set Up', `Welcome, ${newProfile.name}. Academic Profile customized successfully.`);
-  };
-
-  // Save Semester Handler
-  const handleSaveSemester = (semester: Semester) => {
-    const existsIdx = semesters.findIndex(s => s.number === semester.number);
-    let updated: Semester[];
-    if (existsIdx >= 0) {
-      updated = [...semesters];
-      updated[existsIdx] = semester;
-    } else {
-      updated = [...semesters, semester].sort((a, b) => a.number - b.number);
-    }
-    setSemesters(updated);
-    localStorage.setItem('gradence_semesters', JSON.stringify(updated));
-    logActivity('cgpa', `Semester ${semester.number} Saved`, `Archived ${semester.subjects.length} courses with an SGPA of ${semester.sgpa.toFixed(2)}.`);
-
-    // Automatically synchronize active semester level
-    if (profile && semester.number >= profile.currentSemester && semester.number < 8) {
-      const updatedProfile = { ...profile, currentSemester: semester.number + 1 };
-      setProfile(updatedProfile);
-      localStorage.setItem('gradence_profile', JSON.stringify(updatedProfile));
-    }
-  };
-
-  // Save Attendance Subjects Handler
-  const handleSaveAttendance = (subjects: AttendanceSubject[]) => {
-    setAttendanceSubjects(subjects);
-    localStorage.setItem('gradence_attendance_subjects', JSON.stringify(subjects));
-    // Avoid double logging on every click, but capture major adjustments if needed
-  };
-
-  // Save Exams Handler
-  const handleSaveExams = (newExams: Exam[]) => {
-    setExams(newExams);
-    localStorage.setItem('gradence_exams', JSON.stringify(newExams));
-    if (newExams.length > exams.length) {
-      const added = newExams[newExams.length - 1];
-      logActivity('exam', 'Exam Scheduled', `Assessment for "${added.subject}" set for ${added.date}.`);
-    } else if (newExams.length < exams.length) {
-      logActivity('exam', 'Assessment Cleared', 'Upcoming assessment log updated.');
-    }
-  };
-
-  // Update Profile parameters inside Settings
-  const handleUpdateProfile = (newProfile: UserProfile) => {
-    setProfile(newProfile);
-    localStorage.setItem('gradence_profile', JSON.stringify(newProfile));
-    logActivity('profile', 'Settings Changed', 'System and academic parameters updated.');
-  };
-
-  // Database Reset
-  const handleResetData = () => {
-    localStorage.clear();
-    setProfile(null);
-    setSemesters([]);
-    setAttendanceSubjects([]);
-    setExams([]);
-    setActivities([]);
-    setIsInitialized(false);
-  };
-
-  // Export Data JSON string
-  const handleExportData = () => {
-    const backupObj = {
-      profile,
-      semesters,
-      attendanceSubjects,
-      exams,
-      activities
-    };
-    return JSON.stringify(backupObj, null, 2);
-  };
-
-  // Import Backup Data JSON
-  const handleImportData = (dataString: string) => {
-    try {
-      const parsed = JSON.parse(dataString);
-      if (parsed.profile && typeof parsed.profile.name === 'string') {
-        localStorage.setItem('gradence_profile', JSON.stringify(parsed.profile));
-        if (parsed.semesters) localStorage.setItem('gradence_semesters', JSON.stringify(parsed.semesters));
-        if (parsed.attendanceSubjects) localStorage.setItem('gradence_attendance_subjects', JSON.stringify(parsed.attendanceSubjects));
-        if (parsed.exams) localStorage.setItem('gradence_exams', JSON.stringify(parsed.exams));
-        if (parsed.activities) localStorage.setItem('gradence_activities', JSON.stringify(parsed.activities));
-        return true;
-      }
-    } catch (e) {
-      console.error('Import failed', e);
-    }
-    return false;
   };
 
   // Aggregate current average attendance percentage
@@ -269,7 +142,7 @@ export default function App() {
             <CGPACalculator 
               profile={profile}
               savedSemesters={semesters}
-              onSaveSemester={handleSaveSemester}
+              onSaveSemester={saveSemester}
               onBack={() => setActiveTool(null)}
             />
           );
@@ -278,7 +151,7 @@ export default function App() {
           return (
             <AttendanceTracker 
               savedSubjects={attendanceSubjects}
-              onSaveSubjects={handleSaveAttendance}
+              onSaveSubjects={saveAttendance}
               onBack={() => setActiveTool(null)}
             />
           );
@@ -295,7 +168,7 @@ export default function App() {
           return (
             <ExamPlanner 
               savedExams={exams}
-              onSaveExams={handleSaveExams}
+              onSaveExams={saveExams}
               onBack={() => setActiveTool(null)}
             />
           );
@@ -356,10 +229,10 @@ export default function App() {
         return (
           <SettingsScreen 
             profile={profile}
-            onUpdateProfile={handleUpdateProfile}
-            onResetData={handleResetData}
-            onExportData={handleExportData}
-            onImportData={handleImportData}
+            onUpdateProfile={updateProfile}
+            onResetData={resetData}
+            onExportData={exportData}
+            onImportData={importData}
           />
         );
 
@@ -367,6 +240,17 @@ export default function App() {
         return null;
     }
   };
+
+  if (isStorageLoading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
+        <div className="w-8 h-8 border-2 border-t-white border-white/10 rounded-full animate-spin" />
+        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+          Gradence OS is initializing...
+        </span>
+      </div>
+    );
+  }
 
   return (
     <div id="app-root-shell" className="h-[100dvh] min-h-[100dvh] overflow-hidden bg-black text-white relative flex flex-col">

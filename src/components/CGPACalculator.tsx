@@ -126,6 +126,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
     };
     onSaveSemester(sem);
     setIsSavedSuccessfully(true);
+    alert('Semester data saved successfully!');
     setTimeout(() => {
       setIsSavedSuccessfully(false);
     }, 2500);
