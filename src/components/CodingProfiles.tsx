@@ -46,27 +46,72 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     setTimeout(() => setIsSaved(false), 2000);
   };
 
-  const handleSyncProfiles = () => {
+  const handleSyncProfiles = async () => {
     setIsFetching(true);
-    setTimeout(() => {
-      // Intuitively calculate hypothetical progress based on entered handles
-      if (leetcode.username) {
-        setLeetcode(prev => ({ ...prev, solved: Math.max(12, Math.floor(Math.random() * 200) + 50), rating: 'Specialist' }));
+    const synced: string[] = [];
+
+    // 1. Fetch GitHub
+    if (github.username) {
+      try {
+        const res = await fetch(`https://api.github.com/users/${github.username}`);
+        if (res.ok) {
+          const info = await res.json();
+          setGithub(prev => ({
+            ...prev,
+            solved: info.public_repos || 0,
+            rating: `${info.followers || 0} Followers`
+          }));
+          synced.push('GitHub');
+        }
+      } catch (e) {
+        console.error('Failed to sync GitHub', e);
       }
-      if (github.username) {
-        setGithub(prev => ({ ...prev, solved: Math.max(5, Math.floor(Math.random() * 30) + 10), rating: 'Active Contributor' }));
+    }
+
+    // 2. Fetch Codeforces
+    if (codeforces.username) {
+      try {
+        const resStatus = await fetch(`https://codeforces.com/api/user.status?handle=${codeforces.username}`);
+        if (resStatus.ok) {
+          const statusData = await resStatus.json();
+          if (statusData.status === 'OK') {
+            const uniqueProblems = new Set();
+            statusData.result.forEach((sub: any) => {
+              if (sub.verdict === 'OK' && sub.problem) {
+                uniqueProblems.add(`${sub.problem.contestId}-${sub.problem.index}`);
+              }
+            });
+            const solvedCount = uniqueProblems.size;
+
+            // Fetch rank rating
+            const resInfo = await fetch(`https://codeforces.com/api/user.info?handles=${codeforces.username}`);
+            let rankName = 'Newbie';
+            if (resInfo.ok) {
+              const infoData = await resInfo.json();
+              if (infoData.status === 'OK' && infoData.result.length > 0) {
+                rankName = infoData.result[0].rank || 'Newbie';
+              }
+            }
+
+            setCodeforces(prev => ({
+              ...prev,
+              solved: solvedCount,
+              rating: rankName.charAt(0).toUpperCase() + rankName.slice(1)
+            }));
+            synced.push('Codeforces');
+          }
+        }
+      } catch (e) {
+        console.error('Failed to sync Codeforces', e);
       }
-      if (codeforces.username) {
-        setCodeforces(prev => ({ ...prev, solved: Math.max(8, Math.floor(Math.random() * 150) + 30), rating: 'Pupil' }));
-      }
-      if (atcoder.username) {
-        setAtcoder(prev => ({ ...prev, solved: Math.max(4, Math.floor(Math.random() * 80) + 15), rating: 'Brown' }));
-      }
-      if (codechef.username) {
-        setCodechef(prev => ({ ...prev, solved: Math.max(6, Math.floor(Math.random() * 100) + 20), rating: '3-Star' }));
-      }
-      setIsFetching(false);
-    }, 1500);
+    }
+
+    setIsFetching(false);
+    if (synced.length > 0) {
+      alert(`Synchronized ${synced.join(' & ')} successfully! Note: LeetCode, CodeChef, and AtCoder must be entered manually.`);
+    } else {
+      alert('Please enter a GitHub username or Codeforces handle to synchronize them.');
+    }
   };
 
   const totalSolved = leetcode.solved + github.solved + codeforces.solved + atcoder.solved + codechef.solved;
@@ -102,7 +147,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
               className="flex-1 sm:flex-none py-2.5 px-4 bg-neutral-900 border border-neutral-800 text-xs font-semibold rounded-xl text-white hover:border-white flex items-center justify-center gap-2 cursor-pointer"
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isFetching ? 'animate-spin' : ''}`} />
-              <span>Simulate Sync</span>
+              <span>Sync CF & GitHub</span>
             </button>
             <button
               onClick={handleSave}
@@ -125,7 +170,8 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             set: setLeetcode, 
             ph: 'leetcode_user', 
             metric: 'Problems Solved',
-            ratingLabel: 'Rank Tier'
+            ratingLabel: 'Rank Tier',
+            note: 'Manual entry required'
           },
           { 
             name: 'GitHub', 
@@ -133,8 +179,9 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             state: github, 
             set: setGithub, 
             ph: 'github_user', 
-            metric: 'Contributions/Repos',
-            ratingLabel: 'Profile Status'
+            metric: 'Public Repos count',
+            ratingLabel: 'Profile Status',
+            note: 'Auto-sync available'
           },
           { 
             name: 'Codeforces', 
@@ -143,7 +190,8 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             set: setCodeforces, 
             ph: 'cf_handle', 
             metric: 'Solved Problems',
-            ratingLabel: 'Contest Rank'
+            ratingLabel: 'Contest Rank',
+            note: 'Auto-sync available'
           },
           { 
             name: 'AtCoder', 
@@ -152,7 +200,8 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             set: setAtcoder, 
             ph: 'atcoder_id', 
             metric: 'Solved Tasks',
-            ratingLabel: 'Rating Color'
+            ratingLabel: 'Rating Color',
+            note: 'Manual entry required'
           },
           { 
             name: 'CodeChef', 
@@ -161,20 +210,28 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             set: setCodechef, 
             ph: 'codechef_chef', 
             metric: 'Problems Solved',
-            ratingLabel: 'Stars Tier'
+            ratingLabel: 'Stars Tier',
+            note: 'Manual entry required'
           },
         ].map((platform) => {
           const Icon = platform.icon;
           return (
             <div key={platform.name} className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-5 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-                  <Icon className="w-4 h-4 text-white" />
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <div className="w-9 h-9 rounded-xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                    <Icon className="w-4 h-4 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="text-xs font-bold text-white uppercase tracking-wider">{platform.name}</h4>
+                    <span className="text-[9px] text-neutral-500 font-mono block">Platform profile config</span>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="text-xs font-bold text-white uppercase tracking-wider">{platform.name}</h4>
-                  <span className="text-[10px] text-neutral-500 font-mono">Platform profile configuration</span>
-                </div>
+                <span className={`text-[8px] font-mono font-semibold px-2 py-0.5 rounded ${
+                  platform.note.includes('Auto') ? 'bg-white/5 border border-white/10 text-neutral-300' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'
+                }`}>
+                  {platform.note}
+                </span>
               </div>
 
               <div className="space-y-3">

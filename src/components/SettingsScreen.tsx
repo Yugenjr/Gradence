@@ -40,6 +40,8 @@ export default function SettingsScreen({
   const [isImportBoxOpen, setIsImportBoxOpen] = useState(false);
   const [importText, setImportText] = useState('');
   const [importStatus, setImportStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [activeInfoPage, setActiveInfoPage] = useState<'about' | 'faq' | 'privacy' | 'terms' | null>(null);
+  const [copySuccess, setCopySuccess] = useState(false);
 
   const handleSaveProfile = () => {
     onUpdateProfile({
@@ -73,6 +75,18 @@ export default function SettingsScreen({
     }
   };
 
+  const handleCopyBackup = () => {
+    try {
+      const dataStr = onExportData();
+      navigator.clipboard.writeText(dataStr);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (e) {
+      console.error(e);
+      alert('Failed to copy JSON backup. Please use manual export.');
+    }
+  };
+
   const handleImport = () => {
     if (!importText.trim()) return;
     const success = onImportData(importText.trim());
@@ -96,6 +110,134 @@ export default function SettingsScreen({
       window.location.reload();
     }
   };
+
+  if (activeInfoPage === 'about') {
+    return (
+      <div className="space-y-6 pb-8">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setActiveInfoPage(null)}
+            className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">INFO</span>
+            <h1 className="text-xl font-bold text-white font-odoo-slant">About Gradence</h1>
+          </div>
+        </div>
+
+        <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4">
+          <p className="text-xs text-neutral-350 leading-relaxed">
+            <strong>Gradence</strong> is an AI-powered academic operating system designed for modern students. It helps organize grades, forecast attendance, plan assessments, track competitive coding progress, and generate structured career roadmaps offline-first.
+          </p>
+          <div className="border-t border-neutral-900 pt-4 space-y-2.5">
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-neutral-500">Developer ID</span>
+              <a href="https://github.com/Yugenjr" target="_blank" rel="noreferrer" className="text-white hover:underline font-mono">Yugenjr</a>
+            </div>
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-neutral-500">Contact Email</span>
+              <a href="mailto:yugenjr847@gmail.com" className="text-white hover:underline font-mono">yugenjr847@gmail.com</a>
+            </div>
+            <div className="flex justify-between items-center text-xs">
+              <span className="text-neutral-550">Application Version</span>
+              <span className="text-neutral-300 font-mono">1.0.0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeInfoPage === 'faq') {
+    return (
+      <div className="space-y-6 pb-8">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setActiveInfoPage(null)}
+            className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">FAQ</span>
+            <h1 className="text-xl font-bold text-white font-odoo-slant">Help & FAQ</h1>
+          </div>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            { q: 'Where is my data stored?', a: 'All grade logs, attendance registries, and local settings are stored 100% offline inside your device’s local browser/webview sandbox storage. No personal data is ever uploaded to external servers.' },
+            { q: 'How does the Attendance Tracker work?', a: 'It calculates your current active lecture logs. The predictor forecasts whether you can safely skip upcoming sessions without falling below your requested minimum attendance threshold (e.g. 75%).' },
+            { q: 'Can I backup my profile details?', a: 'Yes! Use the "Export JSON" button inside the Settings page to download your full system backup file. You can load this backup on any device using "Import Backup".' },
+            { q: 'How do I add custom coding profile handles?', a: 'Under the Tools section, launch the Coding Profile Tracker. Enter your user handles for Codeforces and GitHub to auto-sync problem counts. LeetCode and CodeChef counts can be managed manually.' }
+          ].map((faq, idx) => (
+            <div key={idx} className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-5 space-y-2">
+              <h3 className="text-xs font-bold text-white uppercase tracking-wider">{faq.q}</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">{faq.a}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  if (activeInfoPage === 'privacy') {
+    return (
+      <div className="space-y-6 pb-8">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setActiveInfoPage(null)}
+            className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">POLICY</span>
+            <h1 className="text-xl font-bold text-white font-odoo-slant">Privacy Policy</h1>
+          </div>
+        </div>
+
+        <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4 text-xs text-neutral-350 leading-relaxed">
+          <h3 className="font-bold text-white uppercase font-mono">1. Local Storage-First Sandbox</h3>
+          <p>Gradence operates entirely offline. Your data, configuration profiles, and API credentials are kept strictly on your local device. We have zero access to your information.</p>
+          <h3 className="font-bold text-white uppercase font-mono mt-4">2. Zero Analytics & Tracking</h3>
+          <p>We do not use telemetry tools, cookies, trackers, or user behavioral analytics. The application operates silently and privately.</p>
+          <h3 className="font-bold text-white uppercase font-mono mt-4">3. Third-Party Endpoints</h3>
+          <p>When you sync your Codeforces or GitHub handles, queries run directly from your client IP to public APIs. These external calls are subject to their respective terms and privacy policies.</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (activeInfoPage === 'terms') {
+    return (
+      <div className="space-y-6 pb-8">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={() => setActiveInfoPage(null)}
+            className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">LEGAL</span>
+            <h1 className="text-xl font-bold text-white font-odoo-slant">Terms & Conditions</h1>
+          </div>
+        </div>
+
+        <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4 text-xs text-neutral-350 leading-relaxed">
+          <h3 className="font-bold text-white uppercase font-mono">1. Agreement to Terms</h3>
+          <p>By using the Gradence application, you agree to comply with these terms. Gradence is a personal academic tracking utility provided to you free of charge.</p>
+          <h3 className="font-bold text-white uppercase font-mono mt-4">2. "As Is" Provision</h3>
+          <p>This software is provided "as is" without warranty of any kind. Predictions (including attendance allowances or target SGPA requirements) are forecasts based on user-supplied numbers and should be self-verified.</p>
+          <h3 className="font-bold text-white uppercase font-mono mt-4">3. Third-Party API Limits</h3>
+          <p>You agree to use external developer APIs (e.g. Groq Cloud, GitHub REST, Codeforces REST) responsibly within their respective usage limits.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="settings-screen" className="space-y-8 pb-4">
@@ -171,6 +313,20 @@ export default function SettingsScreen({
             </select>
           </div>
 
+          <div className="space-y-1">
+            <label htmlFor="student-theme-select" className="text-[10px] font-mono text-neutral-400 uppercase">App Color Theme</label>
+            <select
+              id="student-theme-select"
+              value={theme}
+              onChange={(e) => setTheme(e.target.value as 'dark' | 'light' | 'system')}
+              className="w-full bg-black border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-semibold h-9"
+            >
+              <option value="dark">Classic Dark</option>
+              <option value="light">Nordic Light</option>
+              <option value="system">System Synchronized</option>
+            </select>
+          </div>
+
           {/* Groq Cloud API Key Input */}
           <div className="space-y-1 sm:col-span-2">
             <label htmlFor="groq-api-key-input" className="text-[10px] font-mono text-neutral-400 uppercase flex items-center gap-1.5">
@@ -223,13 +379,20 @@ export default function SettingsScreen({
           Gradence stores all your records inside your browser's offline storage. Download manual backup files to move your logs between other devices easily.
         </p>
 
-        <div className="grid grid-cols-2 gap-3 pt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
           <button
             onClick={handleBackup}
             className="py-3 border border-[#2A2A2A] rounded-xl text-xs font-semibold text-neutral-300 hover:border-white transition-all cursor-pointer flex items-center justify-center gap-1.5"
           >
             <Download className="w-4 h-4" />
-            <span>Export JSON</span>
+            <span>Download JSON</span>
+          </button>
+          <button
+            onClick={handleCopyBackup}
+            className="py-3 border border-[#2A2A2A] rounded-xl text-xs font-semibold text-neutral-300 hover:border-white transition-all cursor-pointer flex items-center justify-center gap-1.5"
+          >
+            <Check className="w-4 h-4 text-green-400" />
+            <span>{copySuccess ? 'Copied Backup!' : 'Copy to Clipboard'}</span>
           </button>
           <button
             onClick={() => setIsImportBoxOpen(!isImportBoxOpen)}
@@ -292,22 +455,36 @@ export default function SettingsScreen({
         </button>
       </div>
 
-      {/* About Section */}
-      <div className="p-6 bg-[#0F0F10] border border-[#2A2A2A] rounded-[24px] space-y-3">
-        <div className="flex items-center gap-2">
+      {/* Informational Guidelines Section */}
+      <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-neutral-800">
           <Info className="w-4 h-4 text-neutral-400" />
-          <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest">
-            ABOUT GRADENCE COMPANION
-          </span>
+          <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+            GRADENCE SYSTEM DETAILS
+          </h3>
         </div>
 
-        <p className="text-xs text-neutral-500 leading-relaxed">
-          Gradence is a premium minimalist student suite. Version 1.0.0. Engineered completely for offline-first privacy. Absolutely no data is monitored, aggregated, or uploaded to any web servers.
-        </p>
-
-        <div className="flex items-center gap-1 text-[10px] text-neutral-600 font-mono mt-2">
+        <div className="space-y-2">
+          {[
+            { id: 'about', label: 'About Gradence' },
+            { id: 'faq', label: 'Help & FAQ' },
+            { id: 'privacy', label: 'Privacy Policy' },
+            { id: 'terms', label: 'Terms & Conditions' }
+          ].map((item) => (
+            <button
+              key={item.id}
+              onClick={() => setActiveInfoPage(item.id as any)}
+              className="w-full p-3.5 bg-black/40 border border-neutral-900 hover:border-neutral-700 rounded-xl flex justify-between items-center text-xs text-neutral-200 transition-all cursor-pointer font-medium"
+            >
+              <span>{item.label}</span>
+              <span className="text-neutral-500 font-mono">&rarr;</span>
+            </button>
+          ))}
+        </div>
+        
+        <div className="flex items-center gap-1.5 text-[9px] text-neutral-600 font-mono pt-2">
           <Sparkles className="w-3.5 h-3.5" />
-          <span>DESIGNED WITH OBSESSIVE FOCUS IN 2026</span>
+          <span>DESIGNED FOR PRIVACY-FIRST FOCUS</span>
         </div>
       </div>
     </div>

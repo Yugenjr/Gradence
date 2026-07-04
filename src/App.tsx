@@ -93,11 +93,12 @@ export default function App() {
       
       if (isDark) {
         document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light-theme');
         document.documentElement.style.backgroundColor = '#000000';
       } else {
         document.documentElement.classList.remove('dark');
-        // Let's keep a high-contrast elegant light mode if selected, but maintain our premium sleek styling
-        document.documentElement.style.backgroundColor = '#0a0a0a';
+        document.documentElement.classList.add('light-theme');
+        document.documentElement.style.backgroundColor = '#f5f5f7';
       }
     }
   }, [profile]);
