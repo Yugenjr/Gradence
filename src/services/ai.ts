@@ -49,21 +49,16 @@ function simulateResponse(messages: ChatMessage[]): string {
   const lastMessage = messages[messages.length - 1].content.toLowerCase();
   
   if (lastMessage.includes('resume') || lastMessage.includes('portfolio') || lastMessage.includes('readiness')) {
-    return `### 📊 AI Placement Readiness & Resume Evaluation
-**Overall Score:** 78/100 (High Potential)
+    return `### 📊 Placement Readiness Feedback
+**Score: 78/100**
 
-**Strengths identified:**
-* Strong structural layout with clear headings.
-* Demonstrates good proficiency with React, TypeScript, and modern state management.
+**What is Missing:**
+* **Cloud Infrastructure:** No Docker containerization or cloud services (AWS/GCP) listed.
+* **Impact Metrics:** Project descriptions lack quantifiable improvements.
 
-**Weaknesses & Gaps:**
-1. **Cloud & Deployments:** Missing AWS, Docker, or CI/CD pipelines.
-2. **Metrics:** Needs quantified impact (e.g., "optimized query speeds by 30%").
-3. **Coding Profiles:** GitHub activity link is present, but missing Leetcode/Codeforces metrics.
-
-**Recommended Actions:**
-1. Add a production project utilizing PostgreSQL and Docker.
-2. Complete 50 more LeetCode medium questions focusing on graphs & dynamic programming.`;
+**Action Plan:**
+1. Containerize your applications using Docker.
+2. Quantify achievements (e.g., "reduced query latency by 25%").`;
   }
 
   if (lastMessage.includes('roadmap') || lastMessage.includes('career') || lastMessage.includes('higher studies')) {

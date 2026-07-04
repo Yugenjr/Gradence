@@ -52,5 +52,20 @@ export interface Quote {
   author: string;
 }
 
+export interface RoadmapStage {
+  id: string;
+  name: string;
+  completed: boolean;
+}
+
+export interface CareerRoadmap {
+  id: string;
+  title: string;
+  targetRole: string;
+  stages: RoadmapStage[];
+  isCompleted: boolean;
+  createdAt: string;
+}
+
 export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
-export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding';
+export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps';

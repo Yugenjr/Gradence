@@ -16,13 +16,44 @@ import {
   AlertTriangle,
   User,
   Zap,
-  Globe
+  Globe,
+  Map
 } from 'lucide-react';
 
 interface AISpaceProps {
   profile: UserProfile;
   semesters: Semester[];
   attendanceSubjects: AttendanceSubject[];
+}
+
+function parseInline(text: string) {
+  const parts = text.split(/\*\*([^*]+)\*\*/g);
+  return parts.map((part, idx) => {
+    if (idx % 2 === 1) {
+      return <strong key={idx} className="font-extrabold text-white">{part}</strong>;
+    }
+    return part;
+  });
+}
+
+function parseMarkdown(text: string) {
+  if (!text) return null;
+  return (
+    <div className="space-y-1.5">
+      {text.split('\n').map((line, idx) => {
+        if (line.trim().startsWith('### ')) {
+          return <h3 key={idx} className="text-xs font-bold text-white mt-3 mb-1">{parseInline(line.replace('### ', ''))}</h3>;
+        }
+        if (line.trim().startsWith('#### ')) {
+          return <h4 key={idx} className="text-[11px] font-bold text-white mt-2 mb-1">{parseInline(line.replace('#### ', ''))}</h4>;
+        }
+        if (line.trim().startsWith('* ') || line.trim().startsWith('- ')) {
+          return <li key={idx} className="ml-4 list-disc text-neutral-300 my-0.5">{parseInline(line.substring(2))}</li>;
+        }
+        return <p key={idx} className="min-h-[1em]">{parseInline(line)}</p>;
+      })}
+    </div>
+  );
 }
 
 export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
@@ -41,6 +72,38 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   // Custom Roadmap states
   const [careerGoal, setCareerGoal] = useState('Full Stack Software Engineer');
   const [roadmapResult, setRoadmapResult] = useState('');
+
+  const handleFollowRoadmap = () => {
+    try {
+      const saved = localStorage.getItem('gradence_followed_roadmaps');
+      const list: any[] = saved ? JSON.parse(saved) : [];
+      
+      const activeCount = list.filter(rm => !rm.isCompleted).length;
+      if (activeCount >= 4) {
+        alert('Focus limit reached! You can track at most 4 active roadmaps simultaneously. Complete or delete an existing active roadmap before following a new one.');
+        return;
+      }
+
+      const newRm = {
+        id: `rm-${Date.now()}`,
+        title: careerGoal || 'Custom Specialist',
+        targetRole: careerGoal,
+        stages: [
+          { id: 'st-1', name: 'Stage 1: Foundation (Study core syntax, frameworks, and certification paths)', completed: false },
+          { id: 'st-2', name: 'Stage 2: Project Build (Deploy full-stack REST API and Docker containerization)', completed: false },
+          { id: 'st-3', name: 'Stage 3: Interview Ready (Solve 50 coding problems and validate resume parameters)', completed: false },
+        ],
+        isCompleted: false,
+        createdAt: new Date().toISOString()
+      };
+
+      const updated = [...list, newRm];
+      localStorage.setItem('gradence_followed_roadmaps', JSON.stringify(updated));
+      alert(`Now following: "${careerGoal}". You can check off its stages under Tools > Roadmaps Manager.`);
+    } catch (e) {
+      console.error('Follow failed', e);
+    }
+  };
 
   // Local storage api key check
   const apiKey = profile.groqApiKey || localStorage.getItem('gradence_groq_api_key') || '';
@@ -80,7 +143,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Analyze this student resume information for placement readiness. Rate their Readiness from 0 to 100, suggest skill gaps, and provide actionable tips.'
+        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.'
       },
       {
         role: 'user',
@@ -224,7 +287,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
                   <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${
                     msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
                   }`}>
-                    <div className="whitespace-pre-line">{msg.content}</div>
+                    <div className="whitespace-pre-line">{parseMarkdown(msg.content)}</div>
                   </div>
                 </div>
               ))}
@@ -290,29 +353,11 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
                   <span className="text-[10px] font-mono text-neutral-400">PLACEMENT SCORE</span>
                   <span className="text-lg font-bold font-mono text-white">{placementScore}/100</span>
                 </div>
-                <div className="text-xs leading-relaxed text-neutral-300 whitespace-pre-line border-t border-neutral-900 pt-3">
-                  {placementFeedback}
+                <div className="text-xs leading-relaxed text-neutral-300 border-t border-neutral-900 pt-3">
+                  {parseMarkdown(placementFeedback)}
                 </div>
               </div>
             )}
-
-            {/* Coding profile tracker mock */}
-            <div className="border-t border-neutral-800 pt-6">
-              <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block mb-4 flex items-center gap-1.5">
-                <Code className="w-4 h-4" />
-                CODING PROFILE TRACKER
-              </span>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="bg-black/30 p-4 rounded-xl border border-neutral-900">
-                  <span className="text-[9px] font-mono text-neutral-500 block uppercase">LeetCode Solved</span>
-                  <span className="text-lg font-bold font-mono text-white mt-1 block">142 / 500</span>
-                </div>
-                <div className="bg-black/30 p-4 rounded-xl border border-neutral-900">
-                  <span className="text-[9px] font-mono text-neutral-500 block uppercase">Company Eligibility</span>
-                  <span className="text-lg font-bold font-mono text-white mt-1 block">85% Eligibility</span>
-                </div>
-              </div>
-            </div>
           </div>
         )}
 
@@ -347,8 +392,17 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
             )}
 
             {roadmapResult && (
-              <div className="bg-black/40 border border-neutral-800 rounded-2xl p-5 text-xs text-neutral-300 leading-relaxed whitespace-pre-line">
-                {roadmapResult}
+              <div className="space-y-4">
+                <div className="bg-black/40 border border-neutral-800 rounded-2xl p-5 text-xs text-neutral-300 leading-relaxed">
+                  {parseMarkdown(roadmapResult)}
+                </div>
+                <button
+                  onClick={handleFollowRoadmap}
+                  className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200 cursor-pointer"
+                >
+                  <Map className="w-4 h-4" />
+                  Follow this Roadmap
+                </button>
               </div>
             )}
           </div>

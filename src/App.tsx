@@ -25,6 +25,7 @@ import ProgressScreen from './components/ProgressScreen';
 import SettingsScreen from './components/SettingsScreen';
 import AISpace from './components/AISpace';
 import CodingProfiles from './components/CodingProfiles';
+import RoadmapsManager from './components/RoadmapsManager';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -135,6 +136,13 @@ export default function App() {
     setSemesters(updated);
     localStorage.setItem('gradence_semesters', JSON.stringify(updated));
     logActivity('cgpa', `Semester ${semester.number} Saved`, `Archived ${semester.subjects.length} courses with an SGPA of ${semester.sgpa.toFixed(2)}.`);
+
+    // Automatically synchronize active semester level
+    if (profile && semester.number >= profile.currentSemester && semester.number < 8) {
+      const updatedProfile = { ...profile, currentSemester: semester.number + 1 };
+      setProfile(updatedProfile);
+      localStorage.setItem('gradence_profile', JSON.stringify(updatedProfile));
+    }
   };
 
   // Save Attendance Subjects Handler
@@ -283,6 +291,13 @@ export default function App() {
         if (activeTool === 'coding') {
           return (
             <CodingProfiles 
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
+        if (activeTool === 'roadmaps') {
+          return (
+            <RoadmapsManager 
               onBack={() => setActiveTool(null)}
             />
           );

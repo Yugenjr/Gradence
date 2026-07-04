@@ -1,4 +1,4 @@
-import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code } from 'lucide-react';
+import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code, Map } from 'lucide-react';
 import { ToolType } from '../types';
 
 interface ToolsScreenProps {
@@ -42,6 +42,12 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       title: 'Coding Profiles Tracker',
       subtitle: 'Monitor problem counts across LeetCode, Codeforces, GitHub and more',
       icon: Code,
+    },
+    {
+      id: 'roadmaps' as ToolType,
+      title: 'Roadmaps Manager',
+      subtitle: 'Track and check off stages of your followed career learning paths',
+      icon: Map,
     }
   ];
 
