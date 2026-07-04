@@ -1,4 +1,4 @@
-import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass } from 'lucide-react';
+import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code } from 'lucide-react';
 import { ToolType } from '../types';
 
 interface ToolsScreenProps {
@@ -36,11 +36,17 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       title: 'Academic Converters',
       subtitle: 'Convert grades to points & calculate percentages instantly',
       icon: Hash,
+    },
+    {
+      id: 'coding' as ToolType,
+      title: 'Coding Profiles Tracker',
+      subtitle: 'Monitor problem counts across LeetCode, Codeforces, GitHub and more',
+      icon: Code,
     }
   ];
 
   return (
-    <div id="tools-screen" className="space-y-8 pb-32">
+    <div id="tools-screen" className="space-y-8 pb-4">
       <div>
         <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
           CENTRAL HUB

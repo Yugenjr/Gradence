@@ -11,7 +11,8 @@ import {
   Hash, 
   PieChart, 
   TrendingUp, 
-  Compass
+  Compass,
+  Clock
 } from 'lucide-react';
 
 interface HomeDashboardProps {
@@ -43,6 +44,31 @@ export default function HomeDashboard({
   const [greeting, setGreeting] = useState('Good Evening');
   const [quote, setQuote] = useState<Quote>(QUOTES[0]);
 
+  const [habits, setHabits] = useState<{ id: string; name: string; completed: boolean }[]>(() => {
+    const saved = localStorage.getItem('gradence_habits');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: 'hab-1', name: 'Attend All Lectures', completed: false },
+      { id: 'hab-2', name: 'Solve 1 Coding Challenge', completed: false },
+      { id: 'hab-3', name: 'Revise Core Notes', completed: false }
+    ];
+  });
+
+  const toggleHabit = (id: string) => {
+    const updated = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
+    setHabits(updated);
+    localStorage.setItem('gradence_habits', JSON.stringify(updated));
+  };
+
+  const getDaysRemaining = (dateString: string) => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const target = new Date(dateString);
+    target.setHours(0, 0, 0, 0);
+    const diffTime = target.getTime() - today.getTime();
+    return Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+  };
+
   // Determine greeting based on current local time
   useEffect(() => {
     const hrs = new Date().getHours();
@@ -70,7 +96,7 @@ export default function HomeDashboard({
   const nextExam = exams.length > 0 ? exams[0] : null;
 
   return (
-    <div id="home-dashboard" className="space-y-8 pb-32">
+    <div id="home-dashboard" className="space-y-8 pb-4">
       {/* Header Profile Info */}
       <div className="flex justify-between items-start pt-4">
         <div>
@@ -125,7 +151,7 @@ export default function HomeDashboard({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-6 pt-6">
+          <div className="grid grid-cols-2 gap-6 pt-6 border-b border-neutral-800 pb-6">
             {/* Upcoming Exam */}
             <div>
               <div className="text-sm font-semibold truncate text-white">
@@ -141,6 +167,107 @@ export default function HomeDashboard({
               </div>
               <div className="text-xs text-neutral-400 mt-0.5">Academic Status</div>
             </div>
+          </div>
+
+          {/* Digital Twin Core Metrics */}
+          <div className="pt-6">
+            <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-3">
+              DIGITAL TWIN TWIN ENGINE
+            </span>
+            <div className="grid grid-cols-3 gap-4">
+              <div>
+                <span className="text-[9px] font-mono text-neutral-500 block uppercase">ACADEMIC HEALTH</span>
+                <span className="text-sm font-extrabold text-white mt-1 block">
+                  {cgpa > 0 ? `${Math.round((cgpa / profile.gpaScale) * 100)}%` : '—'}
+                </span>
+              </div>
+              <div>
+                <span className="text-[9px] font-mono text-neutral-500 block uppercase">CAREER MOMENTUM</span>
+                <span className="text-sm font-extrabold text-white mt-1 block">
+                  {cgpa > 0 ? `${Math.round((cgpa / profile.gpaScale) * 92)}%` : '65%'}
+                </span>
+              </div>
+              <div>
+                <span className="text-[9px] font-mono text-neutral-500 block uppercase">ACADEMIC RISK</span>
+                <span className={`text-[9px] font-bold uppercase mt-1 inline-block ${
+                  attendanceAvg < 75 && attendanceAvg > 0 ? 'text-neutral-400 underline decoration-white' : 'text-white'
+                }`}>
+                  {attendanceAvg === 0 ? 'NOT SET' : attendanceAvg < 75 ? 'CRITICAL' : 'OPTIMAL'}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Student Life OS Widgets Container */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* Daily Timetable & Countdowns */}
+        <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4">
+          <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block flex items-center gap-1.5">
+            <Clock className="w-4 h-4" />
+            TODAY'S TIMETABLE & COUNTDOWNS
+          </span>
+          <div className="space-y-3">
+            {/* Default Class schedule */}
+            <div className="p-3 bg-black/40 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+              <div>
+                <span className="font-bold text-white block">09:30 AM - Software Architecture</span>
+                <span className="text-[10px] text-neutral-500 font-mono">Room 402 • Core Lecture</span>
+              </div>
+              <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded text-neutral-400">TODAY</span>
+            </div>
+            <div className="p-3 bg-black/40 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+              <div>
+                <span className="font-bold text-white block">11:15 AM - Cryptography Lab</span>
+                <span className="text-[10px] text-neutral-500 font-mono">Lab 2A • Practical</span>
+              </div>
+              <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded text-neutral-400">TODAY</span>
+            </div>
+
+            {/* Dynamic Exam countdown */}
+            {exams.map(exam => {
+              const days = getDaysRemaining(exam.date);
+              return (
+                <div key={exam.id} className="p-3 bg-neutral-950 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+                  <div>
+                    <span className="font-bold text-white block">{exam.subject} Exam</span>
+                    <span className="text-[10px] text-neutral-500 font-mono">Date: {exam.date}</span>
+                  </div>
+                  <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                    days <= 3 ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400'
+                  }`}>
+                    {days === 0 ? 'TODAY' : `${days} DAYS LEFT`}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Habit & Productivity Streak OS */}
+        <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-4">
+          <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block flex items-center gap-1.5">
+            <CheckSquare className="w-4 h-4" />
+            PRODUCTIVITY & HABIT TRACKING
+          </span>
+          <div className="space-y-2.5">
+            {habits.map(habit => (
+              <div 
+                key={habit.id} 
+                onClick={() => toggleHabit(habit.id)}
+                className="flex items-center gap-3 p-3 bg-black/40 border border-neutral-900 rounded-xl cursor-pointer hover:border-neutral-700 select-none transition-all"
+              >
+                <div className={`w-4 h-4 rounded border flex items-center justify-center shrink-0 ${
+                  habit.completed ? 'bg-white border-white' : 'border-neutral-700'
+                }`}>
+                  {habit.completed && <div className="w-2 h-2 bg-black rounded-sm" />}
+                </div>
+                <span className={`text-xs ${habit.completed ? 'text-neutral-500 line-through' : 'text-neutral-200'}`}>
+                  {habit.name}
+                </span>
+              </div>
+            ))}
           </div>
         </div>
       </div>

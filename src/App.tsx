@@ -23,6 +23,8 @@ import ExamPlanner from './components/ExamPlanner';
 import Converter from './components/Converter';
 import ProgressScreen from './components/ProgressScreen';
 import SettingsScreen from './components/SettingsScreen';
+import AISpace from './components/AISpace';
+import CodingProfiles from './components/CodingProfiles';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -66,22 +68,15 @@ export default function App() {
       if (storedExams) {
         setExams(JSON.parse(storedExams));
       } else {
-        // Sample default exam to keep it looking beautiful
-        const sampleExam: Exam[] = [
-          { id: 'exam-sample', subject: 'Advanced Mathematics', date: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], priority: 'high' }
-        ];
-        setExams(sampleExam);
-        localStorage.setItem('gradence_exams', JSON.stringify(sampleExam));
+        setExams([]);
+        localStorage.setItem('gradence_exams', JSON.stringify([]));
       }
 
       if (storedActivities) {
         setActivities(JSON.parse(storedActivities));
       } else {
-        const sampleActivities: Activity[] = [
-          { id: 'act-init', type: 'profile', title: 'System Initialized', detail: 'Welcome to your premium academic workspace.', timestamp: new Date().toISOString() }
-        ];
-        setActivities(sampleActivities);
-        localStorage.setItem('gradence_activities', JSON.stringify(sampleActivities));
+        setActivities([]);
+        localStorage.setItem('gradence_activities', JSON.stringify([]));
       }
     } catch (e) {
       console.error('Failed to load local storage values', e);
@@ -285,6 +280,13 @@ export default function App() {
             />
           );
         }
+        if (activeTool === 'coding') {
+          return (
+            <CodingProfiles 
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
         return (
           <ToolsScreen 
             onSelectTool={(tool) => setActiveTool(tool)}
@@ -297,6 +299,15 @@ export default function App() {
             semesters={semesters}
             attendanceSubjects={attendanceSubjects}
             gpaScale={profile.gpaScale}
+          />
+        );
+
+      case 'ai':
+        return (
+          <AISpace 
+            profile={profile}
+            semesters={semesters}
+            attendanceSubjects={attendanceSubjects}
           />
         );
 
@@ -345,7 +356,7 @@ export default function App() {
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-neutral-900/10 rounded-full blur-[120px] pointer-events-none" />
             <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neutral-900/10 rounded-full blur-[120px] pointer-events-none" />
 
-            <main ref={mainContentRef} className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-32 overflow-y-auto scrollbar-none">
+            <main ref={mainContentRef} className="flex-1 w-full max-w-4xl mx-auto px-4 sm:px-6 pt-6 pb-28 overflow-y-auto scrollbar-none">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={`${currentTab}-${activeTool || 'list'}`}

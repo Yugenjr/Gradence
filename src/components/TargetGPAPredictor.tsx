@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile } from '../types';
 import { ArrowLeft, Sparkles, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -18,6 +18,11 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
   const [probabilityText, setProbabilityText] = useState<string>('');
   const [probabilityLevel, setProbabilityLevel] = useState<'high' | 'medium' | 'low' | 'impossible'>('medium');
   const [errorMessage, setErrorMessage] = useState<string>('');
+
+  const [sem5Sgpa, setSem5Sgpa] = useState<number>(8.0);
+  const [sem6Sgpa, setSem6Sgpa] = useState<number>(8.0);
+  const [sem7Sgpa, setSem7Sgpa] = useState<number>(8.0);
+  const [sem8Sgpa, setSem8Sgpa] = useState<number>(8.0);
 
   const handlePredict = () => {
     setErrorMessage('');
@@ -91,7 +96,7 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
   };
 
   return (
-    <div id="target-gpa-predictor" className="space-y-8 pb-32">
+    <div id="target-gpa-predictor" className="space-y-8 pb-4">
       {/* Top Header */}
       <div className="flex items-center gap-3">
         <button 
@@ -268,6 +273,78 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Graduation Simulator & Credit Planner Section */}
+      <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 space-y-6">
+        <div>
+          <h3 className="text-sm font-bold text-white uppercase tracking-wider font-mono">
+            GRADUATION SIMULATOR & CREDIT PLANNER
+          </h3>
+          <p className="text-xs text-neutral-400 mt-1">
+            Simulate your expected GPAs for future semesters to project your graduation honors classification.
+          </p>
+        </div>
+
+        <div className="space-y-4">
+          {[
+            { sem: 5, val: sem5Sgpa, set: setSem5Sgpa },
+            { sem: 6, val: sem6Sgpa, set: setSem6Sgpa },
+            { sem: 7, val: sem7Sgpa, set: setSem7Sgpa },
+            { sem: 8, val: sem8Sgpa, set: setSem8Sgpa },
+          ].map((item) => (
+            <div key={item.sem} className="space-y-2 bg-black/20 p-4 rounded-2xl border border-neutral-900">
+              <div className="flex justify-between items-center text-xs font-mono text-neutral-400">
+                <span>SEMESTER {item.sem} EXPECTED SGPA</span>
+                <span className="text-white font-bold">{item.val.toFixed(2)}</span>
+              </div>
+              <input
+                type="range"
+                min="4"
+                max={profile.gpaScale}
+                step="0.05"
+                value={item.val}
+                onChange={(e) => item.set(parseFloat(e.target.value))}
+                className="w-full accent-white bg-neutral-800 h-1 rounded-lg cursor-pointer"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Live graduation summary results */}
+        {(() => {
+          const curCgpaNum = parseFloat(currentCgpa) || 0;
+          const complCredsNum = parseFloat(completedCredits) || 0;
+          const totalSemCredits = 20; // assuming 20 credits per upcoming semester
+          const totalGradCredits = complCredsNum + (totalSemCredits * 4);
+          const estimatedPoints = (curCgpaNum * complCredsNum) + 
+                                  ((sem5Sgpa + sem6Sgpa + sem7Sgpa + sem8Sgpa) * totalSemCredits);
+          const estimatedGradCGPA = totalGradCredits > 0 ? parseFloat((estimatedPoints / totalGradCredits).toFixed(2)) : 0.0;
+
+          let graduationClass = 'Second Class';
+          if (estimatedGradCGPA >= (profile.gpaScale === 10 ? 8.5 : 3.5)) {
+            graduationClass = 'First Class with Distinction 🏆';
+          } else if (estimatedGradCGPA >= (profile.gpaScale === 10 ? 6.5 : 3.0)) {
+            graduationClass = 'First Class 🎓';
+          } else if (estimatedGradCGPA >= (profile.gpaScale === 10 ? 5.0 : 2.0)) {
+            graduationClass = 'Second Class 📁';
+          } else {
+            graduationClass = 'Pass Class 📋';
+          }
+
+          return (
+            <div className="p-4 bg-black/60 border border-neutral-900 rounded-2xl space-y-3">
+              <div className="flex justify-between items-center text-xs font-mono text-neutral-400">
+                <span>PROJECTED GRADUATION CGPA</span>
+                <span className="text-white font-bold text-lg font-mono">{estimatedGradCGPA.toFixed(2)}</span>
+              </div>
+              <div className="flex justify-between items-center text-xs font-mono text-neutral-400 border-t border-neutral-900 pt-3">
+                <span>HONORS CLASSIFICATION</span>
+                <span className="text-white font-bold">{graduationClass}</span>
+              </div>
+            </div>
+          );
+        })()}
+      </div>
     </div>
   );
 }

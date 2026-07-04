@@ -34,6 +34,7 @@ export default function SettingsScreen({
   const [currentSemester, setCurrentSemester] = useState(profile.currentSemester);
   const [gpaScale, setGpaScale] = useState<4 | 10>(profile.gpaScale);
   const [theme, setTheme] = useState(profile.theme);
+  const [groqApiKey, setGroqApiKey] = useState(profile.groqApiKey || '');
 
   const [isSaved, setIsSaved] = useState(false);
   const [isImportBoxOpen, setIsImportBoxOpen] = useState(false);
@@ -46,8 +47,10 @@ export default function SettingsScreen({
       university: university.trim(),
       currentSemester,
       theme,
-      gpaScale
+      gpaScale,
+      groqApiKey: groqApiKey.trim()
     });
+    localStorage.setItem('gradence_groq_api_key', groqApiKey.trim());
     setIsSaved(true);
     setTimeout(() => {
       setIsSaved(false);
@@ -95,7 +98,7 @@ export default function SettingsScreen({
   };
 
   return (
-    <div id="settings-screen" className="space-y-8 pb-32">
+    <div id="settings-screen" className="space-y-8 pb-4">
       {/* Header */}
       <div>
         <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
@@ -166,6 +169,25 @@ export default function SettingsScreen({
               <option value="10">10.0 grading system</option>
               <option value="4">4.0 grading system</option>
             </select>
+          </div>
+
+          {/* Groq Cloud API Key Input */}
+          <div className="space-y-1 sm:col-span-2">
+            <label htmlFor="groq-api-key-input" className="text-[10px] font-mono text-neutral-400 uppercase flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-neutral-400" />
+              Groq API Key
+            </label>
+            <input
+              id="groq-api-key-input"
+              type="password"
+              value={groqApiKey}
+              onChange={(e) => setGroqApiKey(e.target.value)}
+              placeholder="gsk_..."
+              className="w-full bg-black border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-neutral-600 font-mono"
+            />
+            <span className="text-[9px] font-mono text-neutral-500 block">
+              Direct connection to Groq Llama Inference. Keys are saved only locally.
+            </span>
           </div>
         </div>
 
