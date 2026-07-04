@@ -54,6 +54,20 @@ export default function HomeDashboard({
     ];
   });
 
+  const [timetable, setTimetable] = useState<{ id: string; subject: string; time: string; room: string }[]>(() => {
+    const saved = localStorage.getItem('gradence_timetable');
+    if (saved) return JSON.parse(saved);
+    return [
+      { id: '1', subject: 'Software Architecture', time: '09:30 AM', room: 'Room 402' },
+      { id: '2', subject: 'Cryptography Lab', time: '11:15 AM', room: 'Lab 2A' }
+    ];
+  });
+
+  const [customCountdowns, setCustomCountdowns] = useState<{ id: string; title: string; date: string }[]>(() => {
+    const saved = localStorage.getItem('gradence_countdowns');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   const toggleHabit = (id: string) => {
     const updated = habits.map(h => h.id === id ? { ...h, completed: !h.completed } : h);
     setHabits(updated);
@@ -209,27 +223,28 @@ export default function HomeDashboard({
             TODAY'S TIMETABLE & COUNTDOWNS
           </span>
           <div className="space-y-3">
-            {/* Default Class schedule */}
-            <div className="p-3 bg-black/40 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold text-white block">09:30 AM - Software Architecture</span>
-                <span className="text-[10px] text-neutral-500 font-mono">Room 402 • Core Lecture</span>
+            {/* Dynamic Timetable Schedule */}
+            {timetable.length === 0 && exams.length === 0 && customCountdowns.length === 0 && (
+              <p className="text-xs text-neutral-500 font-mono text-center py-6">
+                No classes or countdowns added. Add them in the planner tool!
+              </p>
+            )}
+
+            {timetable.map((item) => (
+              <div key={item.id} className="p-3 bg-black/40 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+                <div>
+                  <span className="font-bold text-white block">{item.time} - {item.subject}</span>
+                  <span className="text-[10px] text-neutral-500 font-mono">{item.room}</span>
+                </div>
+                <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded text-neutral-400">CLASS</span>
               </div>
-              <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded text-neutral-400">TODAY</span>
-            </div>
-            <div className="p-3 bg-black/40 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
-              <div>
-                <span className="font-bold text-white block">11:15 AM - Cryptography Lab</span>
-                <span className="text-[10px] text-neutral-500 font-mono">Lab 2A • Practical</span>
-              </div>
-              <span className="text-[10px] bg-white/5 border border-white/10 px-2 py-0.5 rounded text-neutral-400">TODAY</span>
-            </div>
+            ))}
 
             {/* Dynamic Exam countdown */}
             {exams.map(exam => {
               const days = getDaysRemaining(exam.date);
               return (
-                <div key={exam.id} className="p-3 bg-neutral-950 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+                <div key={exam.id} className="p-3 bg-neutral-955 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
                   <div>
                     <span className="font-bold text-white block">{exam.subject} Exam</span>
                     <span className="text-[10px] text-neutral-500 font-mono">Date: {exam.date}</span>
@@ -238,6 +253,24 @@ export default function HomeDashboard({
                     days <= 3 ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-400'
                   }`}>
                     {days === 0 ? 'TODAY' : `${days} DAYS LEFT`}
+                  </span>
+                </div>
+              );
+            })}
+
+            {/* Dynamic Target Countdowns */}
+            {customCountdowns.map(item => {
+              const days = getDaysRemaining(item.date);
+              return (
+                <div key={item.id} className="p-3 bg-neutral-955 border border-neutral-900 rounded-xl flex justify-between items-center text-xs">
+                  <div>
+                    <span className="font-bold text-white block">{item.title}</span>
+                    <span className="text-[10px] text-neutral-500 font-mono">Target: {item.date}</span>
+                  </div>
+                  <span className={`text-[10px] px-2 py-0.5 rounded font-mono font-bold ${
+                    days <= 3 ? 'bg-white text-black' : 'bg-neutral-900 text-neutral-450'
+                  }`}>
+                    {days === 0 ? 'TODAY' : `${days} D-LEFT`}
                   </span>
                 </div>
               );

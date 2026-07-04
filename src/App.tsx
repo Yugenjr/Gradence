@@ -26,6 +26,7 @@ import SettingsScreen from './components/SettingsScreen';
 import AISpace from './components/AISpace';
 import CodingProfiles from './components/CodingProfiles';
 import RoadmapsManager from './components/RoadmapsManager';
+import DailyPlanner from './components/DailyPlanner';
 
 export default function App() {
   const [showSplash, setShowSplash] = useState(true);
@@ -116,9 +117,26 @@ export default function App() {
   };
 
   // Onboarding Complete Handler
-  const handleOnboardingComplete = (newProfile: UserProfile) => {
+  const handleOnboardingComplete = (newProfile: UserProfile, initialSemesters?: { number: number, sgpa: number }[]) => {
     setProfile(newProfile);
     localStorage.setItem('gradence_profile', JSON.stringify(newProfile));
+    
+    if (initialSemesters && initialSemesters.length > 0) {
+      const sems: Semester[] = initialSemesters.map(item => ({
+        id: `sem-${item.number}`,
+        number: item.number,
+        name: `Semester ${item.number}`,
+        sgpa: item.sgpa,
+        totalCredits: 20, // default credits
+        subjects: []
+      }));
+      setSemesters(sems);
+      localStorage.setItem('gradence_semesters', JSON.stringify(sems));
+    } else {
+      setSemesters([]);
+      localStorage.setItem('gradence_semesters', JSON.stringify([]));
+    }
+
     setIsInitialized(true);
     logActivity('profile', 'Workspace Set Up', `Welcome, ${newProfile.name}. Academic Profile customized successfully.`);
   };
@@ -298,6 +316,13 @@ export default function App() {
         if (activeTool === 'roadmaps') {
           return (
             <RoadmapsManager 
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
+        if (activeTool === 'planner') {
+          return (
+            <DailyPlanner 
               onBack={() => setActiveTool(null)}
             />
           );

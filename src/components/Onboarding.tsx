@@ -4,7 +4,7 @@ import { UserProfile } from '../types';
 import { Sparkles, GraduationCap, Moon, Sun, Monitor, ArrowRight, Check } from 'lucide-react';
 
 interface OnboardingProps {
-  onComplete: (profile: UserProfile) => void;
+  onComplete: (profile: UserProfile, initialSemesters?: { number: number, sgpa: number }[]) => void;
 }
 
 export default function Onboarding({ onComplete }: OnboardingProps) {
@@ -14,6 +14,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const [currentSemester, setCurrentSemester] = useState(1);
   const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
   const [gpaScale, setGpaScale] = useState<4 | 10>(10);
+  const [prevSgpas, setPrevSgpas] = useState<{[key: number]: string}>({});
 
   const [isUniDropdownOpen, setIsUniDropdownOpen] = useState(false);
   const [customUni, setCustomUni] = useState('');
@@ -30,6 +31,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
     'Custom...'
   ];
 
+  const totalSteps = currentSemester > 1 ? 4 : 3;
+
   const handleNext = () => {
     if (step === 1) {
       setStep(2);
@@ -37,15 +40,34 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       if (!name.trim()) return;
       setStep(3);
     } else if (step === 3) {
-      const finalUni = isCustomUniActive ? (customUni.trim() || 'My University') : university;
-      onComplete({
-        name: name.trim(),
-        university: finalUni,
-        currentSemester,
-        theme,
-        gpaScale
-      });
+      if (currentSemester > 1) {
+        setStep(4);
+      } else {
+        submitOnboarding();
+      }
+    } else if (step === 4) {
+      submitOnboarding();
     }
+  };
+
+  const submitOnboarding = () => {
+    const finalUni = isCustomUniActive ? (customUni.trim() || 'My University') : university;
+    const initialSemesters: { number: number, sgpa: number }[] = [];
+    
+    if (currentSemester > 1) {
+      for (let i = 1; i < currentSemester; i++) {
+        const val = parseFloat(prevSgpas[i]) || 0;
+        initialSemesters.push({ number: i, sgpa: val });
+      }
+    }
+
+    onComplete({
+      name: name.trim(),
+      university: finalUni,
+      currentSemester,
+      theme,
+      gpaScale
+    }, initialSemesters);
   };
 
   return (
@@ -59,7 +81,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           <span className="text-sm font-bold tracking-widest uppercase font-odoo-slant text-neutral-400">GRADENCE</span>
         </div>
         <div className="text-xs font-mono text-neutral-500">
-          STEP 0{step} / 03
+          STEP 0{step} / 0{totalSteps}
         </div>
       </div>
 
@@ -258,9 +280,50 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             </motion.div>
           )}
 
-          {step === 3 && (
+          {step === 3 && currentSemester > 1 && (
             <motion.div
-              key="step3"
+              key="stepPrevSgpas"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="space-y-6"
+            >
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight text-white font-odoo-slant">
+                  Previous Semesters
+                </h2>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Enter your obtained SGPAs. If not announced yet, leave as 0.
+                </p>
+              </div>
+
+              <div className="space-y-4 max-h-72 overflow-y-auto pr-1">
+                {Array.from({ length: currentSemester - 1 }, (_, i) => i + 1).map((semNum) => (
+                  <div key={semNum} className="space-y-2">
+                    <label htmlFor={`prev-sgpa-${semNum}`} className="text-xs font-mono text-neutral-400 uppercase tracking-wider block">
+                      Semester {semNum} SGPA
+                    </label>
+                    <input
+                      id={`prev-sgpa-${semNum}`}
+                      type="number"
+                      step="0.01"
+                      min="0"
+                      max={gpaScale}
+                      value={prevSgpas[semNum] || ''}
+                      onChange={(e) => setPrevSgpas({ ...prevSgpas, [semNum]: e.target.value })}
+                      placeholder={`e.g. ${gpaScale === 10 ? '8.5' : '3.4'}`}
+                      className="w-full bg-[#171717] border border-[#2A2A2A] rounded-2xl px-4 py-3.5 text-sm text-white placeholder-neutral-600 focus:outline-none focus:border-white transition-colors"
+                    />
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+
+          {((step === 3 && currentSemester === 1) || (step === 4 && currentSemester > 1)) && (
+            <motion.div
+              key="stepTheme"
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -20 }}
@@ -359,7 +422,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       <div className="max-w-md mx-auto w-full flex flex-col gap-4">
         {/* Step Indicators */}
         <div className="flex justify-center gap-1.5 py-2">
-          {[1, 2, 3].map((s) => (
+          {Array.from({ length: totalSteps }, (_, i) => i + 1).map((s) => (
             <div
               key={s}
               className={`h-1 rounded-full transition-all duration-300 ${
@@ -377,7 +440,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
             step === 2 && !name.trim() ? 'opacity-50 pointer-events-none' : 'hover:bg-neutral-200'
           }`}
         >
-          <span>{step === 3 ? 'Finish Registration' : 'Continue'}</span>
+          <span>{step === totalSteps ? 'Finish Registration' : 'Continue'}</span>
           <ArrowRight className="w-4 h-4" />
         </button>
       </div>

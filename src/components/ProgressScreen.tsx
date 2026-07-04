@@ -9,20 +9,37 @@ interface ProgressScreenProps {
 
 export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale }: ProgressScreenProps) {
   
+  if (semesters.length === 0) {
+    return (
+      <div id="progress-screen" className="space-y-8 pb-4">
+        {/* Header */}
+        <div>
+          <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
+            METRICS & ANALYTICS
+          </span>
+          <h1 className="text-3xl font-extrabold tracking-tight text-white mt-1 leading-tight">
+            Performance <span className="text-white font-odoo-slant">Insights</span>
+          </h1>
+          <p className="text-xs text-neutral-400 mt-1 font-mono">
+            Interactive historical graphs mapping grade momentum and trajectory.
+          </p>
+        </div>
+
+        <div className="text-center py-16 bg-[#171717] border border-[#2A2A2A] rounded-[24px] space-y-4">
+          <AlertCircle className="w-8 h-8 text-neutral-600 mx-auto animate-pulse" />
+          <div>
+            <h4 className="text-sm font-bold text-white">No Semester Records Found</h4>
+            <p className="text-xs text-neutral-500 mt-1 max-w-xs mx-auto leading-relaxed">
+              Archive your semester grades inside the <strong>CGPA Calculator</strong> first to visualize cumulative performance tracking.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // Calculate historical SGPAs and CGPA progression
   const getGpaHistory = () => {
-    if (semesters.length === 0) {
-      // Mock history if empty to show a beautiful preview
-      return [
-        { label: 'Sem 1', sgpa: 8.2, cgpa: 8.2 },
-        { label: 'Sem 2', sgpa: 8.6, cgpa: 8.4 },
-        { label: 'Sem 3', sgpa: 8.9, cgpa: 8.57 },
-      ].map(item => ({
-        ...item,
-        sgpa: gpaScale === 4 ? parseFloat((item.sgpa * 0.4).toFixed(2)) : item.sgpa,
-        cgpa: gpaScale === 4 ? parseFloat((item.cgpa * 0.4).toFixed(2)) : item.cgpa
-      }));
-    }
 
     const history: { label: string; sgpa: number; cgpa: number }[] = [];
     let runningPoints = 0;

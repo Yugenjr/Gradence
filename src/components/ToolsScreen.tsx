@@ -1,4 +1,4 @@
-import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code, Map } from 'lucide-react';
+import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code, Map, Clock } from 'lucide-react';
 import { ToolType } from '../types';
 
 interface ToolsScreenProps {
@@ -48,6 +48,12 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       title: 'Roadmaps Manager',
       subtitle: 'Track and check off stages of your followed career learning paths',
       icon: Map,
+    },
+    {
+      id: 'planner' as ToolType,
+      title: 'OS Daily Planner',
+      subtitle: 'Manage class schedules, daily habits checklists and target date countdowns',
+      icon: Clock,
     }
   ];
 
