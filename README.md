@@ -1,4 +1,4 @@
-<img width="1855" height="687" alt="image" src="https://github.com/user-attachments/assets/3b9092f5-1263-46fd-a0d0-02b5bc73532c" />
+<img width="1794" height="876" alt="gradence-2" src="https://github.com/user-attachments/assets/ab3222f1-0f3e-4294-9c62-3122e5a9ee35" />
 
 # Gradence
 
