@@ -1,3 +1,5 @@
+<img width="1855" height="687" alt="image" src="https://github.com/user-attachments/assets/3b9092f5-1263-46fd-a0d0-02b5bc73532c" />
+
 # Gradence
 
 An offline-first academic operating workspace for structured progress tracking, planning, and performance management.
