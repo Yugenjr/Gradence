@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { motion } from 'motion/react';
+import logoImg from '../assets/logo.png';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -21,17 +22,21 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col items-center"
       >
-        {/* Sleek slanted minimalist logo */}
-        <div className="relative w-20 h-20 mb-6 flex items-center justify-center">
+        {/* Sleek branded logo with rounded corners */}
+        <div className="relative w-24 h-24 mb-6 flex items-center justify-center">
           <motion.div 
-            initial={{ scale: 0.8, rotate: -15 }}
+            initial={{ scale: 0.8, rotate: -10 }}
             animate={{ scale: 1, rotate: 0 }}
             transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
-            className="absolute inset-0 border-2 border-white rounded-2xl transform skew-x-[-10deg] flex items-center justify-center bg-neutral-900"
+            className="absolute inset-0 border border-neutral-800 rounded-3xl overflow-hidden flex items-center justify-center bg-[#0d0d0d] shadow-2xl p-1.5"
           >
-            <span className="text-4xl font-bold text-white font-sans italic transform skew-x-[10deg]">G</span>
+            <img 
+              src={logoImg} 
+              alt="Gradence Logo" 
+              className="w-full h-full object-contain rounded-2xl bg-white" 
+            />
           </motion.div>
-          <div className="absolute -inset-1 border border-white/20 rounded-2xl transform skew-x-[-10deg] scale-110 pointer-events-none" />
+          <div className="absolute -inset-1.5 border border-white/5 rounded-3xl scale-105 pointer-events-none" />
         </div>
 
         {/* Gradence Wordmark */}

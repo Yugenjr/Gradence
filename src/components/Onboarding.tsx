@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
+import logoImg from '../assets/logo.png';
 import { UserProfile } from '../types';
 import { Sparkles, GraduationCap, Moon, Sun, Monitor, ArrowRight, Check } from 'lucide-react';
 
@@ -75,8 +76,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       {/* Top logo & header */}
       <div className="flex justify-between items-center py-2">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 border border-white/40 rounded-lg transform skew-x-[-10deg] flex items-center justify-center bg-neutral-900">
-            <span className="text-sm font-bold italic transform skew-x-[10deg]">G</span>
+          <div className="w-8 h-8 border border-neutral-800 rounded-lg flex items-center justify-center bg-white overflow-hidden p-0.5">
+            <img src={logoImg} alt="G" className="w-full h-full object-contain rounded" />
           </div>
           <span className="text-sm font-bold tracking-widest uppercase font-odoo-slant text-neutral-400">GRADENCE</span>
         </div>
