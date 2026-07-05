@@ -141,7 +141,7 @@ Gradence is designed to be a personal academic workspace. It focuses on:
 Detailed setup, installation, and update guidelines are documented in our [Installation Guide](docs/installation.md).
 
 ### Sideloading the Android Package:
-1. Download the latest `app-release.apk` from our [GitHub Releases Page](https://github.com/Yugenjr/Gradence/releases).
+1. Download the latest `Gradence-<version>.apk` from our [GitHub Releases Page](https://github.com/Yugenjr/Gradence/releases).
 2. Open the `.apk` file on your Android device.
 3. Allow installation from unknown sources in your browser or file manager settings.
 4. Tap **Install** to complete the setup.
