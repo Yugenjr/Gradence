@@ -23,9 +23,10 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
         { label: 'O (10)', value: 'O', points: 10 },
         { label: 'A+ (9)', value: 'A+', points: 9 },
         { label: 'A (8)', value: 'A', points: 8 },
-        { label: 'B (7)', value: 'B', points: 7 },
-        { label: 'C (6)', value: 'C', points: 6 },
-        { label: 'D (5)', value: 'D', points: 5 },
+        { label: 'B+ (7)', value: 'B+', points: 7 },
+        { label: 'B (6)', value: 'B', points: 6 },
+        { label: 'C (5)', value: 'C', points: 5 },
+        { label: 'D (4)', value: 'D', points: 4 },
         { label: 'F (0)', value: 'F', points: 0 }
       ]
     : [
