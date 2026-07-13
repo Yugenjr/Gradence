@@ -500,47 +500,20 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
         {activeModule === 'social' && (
           <div className="p-6 space-y-6">
             <div>
-              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">ACADEMIC COMMUNITIES & PEER BENCHMARKING</h3>
+              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">PEER CONNECT</h3>
               <p className="text-xs text-neutral-400 mt-1">Collaborate, share notes, and compare study metrics with peers globally.</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">ACTIVE STUDY GROUPS</span>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
-                    <div>
-                      <h4 className="text-xs font-bold text-white">Algorithms & DS (GATE Prep)</h4>
-                      <span className="text-[9px] font-mono text-neutral-500">24 active members • 2 online</span>
-                    </div>
-                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
-                    <div>
-                      <h4 className="text-xs font-bold text-white">AWS Architect Study Group</h4>
-                      <span className="text-[9px] font-mono text-neutral-500">18 active members • 4 online</span>
-                    </div>
-                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
-                  </div>
-                </div>
+            <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-8 text-center space-y-4 relative overflow-hidden">
+              <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none" />
+              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-neutral-400 animate-pulse">
+                <Users className="w-6 h-6 text-white" />
               </div>
-
-              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">PEER BENCHMARKING</span>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
-                    <span className="text-neutral-400">Your CGPA Percentile:</span>
-                    <span className="font-bold text-white font-mono">Top 15%</span>
-                  </div>
-                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
-                    <span className="text-neutral-400">Attendance Rank (Univ):</span>
-                    <span className="font-bold text-white font-mono">#42 of 240</span>
-                  </div>
-                  <div className="flex justify-between text-xs py-1">
-                    <span className="text-neutral-400">Daily Study Streak:</span>
-                    <span className="font-bold text-white font-mono">5 Days 🔥</span>
-                  </div>
-                </div>
+              <div className="space-y-1.5 font-mono">
+                <h4 className="text-sm font-bold text-white uppercase tracking-wider">Coming Soon</h4>
+                <p className="text-xs text-neutral-450 max-w-xs mx-auto leading-relaxed normal-case">
+                  We are building a decentralized peer-to-peer networking portal. These features will be added soon to enable direct notes sharing, study rooms, and university-wide benchmark matching.
+                </p>
               </div>
             </div>
           </div>
