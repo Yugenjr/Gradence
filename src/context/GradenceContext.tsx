@@ -26,13 +26,13 @@ export interface ProfileData {
   username: string;
   solved: number;
   rating: string;
+  hackos?: number;
 }
 
 export interface CodingProfilesState {
   leetcode: ProfileData;
   github: ProfileData;
   codeforces: ProfileData;
-  atcoder: ProfileData;
   codechef: ProfileData;
 }
 
