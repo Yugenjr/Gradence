@@ -13,8 +13,22 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
   const handleToggleStage = (roadmapId: string, stageId: string) => {
     const updated = roadmaps.map(rm => {
       if (rm.id === roadmapId) {
-        const nextStages = rm.stages.map(st => st.id === stageId ? { ...st, completed: !st.completed } : st);
-        // Automatically check if all stages are completed
+        const nextStages = rm.stages.map(st => {
+          if (st.id === stageId) {
+            const nextCompleted = !st.completed;
+            const nextSubStages = st.subStages?.map(sub => ({ ...sub, completed: nextCompleted })) || [];
+            return { ...st, completed: nextCompleted, subStages: nextSubStages };
+          }
+          
+          if (st.subStages && st.subStages.some(sub => sub.id === stageId)) {
+            const nextSubStages = st.subStages.map(sub => sub.id === stageId ? { ...sub, completed: !sub.completed } : sub);
+            const allSubDone = nextSubStages.every(sub => sub.completed);
+            return { ...st, completed: allSubDone, subStages: nextSubStages };
+          }
+          
+          return st;
+        });
+
         const allDone = nextStages.every(st => st.completed);
         return { ...rm, stages: nextStages, isCompleted: allDone };
       }
@@ -27,8 +41,10 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
     const updated = roadmaps.map(rm => {
       if (rm.id === roadmapId) {
         const nextVal = !rm.isCompleted;
-        // If marking complete, check off all stages. If marking incomplete, uncheck them.
-        const nextStages = rm.stages.map(st => ({ ...st, completed: nextVal }));
+        const nextStages = rm.stages.map(st => {
+          const nextSubStages = st.subStages?.map(sub => ({ ...sub, completed: nextVal })) || [];
+          return { ...st, completed: nextVal, subStages: nextSubStages };
+        });
         return { ...rm, isCompleted: nextVal, stages: nextStages };
       }
       return rm;
@@ -96,8 +112,19 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
           </div>
         ) : (
           roadmaps.map((rm) => {
-            const completedStages = rm.stages.filter(s => s.completed).length;
-            const totalStages = rm.stages.length;
+            let completedStages = 0;
+            let totalStages = 0;
+            rm.stages.forEach(st => {
+              if (st.subStages && st.subStages.length > 0) {
+                st.subStages.forEach(sub => {
+                  totalStages++;
+                  if (sub.completed) completedStages++;
+                });
+              } else {
+                totalStages++;
+                if (st.completed) completedStages++;
+              }
+            });
             const percent = totalStages > 0 ? Math.round((completedStages / totalStages) * 100) : 0;
 
             return (
@@ -144,26 +171,50 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                       style={{ width: `${percent}%` }}
                     />
                   </div>
-                </div>
-
-                {/* Stages checkpoints */}
-                <div className="space-y-2.5 border-t border-neutral-900 pt-4">
+                </div>                 {/* Stages checkpoints */}
+                <div className="space-y-3 border-t border-neutral-900 pt-4">
                   {rm.stages.map((stage) => (
-                    <div 
-                      key={stage.id}
-                      onClick={() => handleToggleStage(rm.id, stage.id)}
-                      className="flex items-center gap-3 p-3 bg-black/40 border border-neutral-900 hover:border-neutral-700 rounded-xl cursor-pointer select-none transition-all"
-                    >
-                      <button className="text-neutral-500">
-                        {stage.completed ? (
-                          <CheckCircle2 className="w-4 h-4 text-white" />
-                        ) : (
-                          <Circle className="w-4 h-4" />
-                        )}
-                      </button>
-                      <span className={`text-xs ${stage.completed ? 'text-neutral-500 line-through' : 'text-neutral-200'}`}>
-                        {stage.name}
-                      </span>
+                    <div key={stage.id} className="space-y-2">
+                      {/* Parent Stage */}
+                      <div 
+                        onClick={() => handleToggleStage(rm.id, stage.id)}
+                        className="flex items-center gap-3 p-3 bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-xl cursor-pointer select-none transition-all"
+                      >
+                        <button className="text-neutral-500">
+                          {stage.completed ? (
+                            <CheckCircle2 className="w-4 h-4 text-white" />
+                          ) : (
+                            <Circle className="w-4 h-4" />
+                          )}
+                        </button>
+                        <span className={`text-xs font-bold uppercase tracking-wider ${stage.completed ? 'text-neutral-500 line-through' : 'text-neutral-200'}`}>
+                          {stage.name}
+                        </span>
+                      </div>
+
+                      {/* Sub-stages */}
+                      {stage.subStages && stage.subStages.length > 0 && (
+                        <div className="pl-6 space-y-1.5 border-l border-neutral-900 ml-5">
+                          {stage.subStages.map((sub) => (
+                            <div
+                              key={sub.id}
+                              onClick={() => handleToggleStage(rm.id, sub.id)}
+                              className="flex items-center gap-3 p-2.5 bg-black/20 border border-transparent hover:border-neutral-800 rounded-lg cursor-pointer select-none transition-all"
+                            >
+                              <button className="text-neutral-600">
+                                {sub.completed ? (
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-neutral-300" />
+                                ) : (
+                                  <Circle className="w-3.5 h-3.5" />
+                                )}
+                              </button>
+                              <span className={`text-xs ${sub.completed ? 'text-neutral-500 line-through' : 'text-neutral-300'}`}>
+                                {sub.name}
+                              </span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -171,16 +222,18 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                 {/* Fully complete checkoff toggle */}
                 <div className="border-t border-neutral-900 pt-4 flex items-center justify-between">
                   <span className="text-[10px] font-mono text-neutral-500">MANUAL ACTION</span>
-                  <button
-                    onClick={() => handleToggleCompleted(rm.id)}
-                    className={`py-2 px-4 rounded-xl text-[10px] font-mono font-semibold transition-all ${
-                      rm.isCompleted
-                        ? 'bg-neutral-800 text-neutral-400 hover:text-white'
-                        : 'bg-white text-black hover:bg-neutral-200'
-                    }`}
-                  >
-                    {rm.isCompleted ? 'Mark as Active' : 'Mark Fully Completed'}
-                  </button>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => handleToggleCompleted(rm.id)}
+                      className={`py-2 px-4 rounded-xl text-[10px] font-mono font-semibold transition-all ${
+                        rm.isCompleted
+                          ? 'bg-neutral-800 text-neutral-400 hover:text-white'
+                          : 'bg-white text-black hover:bg-neutral-200'
+                      }`}
+                    >
+                      {rm.isCompleted ? 'Mark as Active' : 'Mark Fully Completed'}
+                    </button>
+                  </div>
                 </div>
 
               </div>

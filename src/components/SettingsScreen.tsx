@@ -199,12 +199,12 @@ export default function SettingsScreen({
           </p>
           <div className="border-t border-neutral-900 pt-4 space-y-2.5">
             <div className="flex justify-between items-center text-xs">
-              <span className="text-neutral-500">Developer ID</span>
-              <a href="https://github.com/Yugenjr" target="_blank" rel="noreferrer" className="text-white hover:underline font-mono">Yugenjr</a>
+              <span className="text-neutral-500">Developed By</span>
+              <span className="text-white font-mono">Team_Detroit</span>
             </div>
             <div className="flex justify-between items-center text-xs">
               <span className="text-neutral-500">Contact Email</span>
-              <a href="mailto:yugenjr847@gmail.com" className="text-white hover:underline font-mono">yugenjr847@gmail.com</a>
+              <a href="mailto:theteamdetroit@gmail.com" className="text-white hover:underline font-mono">theteamdetroit@gmail.com</a>
             </div>
             <div className="flex justify-between items-center text-xs">
               <span className="text-neutral-550">Application Version</span>

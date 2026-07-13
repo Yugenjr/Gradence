@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { 
-  UserProfile, 
-  Semester, 
-  AttendanceSubject, 
-  Exam, 
-  Activity, 
-  TabType, 
-  ToolType 
+import {
+  UserProfile,
+  Semester,
+  AttendanceSubject,
+  Exam,
+  Activity,
+  TabType,
+  ToolType
 } from './types';
 
 // Component Imports
@@ -71,9 +71,9 @@ function AppContent() {
   // Sync profile values to root DOM to allow light/dark themes easily
   useEffect(() => {
     if (profile) {
-      const isDark = profile.theme === 'dark' || 
+      const isDark = profile.theme === 'dark' ||
         (profile.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
-      
+
       if (isDark) {
         document.documentElement.classList.add('dark');
         document.documentElement.classList.remove('light-theme');
@@ -89,7 +89,7 @@ function AppContent() {
   // Onboarding Complete Handler
   const handleOnboardingComplete = (newProfile: UserProfile, initialSemesters?: { number: number, sgpa: number }[]) => {
     updateProfile(newProfile);
-    
+
     if (initialSemesters && initialSemesters.length > 0) {
       initialSemesters.forEach(item => {
         saveSemester({
@@ -126,7 +126,7 @@ function AppContent() {
     switch (currentTab) {
       case 'home':
         return (
-          <HomeDashboard 
+          <HomeDashboard
             profile={profile}
             semesters={semesters}
             exams={exams}
@@ -135,11 +135,11 @@ function AppContent() {
             attendanceAvg={getAttendanceAvg()}
           />
         );
-      
+
       case 'tools':
         if (activeTool === 'cgpa') {
           return (
-            <CGPACalculator 
+            <CGPACalculator
               profile={profile}
               savedSemesters={semesters}
               onSaveSemester={saveSemester}
@@ -149,7 +149,7 @@ function AppContent() {
         }
         if (activeTool === 'attendance') {
           return (
-            <AttendanceTracker 
+            <AttendanceTracker
               savedSubjects={attendanceSubjects}
               onSaveSubjects={saveAttendance}
               onBack={() => setActiveTool(null)}
@@ -158,7 +158,7 @@ function AppContent() {
         }
         if (activeTool === 'gpa') {
           return (
-            <TargetGPAPredictor 
+            <TargetGPAPredictor
               profile={profile}
               onBack={() => setActiveTool(null)}
             />
@@ -166,7 +166,7 @@ function AppContent() {
         }
         if (activeTool === 'exam') {
           return (
-            <ExamPlanner 
+            <ExamPlanner
               savedExams={exams}
               onSaveExams={saveExams}
               onBack={() => setActiveTool(null)}
@@ -175,41 +175,41 @@ function AppContent() {
         }
         if (activeTool === 'converter') {
           return (
-            <Converter 
+            <Converter
               onBack={() => setActiveTool(null)}
             />
           );
         }
         if (activeTool === 'coding') {
           return (
-            <CodingProfiles 
+            <CodingProfiles
               onBack={() => setActiveTool(null)}
             />
           );
         }
         if (activeTool === 'roadmaps') {
           return (
-            <RoadmapsManager 
+            <RoadmapsManager
               onBack={() => setActiveTool(null)}
             />
           );
         }
         if (activeTool === 'planner') {
           return (
-            <DailyPlanner 
+            <DailyPlanner
               onBack={() => setActiveTool(null)}
             />
           );
         }
         return (
-          <ToolsScreen 
+          <ToolsScreen
             onSelectTool={(tool) => setActiveTool(tool)}
           />
         );
 
       case 'progress':
         return (
-          <ProgressScreen 
+          <ProgressScreen
             semesters={semesters}
             attendanceSubjects={attendanceSubjects}
             gpaScale={profile.gpaScale}
@@ -218,7 +218,7 @@ function AppContent() {
 
       case 'ai':
         return (
-          <AISpace 
+          <AISpace
             profile={profile}
             semesters={semesters}
             attendanceSubjects={attendanceSubjects}
@@ -227,7 +227,7 @@ function AppContent() {
 
       case 'settings':
         return (
-          <SettingsScreen 
+          <SettingsScreen
             profile={profile}
             onUpdateProfile={updateProfile}
             onResetData={resetData}
@@ -296,12 +296,12 @@ function AppContent() {
             </main>
 
             {/* Float Bottom Navigation */}
-            <BottomNavBar 
-              activeTab={currentTab} 
+            <BottomNavBar
+              activeTab={currentTab}
               onChangeTab={(tab) => {
                 setCurrentTab(tab);
                 setActiveTool(null); // Reset tool detail view on tab swap
-              }} 
+              }}
             />
           </motion.div>
         )}

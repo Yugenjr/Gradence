@@ -26,19 +26,17 @@ export default function BottomNavBar({ activeTab, onChangeTab }: BottomNavBarPro
             <button
               key={tab.id}
               onClick={() => onChangeTab(tab.id)}
-              className={`relative py-2 px-4 rounded-full flex flex-col items-center justify-center gap-0.5 transition-all active:scale-90 ${
-                isActive 
-                  ? 'text-white' 
-                  : 'text-neutral-500 hover:text-neutral-300'
+              className={`bottom-nav-btn relative py-2 px-4 rounded-full flex flex-col items-center justify-center gap-0.5 transition-all active:scale-90 ${
+                isActive ? 'active' : ''
               }`}
             >
-              <IconComponent className="w-5 h-5 stroke-[1.5]" />
+              <IconComponent className="w-5 h-5 stroke-[1.8]" />
               <span className="text-[9px] font-mono font-medium tracking-wide">
                 {tab.label}
               </span>
               
               {isActive && (
-                <div className="absolute -bottom-1 w-1 h-1 rounded-full bg-white animate-pulse" />
+                <div className="bottom-nav-dot absolute -bottom-1 w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
               )}
             </button>
           );

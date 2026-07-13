@@ -1,18 +1,19 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { UserProfile, Semester, AttendanceSubject } from '../types';
-import { askGroq, ChatMessage } from '../services/ai';
-import { 
-  Sparkles, 
-  Send, 
-  UserCheck, 
-  BookOpen, 
-  Compass, 
-  Users, 
-  FileText, 
-  Code, 
-  TrendingUp, 
-  Target, 
+import { UserProfile, Semester, AttendanceSubject, RoadmapStage } from '../types';
+import { askGroq, ChatMessage, calculateHeuristicScore, extractScore } from '../services/ai';
+import { useGradence } from '../context/GradenceContext';
+import {
+  Sparkles,
+  Send,
+  UserCheck,
+  BookOpen,
+  Compass,
+  Users,
+  FileText,
+  Code,
+  TrendingUp,
+  Target,
   AlertTriangle,
   User,
   Zap,
@@ -57,6 +58,7 @@ function parseMarkdown(text: string) {
 }
 
 export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
+  const { roadmaps, saveRoadmaps } = useGradence();
   const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'social'>('chat');
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
@@ -68,37 +70,99 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   const [resumeText, setResumeText] = useState('');
   const [placementScore, setPlacementScore] = useState<number | null>(null);
   const [placementFeedback, setPlacementFeedback] = useState('');
-  
+
   // Custom Roadmap states
   const [careerGoal, setCareerGoal] = useState('Full Stack Software Engineer');
   const [roadmapResult, setRoadmapResult] = useState('');
 
   const handleFollowRoadmap = () => {
     try {
-      const saved = localStorage.getItem('gradence_followed_roadmaps');
-      const list: any[] = saved ? JSON.parse(saved) : [];
-      
-      const activeCount = list.filter(rm => !rm.isCompleted).length;
+      const activeCount = roadmaps.filter(rm => !rm.isCompleted).length;
       if (activeCount >= 4) {
         alert('Focus limit reached! You can track at most 4 active roadmaps simultaneously. Complete or delete an existing active roadmap before following a new one.');
         return;
       }
 
+      // Parse stages dynamically from roadmapResult
+      const lines = roadmapResult.split('\n');
+      const parsedStages: RoadmapStage[] = [];
+      let currentParent: RoadmapStage | null = null;
+      let stageCount = 1;
+      let subCount = 1;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        const isHeader = trimmed.startsWith('#');
+        const isNumbered = /^\d+\.\s+/.test(trimmed);
+        const isBullet = trimmed.startsWith('*') || trimmed.startsWith('-');
+
+        if (isHeader || isNumbered) {
+          let name = trimmed
+            .replace(/^#+\s*/, '')
+            .replace(/^\d+\.\s*/, '')
+            .replace(/\*\*?/g, '')
+            .trim();
+
+          if (name.endsWith(':')) {
+            name = name.slice(0, -1).trim();
+          }
+
+          const lowerName = name.toLowerCase();
+          if (
+            lowerName === 'skill roadmap' ||
+            lowerName === 'skills roadmap' ||
+            lowerName === 'action plan' ||
+            lowerName === 'career roadmap' ||
+            lowerName === 'roadmap'
+          ) {
+            continue;
+          }
+
+          if (name.length > 2 && name.length < 120) {
+            currentParent = {
+              id: `st-${stageCount++}`,
+              name: name,
+              completed: false,
+              subStages: []
+            };
+            parsedStages.push(currentParent);
+          }
+        } else if (isBullet && currentParent) {
+          const subName = trimmed
+            .replace(/^[\*\-\s]+/, '')
+            .replace(/\*\*?/g, '')
+            .trim();
+
+          if (subName.length > 2 && subName.length < 200) {
+            currentParent.subStages = currentParent.subStages || [];
+            currentParent.subStages.push({
+              id: `${currentParent.id}-sub-${subCount++}`,
+              name: subName,
+              completed: false
+            });
+          }
+        }
+      }
+
+      const finalStages = parsedStages.length > 0 ? parsedStages : [
+        { id: 'st-1', name: 'Stage 1: Foundation (Study core syntax, frameworks, and certification paths)', completed: false },
+        { id: 'st-2', name: 'Stage 2: Project Build (Deploy full-stack REST API and Docker containerization)', completed: false },
+        { id: 'st-3', name: 'Stage 3: Interview Ready (Solve 50 coding problems and validate resume parameters)', completed: false },
+      ];
+
       const newRm = {
         id: `rm-${Date.now()}`,
         title: careerGoal || 'Custom Specialist',
         targetRole: careerGoal,
-        stages: [
-          { id: 'st-1', name: 'Stage 1: Foundation (Study core syntax, frameworks, and certification paths)', completed: false },
-          { id: 'st-2', name: 'Stage 2: Project Build (Deploy full-stack REST API and Docker containerization)', completed: false },
-          { id: 'st-3', name: 'Stage 3: Interview Ready (Solve 50 coding problems and validate resume parameters)', completed: false },
-        ],
+        stages: finalStages,
         isCompleted: false,
         createdAt: new Date().toISOString()
       };
 
-      const updated = [...list, newRm];
-      localStorage.setItem('gradence_followed_roadmaps', JSON.stringify(updated));
+      const updated = [...roadmaps, newRm];
+      saveRoadmaps(updated);
       alert(`Now following: "${careerGoal}". You can check off its stages under Tools > Roadmaps Manager.`);
     } catch (e) {
       console.error('Follow failed', e);
@@ -110,7 +174,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
   const handleSendMessage = async () => {
     if (!userInput.trim() || isLoading) return;
-    
+
     const userMsg: ChatMessage = { role: 'user', content: userInput };
     const updatedHistory = [...chatHistory, userMsg];
     setChatHistory(updatedHistory);
@@ -139,21 +203,32 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   };
 
   const handleAnalyzePlacement = async () => {
+    if (!resumeText.trim()) return;
     setIsLoading(true);
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.'
+        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.\n\nIMPORTANT: You MUST evaluate the provided skills and projects to calculate a realistic placement readiness score between 0 and 100. If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0. Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g. SCORE: 75). Do not include any text after this.'
       },
       {
         role: 'user',
-        content: `Resume Info/Skills: ${resumeText || 'React, TS, basic Python'}. University: ${profile.university}`
+        content: `Resume Info/Skills: ${resumeText}. University: ${profile.university}`
       }
     ];
 
     const response = await askGroq(messages, apiKey);
-    setPlacementFeedback(response);
-    setPlacementScore(resumeText.length > 50 ? 82 : 55);
+
+    // Extract dynamic score
+    let parsedScore = extractScore(response);
+    if (parsedScore === 75 && !response.includes('75')) {
+      parsedScore = calculateHeuristicScore(resumeText);
+    }
+
+    // Clean SCORE prefix from display text
+    const cleanFeedback = response.replace(/\bSCORE:\s*\d+\b/g, '').trim();
+
+    setPlacementFeedback(cleanFeedback);
+    setPlacementScore(parsedScore);
     setIsLoading(false);
   };
 
@@ -162,7 +237,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Generate a step-by-step career certification and skill roadmap based on the target role.'
+        content: 'You are an expert career advisor and technical mentor. Generate a highly detailed, deep, and comprehensive step-by-step career certification and skill roadmap based on the student\'s target role. The roadmap must be extremely thorough and structured. Provide a deep dive into: 1. Core languages & fundamentals (with concepts). 2. Advanced frameworks & tools. 3. Database design & management. 4. DevOps, cloud architecture, and containerization. 5. System design principles (caching, message queues, microservices) relevant to this role. 6. Industry-respected certifications (e.g. AWS, GCP, Associate Developer, etc.) that will boost their credentials. 7. A concrete Action Plan with projects & interview prep. Structure your response with clear headings (using ### or ####) for each phase or stage (e.g. "Phase 1: ...", "Stage 2: ..."), followed by bullet points detailing specific skills and certifications. Make it deep, extensive, and actionable!'
       },
       {
         role: 'user',
@@ -256,9 +331,8 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
             <button
               key={mod.id}
               onClick={() => setActiveModule(mod.id as any)}
-              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
-              }`}
+              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
+                }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
               <span className="hidden md:inline">{mod.label}</span>
@@ -269,7 +343,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
       {/* Main Module Content */}
       <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] min-h-[400px] flex flex-col overflow-hidden">
-        
+
         {/* Chat / AI Assistant Module */}
         {activeModule === 'chat' && (
           <div className="flex-1 flex flex-col p-6 h-[500px]">
@@ -279,14 +353,12 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
                   key={idx}
                   className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
                 >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
-                    msg.role === 'user' ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-white text-black'
-                  }`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${msg.role === 'user' ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-white text-black'
+                    }`}>
                     {msg.role === 'user' ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
                   </div>
-                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${
-                    msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
-                  }`}>
+                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
+                    }`}>
                     <div className="whitespace-pre-line">{parseMarkdown(msg.content)}</div>
                   </div>
                 </div>
@@ -340,8 +412,8 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
             <button
               onClick={handleAnalyzePlacement}
-              disabled={isLoading}
-              className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200"
+              disabled={isLoading || !resumeText.trim()}
+              className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <FileText className="w-4 h-4" />
               Analyze Placement Eligibility & Skill Gaps

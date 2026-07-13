@@ -176,4 +176,34 @@ body {
   color: var(--text-primary) !important;
 }
 
+/* Force Bottom Nav colors to remain dark/white-glowing even in light theme */
+.bottom-nav-btn svg,
+.bottom-nav-btn span {
+  color: #737373 !important;
+  transition: color 0.3s ease, filter 0.3s ease !important;
+}
+
+.bottom-nav-btn:hover svg,
+.bottom-nav-btn:hover span {
+  color: #ffffff !important;
+}
+
+.bottom-nav-btn.active svg,
+.bottom-nav-btn.active span {
+  color: #ffffff !important;
+}
+
+.bottom-nav-btn.active svg {
+  filter: drop-shadow(0px 0px 8px rgba(255, 255, 255, 0.95)) !important;
+}
+
+.bottom-nav-btn.active span {
+  filter: drop-shadow(0px 0px 6px rgba(255, 255, 255, 0.75)) !important;
+}
+
+.bottom-nav-dot {
+  background-color: #ffffff !important;
+  box-shadow: 0 0 10px #ffffff !important;
+}
+
 

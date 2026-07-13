@@ -45,10 +45,112 @@ export async function askGroq(
   }
 }
 
+export const calculateHeuristicScore = (text: string): number => {
+  const cleanText = text.toLowerCase().trim();
+  if (!cleanText) return 0;
+  if (cleanText.length < 5) return 0;
+
+  let score = 30; // base score for entering something
+
+  // Keyword lists
+  const tier1 = ['react', 'vue', 'angular', 'next.js', 'node', 'express', 'django', 'spring boot', 'laravel', 'flutter', 'react native', 'fastapi'];
+  const tier2 = ['typescript', 'javascript', 'python', 'java', 'c++', 'golang', 'rust', 'ruby', 'sql', 'nosql', 'postgresql', 'mongodb', 'mysql', 'redis'];
+  const tier3 = ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'ci/cd', 'github actions', 'jenkins', 'terraform', 'graphql', 'grpc', 'websocket', 'socket.io'];
+  const qualityKeywords = ['optimize', 'scale', 'reduce', 'improve', 'secure', 'deploy', 'architect', 'design', 'implement', 'lead', 'coordinate'];
+
+  let matches = 0;
+  // Add points
+  tier1.forEach(kw => { if (cleanText.includes(kw)) { score += 6; matches++; } });
+  tier2.forEach(kw => { if (cleanText.includes(kw)) { score += 4; matches++; } });
+  tier3.forEach(kw => { if (cleanText.includes(kw)) { score += 8; matches++; } });
+  qualityKeywords.forEach(kw => { if (cleanText.includes(kw)) { score += 3; matches++; } });
+
+  // If no keywords match and text is short, return 0
+  if (matches === 0 && cleanText.length < 15) {
+    return 0;
+  }
+
+  // Length bonus
+  score += Math.min(15, Math.floor(cleanText.length / 50));
+
+  // Caps
+  return Math.min(98, Math.max(10, score));
+};
+
+export const extractScore = (text: string): number => {
+  const scoreRegexes = [
+    /SCORE:\s*(\d+)/i,
+    /Score:\s*(\d+)/i,
+    /score\s+is\s+(\d+)/i,
+    /(\d+)\s*\/\s*100/
+  ];
+
+  for (const regex of scoreRegexes) {
+    const match = text.match(regex);
+    if (match) {
+      const val = parseInt(match[1], 10);
+      if (!isNaN(val) && val >= 0 && val <= 100) {
+        return val;
+      }
+    }
+  }
+  return 75; // Default fallback score if not found
+};
+
 function simulateResponse(messages: ChatMessage[]): string {
-  const lastMessage = messages[messages.length - 1].content.toLowerCase();
-  
-  if (lastMessage.includes('resume') || lastMessage.includes('portfolio') || lastMessage.includes('readiness')) {
+  const lastMessage = messages[messages.length - 1].content;
+  const lastMessageLower = lastMessage.toLowerCase();
+
+  if (lastMessageLower.includes('resume info/skills:')) {
+    const match = lastMessage.match(/Resume Info\/Skills:\s*(.*?)\.?\s*University:/i);
+    const resumeText = match ? match[1] : '';
+    const score = calculateHeuristicScore(resumeText);
+
+    const missing: string[] = [];
+    const resumeLower = resumeText.toLowerCase();
+
+    if (!resumeLower.includes('docker') && !resumeLower.includes('kubernetes') && !resumeLower.includes('aws') && !resumeLower.includes('gcp') && !resumeLower.includes('cloud') && !resumeLower.includes('azure')) {
+      missing.push('* **Cloud & DevOps:** No Docker containerization or cloud services (AWS/GCP) listed.');
+    }
+    if (!resumeLower.includes('sql') && !resumeLower.includes('mongodb') && !resumeLower.includes('postgresql') && !resumeLower.includes('database') && !resumeLower.includes('redis')) {
+      missing.push('* **Database Systems:** No SQL/NoSQL databases or caching systems mentioned.');
+    }
+    if (!resumeLower.includes('git') && !resumeLower.includes('github') && !resumeLower.includes('ci/cd')) {
+      missing.push('* **Version Control:** No mention of Git version control or workflow tools.');
+    }
+    if (!resumeLower.includes('optimize') && !resumeLower.includes('scale') && !resumeLower.includes('reduce') && !resumeLower.includes('improve')) {
+      missing.push('* **Performance Optimization:** Project descriptions lack metrics (e.g. latency, load speed improvements).');
+    }
+
+    if (missing.length === 0) {
+      missing.push('* **Advanced Certifications:** Consider adding specialized cloud or security certifications.');
+      missing.push('* **System Design:** Include microservices or advanced system design details.');
+    }
+
+    const actionPlan: string[] = [];
+    if (resumeLower.includes('docker')) {
+      actionPlan.push('1. Deploy your dockerized application to a cloud provider like AWS ECS or GCP Cloud Run.');
+    } else {
+      actionPlan.push('1. Containerize your key applications using Docker to ensure cross-environment consistency.');
+    }
+
+    if (resumeLower.includes('sql') || resumeLower.includes('mongodb') || resumeLower.includes('database')) {
+      actionPlan.push('2. Implement Redis caching or database indexing to optimize query response times.');
+    } else {
+      actionPlan.push('2. Add a persistent database storage layer (PostgreSQL/MongoDB) to your projects.');
+    }
+
+    return `### 📊 Placement Readiness Feedback
+**Score: ${score}/100**
+
+**What is Missing:**
+${missing.join('\n')}
+
+**Action Plan:**
+${actionPlan.join('\n')}`;
+  }
+
+  if (lastMessageLower.includes('resume') || lastMessageLower.includes('portfolio') || lastMessageLower.includes('readiness')) {
     return `### 📊 Placement Readiness Feedback
 **Score: 78/100**
 
@@ -65,17 +167,29 @@ function simulateResponse(messages: ChatMessage[]): string {
     return `### 🗺️ Custom Career Roadmap: Full-Stack Cloud Architect
 Based on your academic profile, here is your path to becoming a Senior Engineer:
 
-#### Phase 1: Core Fundamentals (Months 1-3)
-* **Action:** Master TypeScript and relational database design.
-* **Milestone:** Build a secure REST API with FastAPI and PostgreSQL using docker-compose.
+#### Phase 1: Language Mastery & Algorithms (Months 1-2)
+* **Action:** Deep dive into JavaScript/TypeScript (closures, event loop, promises) and Python fundamentals.
+* **Milestone:** Master basic Data Structures and Algorithms (time complexity, sorting, hash maps).
+* **Suggested Certification:** Meta Front-End Developer Professional Certificate.
+
+#### Phase 2: Database Systems & APIs (Months 3-4)
+* **Action:** Master relational databases (SQL, Postgres, transactions) and schema design.
+* **Milestone:** Build and document a RESTful API using Node.js, Express, and PostgreSQL.
+* **Suggested Certification:** Oracle Certified Associate, Java SE 8 Programmer.
+
+#### Phase 3: Advanced Frontend & State Management (Months 5-6)
+* **Action:** Learn React, React Router, and state management (Redux Toolkit or Zustand).
+* **Milestone:** Build a complex single-page dashboard with client-side routing and charts.
 * **Suggested Certification:** AWS Certified Cloud Practitioner.
 
-#### Phase 2: Advanced Backend & Performance (Months 4-6)
-* **Action:** Implement Redis caching, rate limiters, and message queues (RabbitMQ/Kafka).
-* **Milestone:** Deploy a scalable web server cluster behind an Nginx load balancer.
+#### Phase 4: DevOps & Cloud Architecture (Months 7-8)
+* **Action:** Learn Docker containerization, AWS core services (EC2, S3, RDS), and Nginx load balancing.
+* **Milestone:** Containerize your application and deploy it to AWS ECS using a CI/CD pipeline.
+* **Suggested Certification:** AWS Certified Solutions Architect - Associate.
 
-#### Phase 3: Placement Prep (Months 7-9)
-* **Action:** Resume parsing optimization, mock interviewing, and domain specialization.`;
+#### Phase 5: System Design & Scaling (Months 9-10)
+* **Action:** Learn microservices architecture, horizontal vs vertical scaling, and caching using Redis.
+* **Milestone:** Design a high-throughput backend system blueprint incorporating rate-limiting and message queues (RabbitMQ/Kafka).`;
   }
 
   if (lastMessage.includes('summarize') || lastMessage.includes('notes') || lastMessage.includes('study')) {
