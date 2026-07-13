@@ -18,28 +18,27 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
   const [isSavedSuccessfully, setIsSavedSuccessfully] = useState(false);
 
   // Define grades based on GPA scale
-  const gradeOptions = profile.gpaScale === 10 
+  const gradeOptions = profile.gpaScale === 10
     ? [
-        { label: 'O (10)', value: 'O', points: 10 },
-        { label: 'A+ (9)', value: 'A+', points: 9 },
-        { label: 'A (8)', value: 'A', points: 8 },
-        { label: 'B+ (7)', value: 'B+', points: 7 },
-        { label: 'B (6)', value: 'B', points: 6 },
-        { label: 'C (5)', value: 'C', points: 5 },
-        { label: 'D (4)', value: 'D', points: 4 },
-        { label: 'F (0)', value: 'F', points: 0 }
-      ]
+      { label: 'O (10)', value: 'O', points: 10 },
+      { label: 'A+ (9)', value: 'A+', points: 9 },
+      { label: 'A (8)', value: 'A', points: 8 },
+      { label: 'B (7)', value: 'B', points: 7 },
+      { label: 'C (6)', value: 'C', points: 6 },
+      { label: 'D (5)', value: 'D', points: 5 },
+      { label: 'F (0)', value: 'F', points: 0 }
+    ]
     : [
-        { label: 'A (4.0)', value: 'A', points: 4.0 },
-        { label: 'A- (3.7)', value: 'A-', points: 3.7 },
-        { label: 'B+ (3.3)', value: 'B+', points: 3.3 },
-        { label: 'B (3.0)', value: 'B', points: 3.0 },
-        { label: 'B- (2.7)', value: 'B-', points: 2.7 },
-        { label: 'C+ (2.3)', value: 'C+', points: 2.3 },
-        { label: 'C (2.0)', value: 'C', points: 2.0 },
-        { label: 'D (1.0)', value: 'D', points: 1.0 },
-        { label: 'F (0.0)', value: 'F', points: 0.0 }
-      ];
+      { label: 'A (4.0)', value: 'A', points: 4.0 },
+      { label: 'A- (3.7)', value: 'A-', points: 3.7 },
+      { label: 'B+ (3.3)', value: 'B+', points: 3.3 },
+      { label: 'B (3.0)', value: 'B', points: 3.0 },
+      { label: 'B- (2.7)', value: 'B-', points: 2.7 },
+      { label: 'C+ (2.3)', value: 'C+', points: 2.3 },
+      { label: 'C (2.0)', value: 'C', points: 2.0 },
+      { label: 'D (1.0)', value: 'D', points: 1.0 },
+      { label: 'F (0.0)', value: 'F', points: 0.0 }
+    ];
 
   // Load existing semester data if it exists, otherwise initialize template subjects
   useEffect(() => {
@@ -137,7 +136,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
     <div id="cgpa-calculator" className="space-y-8 pb-4">
       {/* Top Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
         >
@@ -163,11 +162,10 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
                 key={num}
                 type="button"
                 onClick={() => setSelectedSemNum(num)}
-                className={`flex-1 min-w-[56px] py-2.5 rounded-xl border text-xs font-medium transition-all flex flex-col items-center justify-center gap-0.5 ${
-                  isSelected
+                className={`flex-1 min-w-[56px] py-2.5 rounded-xl border text-xs font-medium transition-all flex flex-col items-center justify-center gap-0.5 ${isSelected
                     ? 'border-white bg-[#262626] text-white font-bold'
                     : 'border-[#2A2A2A] bg-black/40 text-neutral-400 hover:border-neutral-700'
-                }`}
+                  }`}
               >
                 <span>Sem {num}</span>
                 {isSaved && (
@@ -185,7 +183,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
             SUBJECTS & GRADES ({subjects.length})
           </span>
-          <button 
+          <button
             onClick={handleAddSubject}
             className="text-xs text-white hover:underline flex items-center gap-1 font-mono"
           >
@@ -268,7 +266,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
         {subjects.length === 0 && (
           <div className="text-center py-8 border border-dashed border-[#2A2A2A] rounded-[24px]">
             <p className="text-xs text-neutral-500 font-mono">No subjects added yet.</p>
-            <button 
+            <button
               onClick={handleAddSubject}
               className="mt-3 text-xs bg-white text-black px-4 py-2 rounded-xl font-medium hover:bg-neutral-200"
             >
@@ -329,11 +327,10 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
             {/* Save Semester Button */}
             <button
               onClick={handleSaveSemester}
-              className={`w-full py-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${
-                isSavedSuccessfully
+              className={`w-full py-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${isSavedSuccessfully
                   ? 'bg-neutral-800 text-green-400 border border-green-900/30'
                   : 'bg-black text-white hover:bg-neutral-950 border border-[#2A2A2A]'
-              }`}
+                }`}
             >
               {isSavedSuccessfully ? (
                 <>

@@ -3,17 +3,17 @@ import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile, Semester, AttendanceSubject, RoadmapStage } from '../types';
 import { askGroq, ChatMessage, calculateHeuristicScore, extractScore } from '../services/ai';
 import { useGradence } from '../context/GradenceContext';
-import { 
-  Sparkles, 
-  Send, 
-  UserCheck, 
-  BookOpen, 
-  Compass, 
-  Users, 
-  FileText, 
-  Code, 
-  TrendingUp, 
-  Target, 
+import {
+  Sparkles,
+  Send,
+  UserCheck,
+  BookOpen,
+  Compass,
+  Users,
+  FileText,
+  Code,
+  TrendingUp,
+  Target,
   AlertTriangle,
   User,
   Zap,
@@ -57,18 +57,6 @@ function parseMarkdown(text: string) {
   );
 }
 
-function cleanRoadmapTimeline(text: string): string {
-  if (!text) return '';
-  return text
-    // Remove parenthesized semester tags, e.g., (Semester 5) or (Semesters 5-6) or (Semester 7-8)
-    .replace(/\s*\(Semesters?\s*\d+(?:[\s-]*\d+)?\)/gi, '')
-    // Remove standalone semester headings, e.g. "Semester 5:"
-    .replace(/^\s*Semesters?\s*\d+\s*:\s*$/gim, '')
-    // Clean list items starting with "Semester X:", e.g. "* Semester 5: Learn C++" -> "* Learn C++"
-    .replace(/^\s*([\*\-\+]\s*)Semesters?\s*\d+\s*:\s*/gim, '$1')
-    .trim();
-}
-
 export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
   const { roadmaps, saveRoadmaps } = useGradence();
   const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'social'>('chat');
@@ -82,7 +70,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   const [resumeText, setResumeText] = useState('');
   const [placementScore, setPlacementScore] = useState<number | null>(null);
   const [placementFeedback, setPlacementFeedback] = useState('');
-  
+
   // Custom Roadmap states
   const [careerGoal, setCareerGoal] = useState('Full Stack Software Engineer');
   const [roadmapResult, setRoadmapResult] = useState('');
@@ -186,7 +174,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
   const handleSendMessage = async () => {
     if (!userInput.trim() || isLoading) return;
-    
+
     const userMsg: ChatMessage = { role: 'user', content: userInput };
     const updatedHistory = [...chatHistory, userMsg];
     setChatHistory(updatedHistory);
@@ -229,16 +217,16 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     ];
 
     const response = await askGroq(messages, apiKey);
-    
+
     // Extract dynamic score
     let parsedScore = extractScore(response);
     if (parsedScore === 75 && !response.includes('75')) {
       parsedScore = calculateHeuristicScore(resumeText);
     }
-    
+
     // Clean SCORE prefix from display text
     const cleanFeedback = response.replace(/\bSCORE:\s*\d+\b/g, '').trim();
-    
+
     setPlacementFeedback(cleanFeedback);
     setPlacementScore(parsedScore);
     setIsLoading(false);
@@ -249,17 +237,16 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'You are an expert career advisor and technical mentor. Generate a highly detailed, deep, and comprehensive step-by-step career certification and skill roadmap based on the student\'s target role. The roadmap must be extremely thorough and structured for the specific target role requested (which could be in software, hardware, core engineering, design, management, or any other field).\n\nProvide a deep dive into:\n1. Core skills, foundational theories, and methodologies that must be mastered.\n2. Advanced tools, frameworks, hardware, software, or specialized methodologies required for industry-standard applications in this specific domain.\n3. Key project domains, hands-on labs, or practical applications that build real-world competency.\n4. Professional certifications or credentials respected by premium employers in this specific industry.\n5. A concrete step-by-step Action Plan to build a stellar profile and prepare for recruitment/interviews in this field.\n\nStructure your response with clear headings (using ### or ####) for each logical stage or phase (e.g. "Phase 1: [Name]", "Phase 2: [Name]"), followed by bullet points detailing specific sub-skills, tools, or items. Make it deep, extensive, and highly tailored to the target role!\n\nCRITICAL: DO NOT include any semester timelines, semester ranges, or semester labels (such as "(Semester 5)", "Semester 6:", or "(Semesters 7-8)") anywhere in the headings, phase titles, or bullet points. The roadmap must be completely timeline-free, focusing purely on skill phases and action items.'
+        content: 'You are an expert career advisor and technical mentor. Generate a highly detailed, deep, and comprehensive step-by-step career certification and skill roadmap based on the student\'s target role. The roadmap must be extremely thorough and structured. Provide a deep dive into: 1. Core languages & fundamentals (with concepts). 2. Advanced frameworks & tools. 3. Database design & management. 4. DevOps, cloud architecture, and containerization. 5. System design principles (caching, message queues, microservices) relevant to this role. 6. Industry-respected certifications (e.g. AWS, GCP, Associate Developer, etc.) that will boost their credentials. 7. A concrete Action Plan with projects & interview prep. Structure your response with clear headings (using ### or ####) for each phase or stage (e.g. "Phase 1: ...", "Stage 2: ..."), followed by bullet points detailing specific skills and certifications. Make it deep, extensive, and actionable!'
       },
       {
         role: 'user',
-        content: `Target Role: ${careerGoal}`
+        content: `Target Role: ${careerGoal}. Current Semester: ${profile.currentSemester}`
       }
     ];
 
     const response = await askGroq(messages, apiKey);
-    const cleanedResult = cleanRoadmapTimeline(response);
-    setRoadmapResult(cleanedResult);
+    setRoadmapResult(response);
     setIsLoading(false);
   };
 
@@ -344,9 +331,8 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
             <button
               key={mod.id}
               onClick={() => setActiveModule(mod.id as any)}
-              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
-              }`}
+              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
+                }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
               <span className="hidden md:inline">{mod.label}</span>
@@ -357,7 +343,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
       {/* Main Module Content */}
       <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] min-h-[400px] flex flex-col overflow-hidden">
-        
+
         {/* Chat / AI Assistant Module */}
         {activeModule === 'chat' && (
           <div className="flex-1 flex flex-col p-6 h-[500px]">
@@ -367,14 +353,12 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
                   key={idx}
                   className={`flex gap-3 max-w-[85%] ${msg.role === 'user' ? 'ml-auto flex-row-reverse' : ''}`}
                 >
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${
-                    msg.role === 'user' ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-white text-black'
-                  }`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 border ${msg.role === 'user' ? 'bg-neutral-900 border-neutral-800' : 'bg-white border-white text-black'
+                    }`}>
                     {msg.role === 'user' ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
                   </div>
-                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${
-                    msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
-                  }`}>
+                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
+                    }`}>
                     <div className="whitespace-pre-line">{parseMarkdown(msg.content)}</div>
                   </div>
                 </div>
@@ -500,20 +484,47 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
         {activeModule === 'social' && (
           <div className="p-6 space-y-6">
             <div>
-              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">PEER CONNECT</h3>
+              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">ACADEMIC COMMUNITIES & PEER BENCHMARKING</h3>
               <p className="text-xs text-neutral-400 mt-1">Collaborate, share notes, and compare study metrics with peers globally.</p>
             </div>
 
-            <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-8 text-center space-y-4 relative overflow-hidden">
-              <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-10 pointer-events-none" />
-              <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center mx-auto text-neutral-400 animate-pulse">
-                <Users className="w-6 h-6 text-white" />
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">ACTIVE STUDY GROUPS</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
+                    <div>
+                      <h4 className="text-xs font-bold text-white">Algorithms & DS (GATE Prep)</h4>
+                      <span className="text-[9px] font-mono text-neutral-500">24 active members • 2 online</span>
+                    </div>
+                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
+                  </div>
+                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
+                    <div>
+                      <h4 className="text-xs font-bold text-white">AWS Architect Study Group</h4>
+                      <span className="text-[9px] font-mono text-neutral-500">18 active members • 4 online</span>
+                    </div>
+                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
+                  </div>
+                </div>
               </div>
-              <div className="space-y-1.5 font-mono">
-                <h4 className="text-sm font-bold text-white uppercase tracking-wider">Coming Soon</h4>
-                <p className="text-xs text-neutral-450 max-w-xs mx-auto leading-relaxed normal-case">
-                  We are building a decentralized peer-to-peer networking portal. These features will be added soon to enable direct notes sharing, study rooms, and university-wide benchmark matching.
-                </p>
+
+              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
+                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">PEER BENCHMARKING</span>
+                <div className="space-y-2">
+                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
+                    <span className="text-neutral-400">Your CGPA Percentile:</span>
+                    <span className="font-bold text-white font-mono">Top 15%</span>
+                  </div>
+                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
+                    <span className="text-neutral-400">Attendance Rank (Univ):</span>
+                    <span className="font-bold text-white font-mono">#42 of 240</span>
+                  </div>
+                  <div className="flex justify-between text-xs py-1">
+                    <span className="text-neutral-400">Daily Study Streak:</span>
+                    <span className="font-bold text-white font-mono">5 Days 🔥</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

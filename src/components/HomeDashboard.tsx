@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
 import { UserProfile, Semester, Exam, Activity, ToolType, Quote } from '../types';
 import { useGradence } from '../context/GradenceContext';
+import logoImg from '../assets/logo.png';
 import { 
   Calculator, 
   Calendar, 
@@ -95,7 +96,7 @@ export default function HomeDashboard({
   return (
     <div id="home-dashboard" className="space-y-8 pb-4">
       {/* Header Profile Info */}
-      <div className="flex justify-between items-start pt-4">
+      <div className="flex justify-between items-center pt-4">
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
             WORKSPACE
@@ -109,9 +110,13 @@ export default function HomeDashboard({
           </p>
         </div>
         
-        {/* Top visual accent */}
-        <div className="w-12 h-12 rounded-2xl bg-[#171717] border border-[#2A2A2A] flex items-center justify-center">
-          <GraduationCap className="w-5 h-5 text-white stroke-[1.5]" />
+        {/* Top visual accent - brand logo */}
+        <div className="w-16 h-16 rounded-[20px] bg-neutral-100 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm">
+          <img 
+            src={logoImg} 
+            alt="Gradence Logo" 
+            className="w-full h-full object-contain rounded-[14px]"
+          />
         </div>
       </div>
 
