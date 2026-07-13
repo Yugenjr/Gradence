@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile, Semester, AttendanceSubject } from '../types';
-import { askGroq, ChatMessage } from '../services/ai';
+import { askGroq, ChatMessage, calculateHeuristicScore, extractScore } from '../services/ai';
 import { 
   Sparkles, 
   Send, 
@@ -139,21 +139,32 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   };
 
   const handleAnalyzePlacement = async () => {
+    if (!resumeText.trim()) return;
     setIsLoading(true);
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.'
+        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.\n\nIMPORTANT: You MUST evaluate the provided skills and projects to calculate a realistic placement readiness score between 0 and 100. Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g. SCORE: 75). Do not include any text after this.'
       },
       {
         role: 'user',
-        content: `Resume Info/Skills: ${resumeText || 'React, TS, basic Python'}. University: ${profile.university}`
+        content: `Resume Info/Skills: ${resumeText}. University: ${profile.university}`
       }
     ];
 
     const response = await askGroq(messages, apiKey);
-    setPlacementFeedback(response);
-    setPlacementScore(resumeText.length > 50 ? 82 : 55);
+    
+    // Extract dynamic score
+    let parsedScore = extractScore(response);
+    if (parsedScore === 75 && !response.includes('75')) {
+      parsedScore = calculateHeuristicScore(resumeText);
+    }
+    
+    // Clean SCORE prefix from display text
+    const cleanFeedback = response.replace(/\bSCORE:\s*\d+\b/g, '').trim();
+    
+    setPlacementFeedback(cleanFeedback);
+    setPlacementScore(parsedScore);
     setIsLoading(false);
   };
 
@@ -340,8 +351,8 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
             <button
               onClick={handleAnalyzePlacement}
-              disabled={isLoading}
-              className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200"
+              disabled={isLoading || !resumeText.trim()}
+              className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               <FileText className="w-4 h-4" />
               Analyze Placement Eligibility & Skill Gaps
