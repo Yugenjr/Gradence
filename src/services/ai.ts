@@ -48,6 +48,7 @@ export async function askGroq(
 export const calculateHeuristicScore = (text: string): number => {
   const cleanText = text.toLowerCase().trim();
   if (!cleanText) return 0;
+  if (cleanText.length < 5) return 0;
   
   let score = 30; // base score for entering something
   
@@ -57,11 +58,17 @@ export const calculateHeuristicScore = (text: string): number => {
   const tier3 = ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'ci/cd', 'github actions', 'jenkins', 'terraform', 'graphql', 'grpc', 'websocket', 'socket.io'];
   const qualityKeywords = ['optimize', 'scale', 'reduce', 'improve', 'secure', 'deploy', 'architect', 'design', 'implement', 'lead', 'coordinate'];
   
+  let matches = 0;
   // Add points
-  tier1.forEach(kw => { if (cleanText.includes(kw)) score += 6; });
-  tier2.forEach(kw => { if (cleanText.includes(kw)) score += 4; });
-  tier3.forEach(kw => { if (cleanText.includes(kw)) score += 8; });
-  qualityKeywords.forEach(kw => { if (cleanText.includes(kw)) score += 3; });
+  tier1.forEach(kw => { if (cleanText.includes(kw)) { score += 6; matches++; } });
+  tier2.forEach(kw => { if (cleanText.includes(kw)) { score += 4; matches++; } });
+  tier3.forEach(kw => { if (cleanText.includes(kw)) { score += 8; matches++; } });
+  qualityKeywords.forEach(kw => { if (cleanText.includes(kw)) { score += 3; matches++; } });
+  
+  // If no keywords match and text is short, return 0
+  if (matches === 0 && cleanText.length < 15) {
+    return 0;
+  }
   
   // Length bonus
   score += Math.min(15, Math.floor(cleanText.length / 50));

@@ -144,7 +144,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.\n\nIMPORTANT: You MUST evaluate the provided skills and projects to calculate a realistic placement readiness score between 0 and 100. Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g. SCORE: 75). Do not include any text after this.'
+        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.\n\nIMPORTANT: You MUST evaluate the provided skills and projects to calculate a realistic placement readiness score between 0 and 100. If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0. Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g. SCORE: 75). Do not include any text after this.'
       },
       {
         role: 'user',
