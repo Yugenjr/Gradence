@@ -56,6 +56,7 @@ export interface RoadmapStage {
   id: string;
   name: string;
   completed: boolean;
+  subStages?: RoadmapStage[];
 }
 
 export interface CareerRoadmap {

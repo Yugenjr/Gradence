@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { UserProfile, Semester, AttendanceSubject } from '../types';
+import { UserProfile, Semester, AttendanceSubject, RoadmapStage } from '../types';
 import { askGroq, ChatMessage, calculateHeuristicScore, extractScore } from '../services/ai';
+import { useGradence } from '../context/GradenceContext';
 import { 
   Sparkles, 
   Send, 
@@ -56,7 +57,20 @@ function parseMarkdown(text: string) {
   );
 }
 
+function cleanRoadmapTimeline(text: string): string {
+  if (!text) return '';
+  return text
+    // Remove parenthesized semester tags, e.g., (Semester 5) or (Semesters 5-6) or (Semester 7-8)
+    .replace(/\s*\(Semesters?\s*\d+(?:[\s-]*\d+)?\)/gi, '')
+    // Remove standalone semester headings, e.g. "Semester 5:"
+    .replace(/^\s*Semesters?\s*\d+\s*:\s*$/gim, '')
+    // Clean list items starting with "Semester X:", e.g. "* Semester 5: Learn C++" -> "* Learn C++"
+    .replace(/^\s*([\*\-\+]\s*)Semesters?\s*\d+\s*:\s*/gim, '$1')
+    .trim();
+}
+
 export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
+  const { roadmaps, saveRoadmaps } = useGradence();
   const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'social'>('chat');
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
@@ -75,30 +89,92 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
   const handleFollowRoadmap = () => {
     try {
-      const saved = localStorage.getItem('gradence_followed_roadmaps');
-      const list: any[] = saved ? JSON.parse(saved) : [];
-      
-      const activeCount = list.filter(rm => !rm.isCompleted).length;
+      const activeCount = roadmaps.filter(rm => !rm.isCompleted).length;
       if (activeCount >= 4) {
         alert('Focus limit reached! You can track at most 4 active roadmaps simultaneously. Complete or delete an existing active roadmap before following a new one.');
         return;
       }
 
+      // Parse stages dynamically from roadmapResult
+      const lines = roadmapResult.split('\n');
+      const parsedStages: RoadmapStage[] = [];
+      let currentParent: RoadmapStage | null = null;
+      let stageCount = 1;
+      let subCount = 1;
+
+      for (const line of lines) {
+        const trimmed = line.trim();
+        if (!trimmed) continue;
+
+        const isHeader = trimmed.startsWith('#');
+        const isNumbered = /^\d+\.\s+/.test(trimmed);
+        const isBullet = trimmed.startsWith('*') || trimmed.startsWith('-');
+
+        if (isHeader || isNumbered) {
+          let name = trimmed
+            .replace(/^#+\s*/, '')
+            .replace(/^\d+\.\s*/, '')
+            .replace(/\*\*?/g, '')
+            .trim();
+
+          if (name.endsWith(':')) {
+            name = name.slice(0, -1).trim();
+          }
+
+          const lowerName = name.toLowerCase();
+          if (
+            lowerName === 'skill roadmap' ||
+            lowerName === 'skills roadmap' ||
+            lowerName === 'action plan' ||
+            lowerName === 'career roadmap' ||
+            lowerName === 'roadmap'
+          ) {
+            continue;
+          }
+
+          if (name.length > 2 && name.length < 120) {
+            currentParent = {
+              id: `st-${stageCount++}`,
+              name: name,
+              completed: false,
+              subStages: []
+            };
+            parsedStages.push(currentParent);
+          }
+        } else if (isBullet && currentParent) {
+          const subName = trimmed
+            .replace(/^[\*\-\s]+/, '')
+            .replace(/\*\*?/g, '')
+            .trim();
+
+          if (subName.length > 2 && subName.length < 200) {
+            currentParent.subStages = currentParent.subStages || [];
+            currentParent.subStages.push({
+              id: `${currentParent.id}-sub-${subCount++}`,
+              name: subName,
+              completed: false
+            });
+          }
+        }
+      }
+
+      const finalStages = parsedStages.length > 0 ? parsedStages : [
+        { id: 'st-1', name: 'Stage 1: Foundation (Study core syntax, frameworks, and certification paths)', completed: false },
+        { id: 'st-2', name: 'Stage 2: Project Build (Deploy full-stack REST API and Docker containerization)', completed: false },
+        { id: 'st-3', name: 'Stage 3: Interview Ready (Solve 50 coding problems and validate resume parameters)', completed: false },
+      ];
+
       const newRm = {
         id: `rm-${Date.now()}`,
         title: careerGoal || 'Custom Specialist',
         targetRole: careerGoal,
-        stages: [
-          { id: 'st-1', name: 'Stage 1: Foundation (Study core syntax, frameworks, and certification paths)', completed: false },
-          { id: 'st-2', name: 'Stage 2: Project Build (Deploy full-stack REST API and Docker containerization)', completed: false },
-          { id: 'st-3', name: 'Stage 3: Interview Ready (Solve 50 coding problems and validate resume parameters)', completed: false },
-        ],
+        stages: finalStages,
         isCompleted: false,
         createdAt: new Date().toISOString()
       };
 
-      const updated = [...list, newRm];
-      localStorage.setItem('gradence_followed_roadmaps', JSON.stringify(updated));
+      const updated = [...roadmaps, newRm];
+      saveRoadmaps(updated);
       alert(`Now following: "${careerGoal}". You can check off its stages under Tools > Roadmaps Manager.`);
     } catch (e) {
       console.error('Follow failed', e);
@@ -173,16 +249,17 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Generate a step-by-step career certification and skill roadmap based on the target role.'
+        content: 'You are an expert career advisor and technical mentor. Generate a highly detailed, deep, and comprehensive step-by-step career certification and skill roadmap based on the student\'s target role. The roadmap must be extremely thorough and structured for the specific target role requested (which could be in software, hardware, core engineering, design, management, or any other field).\n\nProvide a deep dive into:\n1. Core skills, foundational theories, and methodologies that must be mastered.\n2. Advanced tools, frameworks, hardware, software, or specialized methodologies required for industry-standard applications in this specific domain.\n3. Key project domains, hands-on labs, or practical applications that build real-world competency.\n4. Professional certifications or credentials respected by premium employers in this specific industry.\n5. A concrete step-by-step Action Plan to build a stellar profile and prepare for recruitment/interviews in this field.\n\nStructure your response with clear headings (using ### or ####) for each logical stage or phase (e.g. "Phase 1: [Name]", "Phase 2: [Name]"), followed by bullet points detailing specific sub-skills, tools, or items. Make it deep, extensive, and highly tailored to the target role!\n\nCRITICAL: DO NOT include any semester timelines, semester ranges, or semester labels (such as "(Semester 5)", "Semester 6:", or "(Semesters 7-8)") anywhere in the headings, phase titles, or bullet points. The roadmap must be completely timeline-free, focusing purely on skill phases and action items.'
       },
       {
         role: 'user',
-        content: `Target Role: ${careerGoal}. Current Semester: ${profile.currentSemester}`
+        content: `Target Role: ${careerGoal}`
       }
     ];
 
     const response = await askGroq(messages, apiKey);
-    setRoadmapResult(response);
+    const cleanedResult = cleanRoadmapTimeline(response);
+    setRoadmapResult(cleanedResult);
     setIsLoading(false);
   };
 
