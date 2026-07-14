@@ -67,6 +67,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
   const handleSyncProfiles = async () => {
     setIsFetching(true);
     const synced: string[] = [];
+    const failed: string[] = [];
 
     // 1. Fetch GitHub
     if (github.username) {
@@ -80,19 +81,14 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             rating: `${info.followers || 0} Followers`
           }));
           synced.push('GitHub');
+        } else if (res.status === 404) {
+          throw new Error('User not found on GitHub');
         } else {
-          throw new Error('Not found');
+          throw new Error(`API error (${res.status})`);
         }
-      } catch (e) {
-        const u = github.username.toLowerCase();
-        const solvedVal = (u.charCodeAt(0) * 7 + u.length * 3) % 45 + 10;
-        const followers = (u.charCodeAt(u.length - 1) * 13 + u.length * 7) % 180 + 15;
-        setGithub(prev => ({
-          ...prev,
-          solved: solvedVal,
-          rating: `${followers} Followers`
-        }));
-        synced.push('GitHub (Simulated)');
+      } catch (e: any) {
+        console.error('GitHub sync failed:', e);
+        failed.push(`GitHub: ${e.message || 'Network error'}`);
       }
     }
 
@@ -129,20 +125,14 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
           } else {
             throw new Error('CF Status Failed');
           }
+        } else if (resStatus.status === 400) {
+          throw new Error('User not found on Codeforces');
         } else {
-          throw new Error('Not found');
+          throw new Error(`API error (${resStatus.status})`);
         }
-      } catch (e) {
-        const u = codeforces.username.toLowerCase();
-        const solvedVal = (u.charCodeAt(0) * 19 + u.length * 7) % 650 + 80;
-        const ranks = ['Newbie', 'Pupil', 'Specialist', 'Expert', 'Candidate Master', 'Master'];
-        const rankIdx = (u.charCodeAt(u.length - 1) + u.length) % ranks.length;
-        setCodeforces(prev => ({
-          ...prev,
-          solved: solvedVal,
-          rating: ranks[rankIdx]
-        }));
-        synced.push('Codeforces (Simulated)');
+      } catch (e: any) {
+        console.error('Codeforces sync failed:', e);
+        failed.push(`Codeforces: ${e.message || 'Network error'}`);
       }
     }
 
@@ -195,6 +185,8 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
               }));
               synced.push('LeetCode');
               success = true;
+            } else if (info?.errors) {
+              throw new Error('User not found on LeetCode');
             }
           }
         } catch (gqlErr) {
@@ -212,6 +204,10 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             const profileInfo = await profileRes.json();
             const solvedInfo = await solvedRes.json();
             
+            if (profileInfo.errors) {
+              throw new Error('User not found on LeetCode');
+            }
+
             const solvedVal = solvedInfo.solvedProblem !== undefined ? solvedInfo.solvedProblem : 0;
             const rankVal = profileInfo.ranking ? `Rank #${parseInt(profileInfo.ranking).toLocaleString()}` : 'Beginner';
             
@@ -226,19 +222,11 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
         }
 
         if (!success) {
-          throw new Error('All LeetCode sync endpoints failed');
+          throw new Error('All endpoints failed (Proxies might be down)');
         }
-      } catch (e) {
-        const u = leetcode.username.toLowerCase();
-        const solvedVal = (u.charCodeAt(0) * 13 + u.length * 11) % 450 + 40;
-        const tiers = ['Beginner', 'Intermediate', 'Advanced', 'Knight', 'Guardian'];
-        const tierIdx = solvedVal < 100 ? 0 : solvedVal < 200 ? 1 : solvedVal < 350 ? 2 : solvedVal < 420 ? 3 : 4;
-        setLeetcode(prev => ({
-          ...prev,
-          solved: solvedVal,
-          rating: tiers[tierIdx]
-        }));
-        synced.push('LeetCode (Simulated)');
+      } catch (e: any) {
+        console.error('LeetCode sync failed:', e);
+        failed.push(`LeetCode: ${e.message || 'Network error'}`);
       }
     }
 
@@ -249,7 +237,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
         const res = await fetch(getCodechefUrl(codechef.username));
         if (res.ok) {
           const info = await res.json();
-          if (info.currentRank && info.problemSolved) {
+          if (info.currentRank !== undefined && info.problemSolved !== undefined) {
             const solvedVal = parseInt(info.problemSolved) || 0;
             const ratingPoints = parseInt(info.currentRank) || 0;
             
@@ -269,34 +257,39 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             }));
             synced.push('CodeChef');
           } else {
-            throw new Error('Invalid response data format');
+            throw new Error('Invalid response format or User not found');
           }
+        } else if (res.status === 404) {
+          throw new Error('User not found on CodeChef');
         } else {
-          throw new Error('Not found');
+          throw new Error(`API Proxy error (${res.status})`);
         }
-      } catch (e) {
-        const u = codechef.username.toLowerCase();
-        const solvedVal = (u.charCodeAt(0) * 17 + u.length * 9) % 350 + 25;
-        const stars = ['1-Star', '2-Star', '3-Star', '4-Star', '5-Star', '6-Star', '7-Star'];
-        const starIdx = solvedVal < 50 ? 0 : solvedVal < 120 ? 1 : solvedVal < 200 ? 2 : solvedVal < 280 ? 3 : solvedVal < 320 ? 4 : 5;
-        setCodechef(prev => ({
-          ...prev,
-          solved: solvedVal,
-          rating: `1450 (${stars[starIdx]})`
-        }));
-        synced.push('CodeChef (Simulated)');
+      } catch (e: any) {
+        console.error('CodeChef sync failed:', e);
+        failed.push(`CodeChef: ${e.message || 'Network error, proxy might be asleep'}`);
       }
     }
 
     setIsFetching(false);
+    
+    let alertMsg = '';
     if (synced.length > 0) {
-      alert(`Synchronized: ${synced.join(', ')} successfully!`);
-    } else {
-      alert('Please enter at least one competitive programming handle to synchronize.');
+      alertMsg += `✅ Synchronized successfully: ${synced.join(', ')}\n\n`;
+    }
+    if (failed.length > 0) {
+      alertMsg += `❌ Failed to sync:\n- ${failed.join('\n- ')}\n\nYou can try again later, or enter the values manually in the inputs.`;
+    }
+    
+    if (!synced.length && !failed.length) {
+      alertMsg = 'Please enter at least one competitive programming handle to synchronize.';
+    }
+    
+    if (alertMsg) {
+      alert(alertMsg.trim());
     }
   };
 
-  const totalSolved = leetcode.solved + github.solved + codeforces.solved + codechef.solved;
+  const totalSolved = leetcode.solved + codeforces.solved + codechef.solved;
 
   return (
     <div id="coding-profiles" className="space-y-8 pb-8">
@@ -318,9 +311,16 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
       <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-15 pointer-events-none" />
         <div className="relative z-10 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-          <div>
-            <h3 className="text-2xl font-extrabold tracking-tight text-white font-mono">{totalSolved} Problems</h3>
-            <span className="text-xs text-neutral-400 mt-1 block">Total Solved Across All Competitive Platforms</span>
+          <div className="flex gap-8 sm:gap-12">
+            <div>
+              <h3 className="text-2xl font-extrabold tracking-tight text-white font-mono">{totalSolved} Problems</h3>
+              <span className="text-xs text-neutral-400 mt-1 block">Across competitive platforms</span>
+            </div>
+            <div className="w-px bg-neutral-800"></div>
+            <div>
+              <h3 className="text-2xl font-extrabold tracking-tight text-white font-mono">{github.solved} Projects</h3>
+              <span className="text-xs text-neutral-400 mt-1 block">Public GitHub Repositories</span>
+            </div>
           </div>
           <div className="flex gap-2 w-full sm:w-auto">
             <button
