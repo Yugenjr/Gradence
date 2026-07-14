@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { Plus, Trash2, Download, Eye, EyeOff } from 'lucide-react';
 import secelogo from '../assets/sece.png';
 

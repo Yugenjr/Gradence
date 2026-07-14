@@ -452,7 +452,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                 </div>
 
                 <div className="p-4 bg-neutral-950 rounded-3xl border border-neutral-900 flex items-start gap-3 mt-4">
-                  <Sparkles className="w-4 h-4 text-white/60 shrink-0 mt-0.5" />
+                  <Sparkles className="w-4 h-4 text-white opacity-60 shrink-0 mt-0.5" />
                   <p className="text-xs text-neutral-500 leading-relaxed">
                     Gradence is optimized for an ultra-premium, dark, grayscale interface. Pure black saves battery and looks incredibly clean.
                   </p>
