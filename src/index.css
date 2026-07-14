@@ -1432,3 +1432,17 @@ body {
 .se-dark-theme button.bottom-nav-btn.active .bottom-nav-dot {
   background-color: var(--college-yellow) !important;
 }
+
+/* Remap SGPA bar chart rect fills to transparent yellow in the light theme */
+.se-light-theme.light-theme svg rect[fill="#ffffff"],
+.se-light-theme svg rect[fill="#ffffff"] {
+  fill: rgba(242, 193, 15, 0.25) !important;
+  stroke: rgba(242, 193, 15, 0.5) !important;
+  stroke-width: 1px !important;
+  transition: fill 0.2s ease, opacity 0.2s ease !important;
+}
+.se-light-theme.light-theme svg rect[fill="#ffffff"]:hover,
+.se-light-theme svg rect[fill="#ffffff"]:hover {
+  fill: var(--college-yellow) !important;
+  opacity: 1 !important;
+}
