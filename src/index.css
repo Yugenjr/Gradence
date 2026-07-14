@@ -1316,6 +1316,8 @@ body {
 
 /* Sub-pill active navigator button color (Blue background, white text) */
 .se-light-theme.light-theme .bg-neutral-950 button.bg-white\/10,
+.se-light-theme.light-theme .bg-neutral-950 button.bg-white\/10.text-white,
+.se-light-theme.light-theme .bg-neutral-950 button.text-white,
 .se-light-theme .bg-neutral-955 button.bg-white\/10,
 .se-light-theme .bg-neutral-950 button.bg-white\/10 {
   background-color: var(--college-blue) !important;
