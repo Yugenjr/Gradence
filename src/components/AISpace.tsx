@@ -22,6 +22,7 @@ interface AISpaceProps {
   profile: UserProfile;
   semesters: Semester[];
   attendanceSubjects: AttendanceSubject[];
+  onNavigateToTool?: (tool: any) => void;
 }
 
 function parseInline(text: string) {
@@ -54,7 +55,7 @@ function parseMarkdown(text: string) {
   );
 }
 
-export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
+export default function AISpace({ profile, semesters, attendanceSubjects, onNavigateToTool }: AISpaceProps) {
   const { roadmaps, saveRoadmaps } = useGradence();
   const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'ats'>('chat');
   const [userInput, setUserInput] = useState('');
@@ -239,7 +240,11 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
       const updated = [...roadmaps, newRm];
       saveRoadmaps(updated);
-      alert(`Now following: "${careerGoal}". You can check off its stages under Tools > Roadmaps Manager.`);
+      if (onNavigateToTool) {
+        onNavigateToTool('roadmaps');
+      } else {
+        alert(`Now following: "${careerGoal}". You can check off its stages under Tools > Roadmaps Manager.`);
+      }
     } catch (e) {
       console.error('Follow failed', e);
     }

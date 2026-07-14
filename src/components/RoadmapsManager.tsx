@@ -167,7 +167,7 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                   </div>
                   <div className="w-full bg-neutral-900 h-1.5 rounded-full overflow-hidden">
                     <div 
-                      className="bg-white h-full transition-all duration-500 ease-out" 
+                      className="bg-college-yellow h-full transition-all duration-500 ease-out" 
                       style={{ width: `${percent}%` }}
                     />
                   </div>
@@ -178,11 +178,11 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                       {/* Parent Stage */}
                       <div 
                         onClick={() => handleToggleStage(rm.id, stage.id)}
-                        className="flex items-center gap-3 p-3 bg-neutral-900/60 border border-neutral-800 hover:border-neutral-700 rounded-xl cursor-pointer select-none transition-all"
+                        className="flex items-center gap-3 p-3 bg-neutral-900 border border-neutral-850 hover:border-neutral-800 rounded-xl cursor-pointer select-none transition-all"
                       >
                         <button className="text-neutral-500">
                           {stage.completed ? (
-                            <CheckCircle2 className="w-4 h-4 text-white" />
+                            <CheckCircle2 className="w-4 h-4 text-college-yellow" />
                           ) : (
                             <Circle className="w-4 h-4" />
                           )}
@@ -199,11 +199,11 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                             <div
                               key={sub.id}
                               onClick={() => handleToggleStage(rm.id, sub.id)}
-                              className="flex items-center gap-3 p-2.5 bg-black/20 border border-transparent hover:border-neutral-800 rounded-lg cursor-pointer select-none transition-all"
+                              className="flex items-center gap-3 p-2.5 bg-white/5 border border-neutral-900 hover:border-neutral-800 rounded-lg cursor-pointer select-none transition-all"
                             >
                               <button className="text-neutral-600">
                                 {sub.completed ? (
-                                  <CheckCircle2 className="w-3.5 h-3.5 text-neutral-300" />
+                                  <CheckCircle2 className="w-3.5 h-3.5 text-college-yellow" />
                                 ) : (
                                   <Circle className="w-3.5 h-3.5" />
                                 )}
@@ -228,7 +228,7 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                       className={`py-2 px-4 rounded-xl text-[10px] font-mono font-semibold transition-all ${
                         rm.isCompleted
                           ? 'bg-neutral-800 text-neutral-400 hover:text-white'
-                          : 'bg-white text-black hover:bg-neutral-200'
+                          : 'bg-college-yellow text-black hover:bg-college-yellow-hover'
                       }`}
                     >
                       {rm.isCompleted ? 'Mark as Active' : 'Mark Fully Completed'}

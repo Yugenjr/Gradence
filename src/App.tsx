@@ -249,6 +249,10 @@ function AppContent() {
             profile={profile}
             semesters={semesters}
             attendanceSubjects={attendanceSubjects}
+            onNavigateToTool={(tool) => {
+              setCurrentTab('tools');
+              setActiveTool(tool);
+            }}
           />
         );
 
