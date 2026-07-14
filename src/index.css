@@ -1506,3 +1506,9 @@ button.press-card:hover .w-12.h-12 svg {
 .se-light-theme .font-mono.uppercase.tracking-widest {
   font-weight: 700 !important;
 }
+
+/* Decrease visibility of card background grid dots in both themes for a cleaner look */
+.se-dark-theme div[class*="[background-size:16px_16px]"],
+.se-light-theme div[class*="[background-size:16px_16px]"] {
+  opacity: 0.08 !important;
+}
