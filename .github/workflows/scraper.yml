@@ -1,0 +1,45 @@
+name: Auto Scraper
+
+on:
+  schedule:
+    - cron: '0 */6 * * *' # Run every 6 hours
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  scrape-events:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        cd scraper
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        # Install playwright browsers
+        playwright install chromium
+
+    - name: Run scraper
+      run: |
+        cd scraper
+        python main.py
+
+    - name: Commit and push changes
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        # Stage all JSON files
+        git add scraper/*.json
+        # Only commit if there are changes
+        git diff --quiet && git diff --staged --quiet || (git commit -m "chore: Update scraped events data" && git push)

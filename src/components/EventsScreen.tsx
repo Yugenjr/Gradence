@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Building2, Trophy, Clock, ArrowLeft } from 'lucide-react';
+import ExternalEvents from './ExternalEvents';
 
 interface EventsScreenProps {
   onBack: () => void;
@@ -45,22 +46,24 @@ export default function EventsScreen({ onBack }: EventsScreenProps) {
         </div>
 
         {/* Detailed Status Card */}
-        <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-12 flex flex-col items-center justify-center text-center gap-4 relative overflow-hidden">
-          {/* Subtle grid background */}
-          <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none" />
-          
-          <div className="relative z-10 flex flex-col items-center gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-              <Clock className="w-6 h-6 text-neutral-500" />
+        {tab === 'internal' ? (
+          <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-12 flex flex-col items-center justify-center text-center gap-4 relative overflow-hidden mt-4">
+            <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none" />
+            <div className="relative z-10 flex flex-col items-center gap-3">
+              <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
+                <Clock className="w-6 h-6 text-neutral-500" />
+              </div>
+              <p className="text-base font-bold text-white mt-2">Coming Soon</p>
+              <p className="text-xs text-neutral-400 max-w-sm leading-relaxed">
+                Sri Eshwar Campus Connect is currently cataloging upcoming internal college events. Check back soon for workshops, seminars, and tech fests.
+              </p>
             </div>
-            <p className="text-base font-bold text-white mt-2">Coming Soon</p>
-            <p className="text-xs text-neutral-400 max-w-sm leading-relaxed">
-              {tab === 'internal'
-                ? 'Sri Eshwar Campus Connect is currently cataloging upcoming internal college events. Check back soon for workshops, seminars, and tech fests.'
-                : 'Hackathons, coding challenges, and innovation contests from Unstop, Devpost, and other platforms are currently syncing.'}
-            </p>
           </div>
-        </div>
+        ) : (
+          <div className="mt-4">
+            <ExternalEvents onBack={() => {}} />
+          </div>
+        )}
       </div>
     </div>
   );
