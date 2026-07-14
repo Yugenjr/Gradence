@@ -71,15 +71,26 @@ function AppContent() {
   // Sync profile values to root DOM to allow light/dark themes easily
   useEffect(() => {
     if (profile) {
-      const isDark = profile.theme === 'dark' ||
-        (profile.theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+      // Resolve active theme string
+      let activeTheme = profile.theme;
+      if (activeTheme === 'system') {
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        activeTheme = prefersDark ? 'se-dark' : 'se-light';
+      }
 
-      if (isDark) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.classList.remove('light-theme');
+      // Reset all theme classes first
+      document.documentElement.classList.remove('dark', 'light-theme', 'se-dark-theme', 'se-light-theme');
+
+      if (activeTheme === 'se-dark') {
+        document.documentElement.classList.add('dark', 'se-dark-theme');
         document.documentElement.style.backgroundColor = '#000000';
-      } else {
-        document.documentElement.classList.remove('dark');
+      } else if (activeTheme === 'se-light') {
+        document.documentElement.classList.add('light-theme', 'se-light-theme');
+        document.documentElement.style.backgroundColor = '#f5f5f7';
+      } else if (activeTheme === 'dark') {
+        document.documentElement.classList.add('dark');
+        document.documentElement.style.backgroundColor = '#000000';
+      } else if (activeTheme === 'light') {
         document.documentElement.classList.add('light-theme');
         document.documentElement.style.backgroundColor = '#f5f5f7';
       }

@@ -262,7 +262,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         name: typeof rawProfile.name === 'string' ? rawProfile.name : 'Student',
         university: typeof rawProfile.university === 'string' ? rawProfile.university : 'General University',
         currentSemester: typeof rawProfile.currentSemester === 'number' ? rawProfile.currentSemester : 1,
-        theme: (rawProfile.theme === 'light' || rawProfile.theme === 'dark' || rawProfile.theme === 'system') ? rawProfile.theme : 'dark',
+        theme: (rawProfile.theme === 'se-dark' || rawProfile.theme === 'se-light' || rawProfile.theme === 'light' || rawProfile.theme === 'dark' || rawProfile.theme === 'system') ? rawProfile.theme : 'se-dark',
         gpaScale: (rawProfile.gpaScale === 4 || rawProfile.gpaScale === 10) ? rawProfile.gpaScale : 10,
         groqApiKey: typeof rawProfile.groqApiKey === 'string' ? rawProfile.groqApiKey : ''
       };

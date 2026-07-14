@@ -207,9 +207,10 @@ body {
 }
 
 /* ==========================================================================
-   Sri Eshwar College of Engineering Theme (Blue & Yellow)
+   Sri Eshwar College of Engineering Themes (Blue & Yellow)
    ========================================================================== */
-:root {
+.se-dark-theme,
+.se-light-theme {
   --college-blue: #1e4e8c;
   --college-blue-hover: #153e75;
   --college-yellow: #f2c10f;
@@ -223,250 +224,332 @@ body {
   --color-college-yellow-hover: #e5a900;
 }
 
-/* Slanting fonts branding accent */
-.font-odoo-slant {
+/* 1. Slanting fonts branding accent */
+.se-dark-theme .font-odoo-slant,
+.se-light-theme .font-odoo-slant {
   color: var(--college-yellow) !important;
 }
 
-/* Main Action Buttons (W-full white buttons converted to Brand Yellow) */
-button.w-full.bg-white,
-button.bg-white.w-full {
+/* 2. Main Action Buttons (W-full white buttons converted to Brand Yellow) */
+.se-dark-theme button.w-full.bg-white,
+.se-dark-theme button.bg-white.w-full,
+.se-light-theme button.w-full.bg-white,
+.se-light-theme button.bg-white.w-full {
   background-color: var(--college-yellow) !important;
   color: #000000 !important;
   transition: background-color 0.2s ease !important;
 }
 
-button.w-full.bg-white:hover,
-button.bg-white.w-full:hover {
+.se-dark-theme button.w-full.bg-white:hover,
+.se-dark-theme button.bg-white.w-full:hover,
+.se-light-theme button.w-full.bg-white:hover,
+.se-light-theme button.bg-white.w-full:hover {
   background-color: var(--college-yellow-hover) !important;
 }
 
-/* Sub-action / back / save buttons that are small white buttons */
-button.bg-white:not(.w-full) {
+/* 3. Sub-action / back / save buttons that are small white buttons */
+.se-dark-theme button.bg-white:not(.w-full),
+.se-light-theme button.bg-white:not(.w-full) {
   background-color: var(--college-blue) !important;
   color: #ffffff !important;
   transition: background-color 0.2s ease !important;
 }
 
-button.bg-white:not(.w-full):hover {
+.se-dark-theme button.bg-white:not(.w-full):hover,
+.se-light-theme button.bg-white:not(.w-full):hover {
   background-color: var(--college-blue-hover) !important;
 }
 
-/* Active Tab Selectors (Module switcher pills) */
-.flex.bg-\[\#121213\] button.bg-white {
+/* 4. Active Tab Selectors (Module switcher pills) */
+.se-dark-theme .flex.bg-\[\#121213\] button.bg-white,
+.se-light-theme .flex.bg-\[\#121213\] button.bg-white,
+.se-light-theme .flex.bg-white\/5 button.bg-white,
+.se-light-theme .flex.bg-neutral-900 button.bg-white {
   background-color: var(--college-blue) !important;
   color: #ffffff !important;
 }
 
-.flex.bg-\[\#121213\] button.bg-white:hover {
+.se-dark-theme .flex.bg-\[\#121213\] button.bg-white:hover,
+.se-light-theme .flex.bg-\[\#121213\] button.bg-white:hover {
   background-color: var(--college-blue-hover) !important;
 }
 
-/* Progress bars (remap white progress to Brand Yellow) */
-.w-full.bg-neutral-900.h-1 .bg-white {
+/* 5. Progress bars (remap white progress to Brand Yellow) */
+.se-dark-theme .w-full.bg-neutral-900.h-1 .bg-white,
+.se-light-theme .w-full.bg-neutral-900.h-1 .bg-white,
+.se-light-theme .w-full.bg-neutral-950.h-1 .bg-white {
   background-color: var(--college-yellow) !important;
 }
 
-/* Bottom Navigation active states & indicator dot */
-.bottom-nav-btn.active svg,
-.bottom-nav-btn.active span {
+/* 6. Bottom Navigation active states & indicator dot */
+.se-dark-theme .bottom-nav-btn.active svg,
+.se-dark-theme .bottom-nav-btn.active span,
+.se-light-theme .bottom-nav-btn.active svg,
+.se-light-theme .bottom-nav-btn.active span {
   color: var(--college-yellow) !important;
 }
 
-.bottom-nav-btn.active svg {
+.se-dark-theme .bottom-nav-btn.active svg,
+.se-light-theme .bottom-nav-btn.active svg {
   filter: drop-shadow(0px 0px 8px rgba(242, 193, 15, 0.7)) !important;
 }
 
-.bottom-nav-btn.active span {
+.se-dark-theme .bottom-nav-btn.active span,
+.se-light-theme .bottom-nav-btn.active span {
   filter: drop-shadow(0px 0px 6px rgba(242, 193, 15, 0.5)) !important;
 }
 
-.bottom-nav-dot {
+.se-dark-theme .bottom-nav-dot,
+.se-light-theme .bottom-nav-dot {
   background-color: var(--college-yellow) !important;
   box-shadow: 0 0 10px var(--college-yellow) !important;
 }
 
-/* Interactive elements / cards border coloring tint */
-:root .bg-\[\#171717\] {
+/* 7. Interactive elements / cards border coloring tint */
+.se-dark-theme .bg-\[\#171717\],
+.se-light-theme .bg-\[\#171717\],
+.se-light-theme .bg-white {
   border-color: rgba(30, 78, 140, 0.4) !important;
 }
-:root .border-\[\#2A2A2A\] {
+.se-dark-theme .border-\[\#2A2A2A\],
+.se-light-theme .border-\[\#2A2A2A\],
+.se-light-theme .border-neutral-200 {
   border-color: rgba(30, 78, 140, 0.3) !important;
 }
-:root .border-neutral-900,
-:root .border-neutral-800 {
+.se-dark-theme .border-neutral-900,
+.se-dark-theme .border-neutral-800,
+.se-light-theme .border-neutral-900,
+.se-light-theme .border-neutral-800 {
   border-color: rgba(30, 78, 140, 0.2) !important;
 }
 
-/* Input field focuses */
-textarea:focus,
-input:focus,
-select:focus {
+/* 8. Input field focuses */
+.se-dark-theme textarea:focus,
+.se-dark-theme input:focus,
+.se-dark-theme select:focus,
+.se-light-theme textarea:focus,
+.se-light-theme input:focus,
+.se-light-theme select:focus {
   border-color: var(--college-blue) !important;
   box-shadow: 0 0 0 1px var(--college-blue) !important;
 }
 
-/* Alert overrides for light-theme compatibility */
-.light-theme {
-  --college-blue-hover: #1e4e8c;
-  --college-yellow-hover: #f2c10f;
-}
-
-/* Extended College Branding Customizations */
-
-/* 1. Map high-contrast active borders to brand blue */
-:root .border-white {
+/* 9. Map high-contrast active borders to brand blue */
+.se-dark-theme .border-white,
+.se-light-theme .border-white {
   border-color: var(--college-blue) !important;
 }
 
-/* 2. SVG Circular Progress Indicators & line charts */
-svg circle[stroke="#ffffff"],
-svg polyline[stroke="#ffffff"] {
+/* 10. SVG Circular Progress Indicators & line charts */
+.se-dark-theme svg circle[stroke="#ffffff"],
+.se-dark-theme svg polyline[stroke="#ffffff"],
+.se-light-theme svg circle[stroke="#ffffff"],
+.se-light-theme svg polyline[stroke="#ffffff"] {
   stroke: var(--college-yellow) !important;
 }
-svg stop[stopColor="#ffffff"] {
+.se-dark-theme svg stop[stopColor="#ffffff"],
+.se-light-theme svg stop[stopColor="#ffffff"] {
   stop-color: var(--college-yellow) !important;
 }
-svg text[fill="#fff"] {
+.se-dark-theme svg text[fill="#fff"],
+.se-light-theme svg text[fill="#fff"] {
   fill: var(--college-yellow) !important;
 }
 
-/* 3. Range slider active handles */
-input[type="range"] {
+/* 11. Range slider active handles */
+.se-dark-theme input[type="range"],
+.se-light-theme input[type="range"] {
   accent-color: var(--college-yellow) !important;
 }
 
-/* 4. Rounded icon boxes inside home, tools, onboarding lists */
-.w-12.h-12.rounded-2xl.bg-neutral-900 svg,
-.w-12.h-12.rounded-2xl.bg-neutral-950 svg,
-.w-12.h-12.bg-neutral-900 svg,
-.w-12.h-12.rounded-2xl.bg-white\/5 svg {
+/* 12. Rounded icon boxes inside lists */
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-neutral-900 svg,
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-neutral-955 svg,
+.se-dark-theme .w-12.h-12.bg-neutral-900 svg,
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-white\/5 svg,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-neutral-900 svg,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-neutral-955 svg,
+.se-light-theme .w-12.h-12.bg-neutral-900 svg,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-white\/5 svg {
   color: var(--college-yellow) !important;
 }
 
-.w-12.h-12.rounded-2xl.bg-neutral-900,
-.w-12.h-12.rounded-2xl.bg-neutral-955,
-.w-12.h-12.bg-neutral-900,
-.w-12.h-12.rounded-2xl.bg-white\/5 {
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-neutral-900,
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-neutral-955,
+.se-dark-theme .w-12.h-12.bg-neutral-900,
+.se-dark-theme .w-12.h-12.rounded-2xl.bg-white\/5,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-neutral-900,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-neutral-955,
+.se-light-theme .w-12.h-12.bg-neutral-900,
+.se-light-theme .w-12.h-12.rounded-2xl.bg-white\/5 {
   border-color: rgba(30, 78, 140, 0.45) !important;
   background-color: rgba(30, 78, 140, 0.1) !important;
 }
 
-/* 5. Peer Connect dashboard visual illustrations and badges */
-#ai-space .bg-white\/5.blur-xl {
+/* 13. Peer Connect dashboard visual illustrations and badges */
+.se-dark-theme #ai-space .bg-white\/5.blur-xl,
+.se-light-theme #ai-space .bg-white\/5.blur-xl {
   background-color: rgba(30, 78, 140, 0.25) !important;
 }
-#ai-space .w-16.h-16.bg-neutral-900 {
+.se-dark-theme #ai-space .w-16.h-16.bg-neutral-900,
+.se-light-theme #ai-space .w-16.h-16.bg-neutral-900 {
   border-color: rgba(30, 78, 140, 0.5) !important;
   background-color: rgba(30, 78, 140, 0.1) !important;
 }
-#ai-space .w-16.h-16.bg-neutral-900 svg {
+.se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 svg,
+.se-light-theme #ai-space .w-16.h-16.bg-neutral-900 svg {
   color: var(--college-yellow) !important;
 }
-#ai-space .w-16.h-16.bg-neutral-900 .text-white {
+.se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white,
+.se-light-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white {
   color: var(--college-yellow) !important;
 }
-#ai-space span.bg-white\/5.border-white\/10 {
+.se-dark-theme #ai-space span.bg-white\/5.border-white\/10,
+.se-light-theme #ai-space span.bg-white\/5.border-white\/10 {
   background-color: rgba(30, 78, 140, 0.15) !important;
   border-color: rgba(30, 78, 140, 0.3) !important;
   color: var(--college-yellow) !important;
 }
 
-/* Additional Extended Brand Blue Customizations */
-
-/* 6. Card hovered border highlights mapped to brand blue */
-.press-card:hover,
-button.press-card:hover,
-div.press-card:hover {
+/* 14. Card hovered border highlights mapped to brand blue */
+.se-dark-theme .press-card:hover,
+.se-dark-theme button.press-card:hover,
+.se-dark-theme div.press-card:hover,
+.se-light-theme .press-card:hover,
+.se-light-theme button.press-card:hover,
+.se-light-theme div.press-card:hover {
   border-color: var(--college-blue) !important;
 }
 
-/* 7. Active placement sub-tab pills (Skills, Roadmap, Resume) mapped to brand blue */
-button.bg-white\/10 {
+/* 15. Active placement sub-tab pills (Skills, Roadmap, Resume) mapped to brand blue */
+.se-dark-theme button.bg-white\/10,
+.se-light-theme button.bg-white\/10 {
   background-color: var(--college-blue) !important;
   color: #ffffff !important;
 }
 
-/* 8. Active selected items (GPAScale selectors, Subject selections) soft blue background */
-.border-white.bg-\[\#171717\],
-.border-white.bg-neutral-900 {
+/* 16. Active selected items (GPAScale selectors, Subject selections) soft blue background */
+.se-dark-theme .border-white.bg-\[\#171717\],
+.se-dark-theme .border-white.bg-neutral-900,
+.se-light-theme .border-white.bg-\[\#171717\],
+.se-light-theme .border-white.bg-neutral-900 {
   background-color: rgba(30, 78, 140, 0.15) !important;
 }
 
-/* 9. Secondary and Minor gray-bordered buttons hover alignment */
-button.border-neutral-800:hover,
-button.border-neutral-900:hover,
-button.border-neutral-700:hover,
-.border-\[\#2A2A2A\]:hover {
+/* 17. Secondary and Minor gray-bordered buttons hover alignment */
+.se-dark-theme button.border-neutral-800:hover,
+.se-dark-theme button.border-neutral-900:hover,
+.se-dark-theme button.border-neutral-700:hover,
+.se-dark-theme .border-\[\#2A2A2A\]:hover,
+.se-light-theme button.border-neutral-800:hover,
+.se-light-theme button.border-neutral-900:hover,
+.se-light-theme button.border-neutral-700:hover,
+.se-light-theme .border-\[\#2A2A2A\]:hover,
+.se-light-theme .border-neutral-200:hover {
   border-color: rgba(30, 78, 140, 0.6) !important;
   color: var(--college-yellow) !important;
 }
 
-/* 10. Workspace / Core badges (Top header pills) deep blue translucent background fill */
-span.bg-neutral-950.border-neutral-900.rounded-full {
+/* 18. Workspace / Core badges (Top header pills) deep blue translucent background fill */
+.se-dark-theme span.bg-neutral-950.border-neutral-900.rounded-full,
+.se-light-theme span.bg-neutral-950.border-neutral-900.rounded-full {
   background-color: rgba(30, 78, 140, 0.15) !important;
   border-color: rgba(30, 78, 140, 0.3) !important;
   color: #ffffff !important;
 }
 
-/* 11. Body top radial blue gradient glow */
-body {
+/* 19. Body top radial blue gradient glow */
+.se-dark-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.22) 0%, #000000 80%) no-repeat fixed !important;
 }
+.se-light-theme body {
+  background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.12) 0%, #f5f5f7 85%) no-repeat fixed !important;
+}
 
-/* 12. Scrollbar brand blue mapping */
-::-webkit-scrollbar-thumb {
+/* 20. Scrollbar brand blue mapping */
+.se-dark-theme ::-webkit-scrollbar-thumb,
+.se-light-theme ::-webkit-scrollbar-thumb {
   background: var(--college-blue) !important;
 }
-::-webkit-scrollbar-thumb:hover {
+.se-dark-theme ::-webkit-scrollbar-thumb:hover,
+.se-light-theme ::-webkit-scrollbar-thumb:hover {
   background: var(--college-blue-hover) !important;
 }
 
-/* 13. Text selections brand blue mapping */
-::selection {
+/* 21. Text selections brand blue mapping */
+.se-dark-theme ::selection,
+.se-light-theme ::selection {
   background: var(--college-blue) !important;
   color: #ffffff !important;
 }
 
-/* 14. Card drop-shadows & glows in brand blue */
-.press-card,
-.bg-\[\#171717\] {
+/* 22. Card drop-shadows & glows in brand blue */
+.se-dark-theme .press-card,
+.se-dark-theme .bg-\[\#171717\] {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.05) !important;
 }
-.press-card:hover,
-.bg-\[\#171717\]:hover {
+.se-dark-theme .press-card:hover,
+.se-dark-theme .bg-\[\#171717\]:hover {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.12) !important;
 }
+.se-light-theme .press-card,
+.se-light-theme .bg-\[\#171717\],
+.se-light-theme .bg-white {
+  box-shadow: 0 6px 32px rgba(30, 78, 140, 0.04) !important;
+}
+.se-light-theme .press-card:hover,
+.se-light-theme .bg-\[\#171717\]:hover,
+.se-light-theme .bg-white:hover {
+  box-shadow: 0 6px 32px rgba(30, 78, 140, 0.08) !important;
+}
 
-/* 15. Default state borders of all inputs/textareas/selects */
-textarea,
-input,
-select {
+/* 23. Default state borders of all inputs/textareas/selects */
+.se-dark-theme textarea,
+.se-dark-theme input,
+.se-dark-theme select,
+.se-light-theme textarea,
+.se-light-theme input,
+.se-light-theme select {
   border-color: rgba(30, 78, 140, 0.3) !important;
+}
+.se-dark-theme textarea,
+.se-dark-theme input,
+.se-dark-theme select {
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 
-/* 16. Progress bar rails background blue tint */
-.w-full.bg-neutral-900.h-1 {
+/* 24. Progress bar rails background blue tint */
+.se-dark-theme .w-full.bg-neutral-900.h-1,
+.se-light-theme .w-full.bg-neutral-900.h-1,
+.se-light-theme .w-full.bg-neutral-950.h-1 {
   background-color: rgba(30, 78, 140, 0.2) !important;
 }
 
-/* 17. Number badges and list circles */
-.w-8.h-8.rounded-full.bg-neutral-900,
-.w-8.h-8.rounded-full.bg-neutral-950,
-.w-8.h-8.rounded-full.bg-black,
-.w-7.h-7.rounded-full.bg-neutral-900,
-.w-6.h-6.rounded-full.bg-neutral-900,
-.w-6.h-6.rounded-full.bg-neutral-955 {
+/* 25. Number badges and list circles */
+.se-dark-theme .w-8.h-8.rounded-full.bg-neutral-900,
+.se-dark-theme .w-8.h-8.rounded-full.bg-neutral-950,
+.se-dark-theme .w-8.h-8.rounded-full.bg-black,
+.se-dark-theme .w-7.h-7.rounded-full.bg-neutral-900,
+.se-dark-theme .w-6.h-6.rounded-full.bg-neutral-900,
+.se-dark-theme .w-6.h-6.rounded-full.bg-neutral-955,
+.se-light-theme .w-8.h-8.rounded-full.bg-neutral-900,
+.se-light-theme .w-8.h-8.rounded-full.bg-neutral-955,
+.se-light-theme .w-8.h-8.rounded-full.bg-black,
+.se-light-theme .w-7.h-7.rounded-full.bg-neutral-900,
+.se-light-theme .w-6.h-6.rounded-full.bg-neutral-900,
+.se-light-theme .w-6.h-6.rounded-full.bg-neutral-955 {
   background-color: rgba(30, 78, 140, 0.15) !important;
   border: 1px solid rgba(30, 78, 140, 0.35) !important;
   color: #ffffff !important;
 }
 
-/* 18. Tint grey icons to soft brand blue */
-svg.text-neutral-400,
-svg.text-neutral-500,
-svg.text-neutral-600 {
+/* 26. Tint grey icons to soft brand blue */
+.se-dark-theme svg.text-neutral-400,
+.se-dark-theme svg.text-neutral-500,
+.se-dark-theme svg.text-neutral-600,
+.se-light-theme svg.text-neutral-400,
+.se-light-theme svg.text-neutral-500,
+.se-light-theme svg.text-neutral-600 {
   color: rgba(30, 78, 140, 0.8) !important;
 }
 

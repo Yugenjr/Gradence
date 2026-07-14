@@ -2,7 +2,7 @@ export interface UserProfile {
   name: string;
   university: string;
   currentSemester: number;
-  theme: 'dark' | 'light' | 'system';
+  theme: 'se-dark' | 'se-light' | 'dark' | 'light' | 'system';
   gpaScale: 4 | 10;
   groqApiKey?: string;
 }
