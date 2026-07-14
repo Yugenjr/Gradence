@@ -163,7 +163,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
                 type="button"
                 onClick={() => setSelectedSemNum(num)}
                 className={`flex-1 min-w-[56px] py-2.5 rounded-xl border text-xs font-medium transition-all flex flex-col items-center justify-center gap-0.5 ${isSelected
-                    ? 'border-white bg-[#262626] text-white font-bold'
+                    ? 'border-college-blue bg-college-blue text-white font-bold'
                     : 'border-[#2A2A2A] bg-black/40 text-neutral-400 hover:border-neutral-700'
                   }`}
               >
