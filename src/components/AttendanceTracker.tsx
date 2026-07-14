@@ -549,7 +549,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                       onClick={() => handleUpdateAttendance(activeSubject.id, false, false)}
                       className="px-2 py-1 border border-neutral-800 rounded-lg hover:border-neutral-600 hover:text-white"
                     >
-                      - Total
+                      - Missed
                     </button>
                     <button
                       onClick={() => handleUpdateAttendance(activeSubject.id, true, false)}
