@@ -373,7 +373,7 @@ export default function HomeDashboard({
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
               TODAY'S INTENT
             </span>
-            <p className="text-sm font-medium italic text-white/90 mt-6 leading-relaxed">
+            <p className="text-sm font-medium italic text-white mt-6 leading-relaxed">
               "{quote.text}"
             </p>
           </div>
