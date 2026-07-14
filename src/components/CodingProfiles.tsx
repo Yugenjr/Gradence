@@ -14,6 +14,20 @@ interface ProfileData {
   hackos?: number;
 }
 
+const getLeetcodeUrl = () => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return '/leetcode-graphql';
+  }
+  return 'https://leetcode.com/graphql';
+};
+
+const getCodechefUrl = (username: string) => {
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return `/codechef-api/${username}`;
+  }
+  return `https://codechef-rating-i7yd.onrender.com/${username}`;
+};
+
 export default function CodingProfiles({ onBack }: CodingProfilesProps) {
   const [leetcode, setLeetcode] = useState<ProfileData>({ username: '', solved: 0, rating: 'Beginner' });
   const [github, setGithub] = useState<ProfileData>({ username: '', solved: 0, rating: '0 Repos' });
@@ -124,7 +138,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
       }
     }
 
-    // 3. Fetch LeetCode (GraphQL via CORS Proxy)
+    // 3. Fetch LeetCode (GraphQL via proxy/direct)
     if (leetcode.username) {
       try {
         const query = `
@@ -143,10 +157,11 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             }
           }
         `;
-        const res = await fetch("https://corsproxy.io/?url=https://leetcode.com/graphql", {
+        const res = await fetch(getLeetcodeUrl(), {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Referer": "https://leetcode.com"
           },
           body: JSON.stringify({
             query: query,
@@ -191,7 +206,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     // 5. Fetch CodeChef
     if (codechef.username) {
       try {
-        const res = await fetch(`https://corsproxy.io/?url=https://codechef-rating-i7yd.onrender.com/${codechef.username}`);
+        const res = await fetch(getCodechefUrl(codechef.username));
         if (res.ok) {
           const info = await res.json();
           if (info.currentRank && info.problemSolved) {
@@ -206,7 +221,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             else if (ratingPoints >= 1600) starsVal = '3-Star';
             else if (ratingPoints >= 1400) starsVal = '2-Star';
             else starsVal = '1-Star';
-
+            
             setCodechef(prev => ({
               ...prev,
               solved: solvedVal,
