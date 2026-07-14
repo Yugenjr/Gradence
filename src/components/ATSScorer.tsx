@@ -158,7 +158,7 @@ Be strict and realistic. Score based on keyword match, skills alignment, and rol
               <p className="text-[10px] font-mono text-green-400 uppercase tracking-widest font-bold">✓ Matched Keywords</p>
               <div className="flex flex-wrap gap-1.5">
                 {result.matched.map((kw, i) => (
-                  <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-green-400/10 border border-green-400/20 text-green-400">{kw}</span>
+                  <span key={i} className="text-sm font-semibold px-3.5 py-1.5 rounded-xl bg-green-400/10 border border-green-400/20 text-green-400">{kw}</span>
                 ))}
               </div>
             </div>
@@ -170,7 +170,7 @@ Be strict and realistic. Score based on keyword match, skills alignment, and rol
               <p className="text-[10px] font-mono text-red-400 uppercase tracking-widest font-bold">✗ Missing Keywords</p>
               <div className="flex flex-wrap gap-1.5">
                 {result.missing.map((kw, i) => (
-                  <span key={i} className="text-[10px] px-2 py-0.5 rounded-full bg-red-400/10 border border-red-400/20 text-red-400">{kw}</span>
+                  <span key={i} className="text-sm font-semibold px-3.5 py-1.5 rounded-xl bg-red-400/10 border border-red-400/20 text-red-400">{kw}</span>
                 ))}
               </div>
             </div>
