@@ -206,4 +206,270 @@ body {
   box-shadow: 0 0 10px #ffffff !important;
 }
 
+/* ==========================================================================
+   Sri Eshwar College of Engineering Theme (Blue & Yellow)
+   ========================================================================== */
+:root {
+  --college-blue: #1e4e8c;
+  --college-blue-hover: #153e75;
+  --college-yellow: #f2c10f;
+  --college-yellow-hover: #e5a900;
+}
+
+@theme {
+  --color-college-blue: #1e4e8c;
+  --color-college-blue-hover: #153e75;
+  --color-college-yellow: #f2c10f;
+  --color-college-yellow-hover: #e5a900;
+}
+
+/* Slanting fonts branding accent */
+.font-odoo-slant {
+  color: var(--college-yellow) !important;
+}
+
+/* Main Action Buttons (W-full white buttons converted to Brand Yellow) */
+button.w-full.bg-white,
+button.bg-white.w-full {
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  transition: background-color 0.2s ease !important;
+}
+
+button.w-full.bg-white:hover,
+button.bg-white.w-full:hover {
+  background-color: var(--college-yellow-hover) !important;
+}
+
+/* Sub-action / back / save buttons that are small white buttons */
+button.bg-white:not(.w-full) {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  transition: background-color 0.2s ease !important;
+}
+
+button.bg-white:not(.w-full):hover {
+  background-color: var(--college-blue-hover) !important;
+}
+
+/* Active Tab Selectors (Module switcher pills) */
+.flex.bg-\[\#121213\] button.bg-white {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+}
+
+.flex.bg-\[\#121213\] button.bg-white:hover {
+  background-color: var(--college-blue-hover) !important;
+}
+
+/* Progress bars (remap white progress to Brand Yellow) */
+.w-full.bg-neutral-900.h-1 .bg-white {
+  background-color: var(--college-yellow) !important;
+}
+
+/* Bottom Navigation active states & indicator dot */
+.bottom-nav-btn.active svg,
+.bottom-nav-btn.active span {
+  color: var(--college-yellow) !important;
+}
+
+.bottom-nav-btn.active svg {
+  filter: drop-shadow(0px 0px 8px rgba(242, 193, 15, 0.7)) !important;
+}
+
+.bottom-nav-btn.active span {
+  filter: drop-shadow(0px 0px 6px rgba(242, 193, 15, 0.5)) !important;
+}
+
+.bottom-nav-dot {
+  background-color: var(--college-yellow) !important;
+  box-shadow: 0 0 10px var(--college-yellow) !important;
+}
+
+/* Interactive elements / cards border coloring tint */
+:root .bg-\[\#171717\] {
+  border-color: rgba(30, 78, 140, 0.4) !important;
+}
+:root .border-\[\#2A2A2A\] {
+  border-color: rgba(30, 78, 140, 0.3) !important;
+}
+:root .border-neutral-900,
+:root .border-neutral-800 {
+  border-color: rgba(30, 78, 140, 0.2) !important;
+}
+
+/* Input field focuses */
+textarea:focus,
+input:focus,
+select:focus {
+  border-color: var(--college-blue) !important;
+  box-shadow: 0 0 0 1px var(--college-blue) !important;
+}
+
+/* Alert overrides for light-theme compatibility */
+.light-theme {
+  --college-blue-hover: #1e4e8c;
+  --college-yellow-hover: #f2c10f;
+}
+
+/* Extended College Branding Customizations */
+
+/* 1. Map high-contrast active borders to brand blue */
+:root .border-white {
+  border-color: var(--college-blue) !important;
+}
+
+/* 2. SVG Circular Progress Indicators & line charts */
+svg circle[stroke="#ffffff"],
+svg polyline[stroke="#ffffff"] {
+  stroke: var(--college-yellow) !important;
+}
+svg stop[stopColor="#ffffff"] {
+  stop-color: var(--college-yellow) !important;
+}
+svg text[fill="#fff"] {
+  fill: var(--college-yellow) !important;
+}
+
+/* 3. Range slider active handles */
+input[type="range"] {
+  accent-color: var(--college-yellow) !important;
+}
+
+/* 4. Rounded icon boxes inside home, tools, onboarding lists */
+.w-12.h-12.rounded-2xl.bg-neutral-900 svg,
+.w-12.h-12.rounded-2xl.bg-neutral-950 svg,
+.w-12.h-12.bg-neutral-900 svg,
+.w-12.h-12.rounded-2xl.bg-white\/5 svg {
+  color: var(--college-yellow) !important;
+}
+
+.w-12.h-12.rounded-2xl.bg-neutral-900,
+.w-12.h-12.rounded-2xl.bg-neutral-955,
+.w-12.h-12.bg-neutral-900,
+.w-12.h-12.rounded-2xl.bg-white\/5 {
+  border-color: rgba(30, 78, 140, 0.45) !important;
+  background-color: rgba(30, 78, 140, 0.1) !important;
+}
+
+/* 5. Peer Connect dashboard visual illustrations and badges */
+#ai-space .bg-white\/5.blur-xl {
+  background-color: rgba(30, 78, 140, 0.25) !important;
+}
+#ai-space .w-16.h-16.bg-neutral-900 {
+  border-color: rgba(30, 78, 140, 0.5) !important;
+  background-color: rgba(30, 78, 140, 0.1) !important;
+}
+#ai-space .w-16.h-16.bg-neutral-900 svg {
+  color: var(--college-yellow) !important;
+}
+#ai-space .w-16.h-16.bg-neutral-900 .text-white {
+  color: var(--college-yellow) !important;
+}
+#ai-space span.bg-white\/5.border-white\/10 {
+  background-color: rgba(30, 78, 140, 0.15) !important;
+  border-color: rgba(30, 78, 140, 0.3) !important;
+  color: var(--college-yellow) !important;
+}
+
+/* Additional Extended Brand Blue Customizations */
+
+/* 6. Card hovered border highlights mapped to brand blue */
+.press-card:hover,
+button.press-card:hover,
+div.press-card:hover {
+  border-color: var(--college-blue) !important;
+}
+
+/* 7. Active placement sub-tab pills (Skills, Roadmap, Resume) mapped to brand blue */
+button.bg-white\/10 {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+}
+
+/* 8. Active selected items (GPAScale selectors, Subject selections) soft blue background */
+.border-white.bg-\[\#171717\],
+.border-white.bg-neutral-900 {
+  background-color: rgba(30, 78, 140, 0.15) !important;
+}
+
+/* 9. Secondary and Minor gray-bordered buttons hover alignment */
+button.border-neutral-800:hover,
+button.border-neutral-900:hover,
+button.border-neutral-700:hover,
+.border-\[\#2A2A2A\]:hover {
+  border-color: rgba(30, 78, 140, 0.6) !important;
+  color: var(--college-yellow) !important;
+}
+
+/* 10. Workspace / Core badges (Top header pills) deep blue translucent background fill */
+span.bg-neutral-950.border-neutral-900.rounded-full {
+  background-color: rgba(30, 78, 140, 0.15) !important;
+  border-color: rgba(30, 78, 140, 0.3) !important;
+  color: #ffffff !important;
+}
+
+/* 11. Body top radial blue gradient glow */
+body {
+  background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.22) 0%, #000000 80%) no-repeat fixed !important;
+}
+
+/* 12. Scrollbar brand blue mapping */
+::-webkit-scrollbar-thumb {
+  background: var(--college-blue) !important;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--college-blue-hover) !important;
+}
+
+/* 13. Text selections brand blue mapping */
+::selection {
+  background: var(--college-blue) !important;
+  color: #ffffff !important;
+}
+
+/* 14. Card drop-shadows & glows in brand blue */
+.press-card,
+.bg-\[\#171717\] {
+  box-shadow: 0 6px 32px rgba(30, 78, 140, 0.05) !important;
+}
+.press-card:hover,
+.bg-\[\#171717\]:hover {
+  box-shadow: 0 6px 32px rgba(30, 78, 140, 0.12) !important;
+}
+
+/* 15. Default state borders of all inputs/textareas/selects */
+textarea,
+input,
+select {
+  border-color: rgba(30, 78, 140, 0.3) !important;
+  background-color: rgba(0, 0, 0, 0.3) !important;
+}
+
+/* 16. Progress bar rails background blue tint */
+.w-full.bg-neutral-900.h-1 {
+  background-color: rgba(30, 78, 140, 0.2) !important;
+}
+
+/* 17. Number badges and list circles */
+.w-8.h-8.rounded-full.bg-neutral-900,
+.w-8.h-8.rounded-full.bg-neutral-950,
+.w-8.h-8.rounded-full.bg-black,
+.w-7.h-7.rounded-full.bg-neutral-900,
+.w-6.h-6.rounded-full.bg-neutral-900,
+.w-6.h-6.rounded-full.bg-neutral-955 {
+  background-color: rgba(30, 78, 140, 0.15) !important;
+  border: 1px solid rgba(30, 78, 140, 0.35) !important;
+  color: #ffffff !important;
+}
+
+/* 18. Tint grey icons to soft brand blue */
+svg.text-neutral-400,
+svg.text-neutral-500,
+svg.text-neutral-600 {
+  color: rgba(30, 78, 140, 0.8) !important;
+}
+
+
+
 

@@ -309,8 +309,9 @@ export default function SettingsScreen({
     <div id="settings-screen" className="space-y-8 pb-4">
       {/* Header */}
       <div>
-        <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
-          CONTROL CENTER
+        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block flex items-center gap-1.5 bg-neutral-950 border border-neutral-900 rounded-full px-2.5 py-1 w-fit mb-1 shadow-inner">
+          <Settings className="w-3.5 h-3.5 text-college-yellow" />
+          SRI ESHWAR CAMPUS CORE
         </span>
         <h1 className="text-3xl font-extrabold tracking-tight text-white mt-1 leading-tight">
           System <span className="text-white font-odoo-slant">Settings</span>

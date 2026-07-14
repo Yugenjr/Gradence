@@ -98,8 +98,9 @@ export default function HomeDashboard({
       {/* Header Profile Info */}
       <div className="flex justify-between items-center pt-4">
         <div>
-          <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
-            WORKSPACE
+          <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block flex items-center gap-1.5 bg-neutral-950 border border-neutral-900 rounded-full px-2.5 py-1 w-fit mb-1 shadow-inner">
+            <GraduationCap className="w-3.5 h-3.5 text-college-yellow" />
+            SRI ESHWAR CAMPUS OS
           </span>
           <h1 className="text-3xl font-extrabold tracking-tight text-white mt-1 leading-tight">
             {greeting},<br />

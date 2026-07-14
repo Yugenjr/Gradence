@@ -11,7 +11,7 @@ interface OnboardingProps {
 export default function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
   const [name, setName] = useState('');
-  const [university, setUniversity] = useState('Stanford University');
+  const [university, setUniversity] = useState('Sri Eshwar College of Engineering');
   const [currentSemester, setCurrentSemester] = useState(1);
   const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
   const [gpaScale, setGpaScale] = useState<4 | 10>(10);
@@ -22,13 +22,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const [isCustomUniActive, setIsCustomUniActive] = useState(false);
 
   const universities = [
-    'Stanford University',
-    'MIT',
-    'National University of Singapore',
+    'Sri Eshwar College of Engineering',
     'IIT Bombay',
+    'National University of Singapore',
     'University of Toronto',
     'Oxford University',
-    'University of Melbourne',
+    'MIT',
+    'Stanford University',
     'Custom...'
   ];
 

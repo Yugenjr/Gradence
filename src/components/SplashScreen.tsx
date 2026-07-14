@@ -66,7 +66,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           initial={{ left: "-100%" }}
           animate={{ left: "100%" }}
           transition={{ duration: 1.8, ease: "easeInOut", repeat: 0 }}
-          className="absolute top-0 bottom-0 w-1/2 bg-white/40"
+          className="absolute top-0 bottom-0 w-1/2 bg-college-yellow"
         />
       </div>
 
