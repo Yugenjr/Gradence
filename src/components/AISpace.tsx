@@ -17,6 +17,7 @@ import {
 } from 'lucide-react';
 import EventsScreen from './EventsScreen';
 import ResumeBuilder from './ResumeBuilder';
+import ATSScorer from './ATSScorer';
 
 interface AISpaceProps {
   profile: UserProfile;
@@ -56,7 +57,7 @@ function parseMarkdown(text: string) {
 
 export default function AISpace({ profile, semesters, attendanceSubjects }: AISpaceProps) {
   const { roadmaps, saveRoadmaps } = useGradence();
-  const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'social' | 'resume'>('chat');
+  const [activeModule, setActiveModule] = useState<'chat' | 'placement' | 'career' | 'social' | 'resume' | 'ats'>('chat');
   const [userInput, setUserInput] = useState('');
   const [chatHistory, setChatHistory] = useState<ChatMessage[]>([
     { role: 'assistant', content: `Hello, **${profile.name}**! I am your Gradence AI Academic OS Assistant. I'm connected to the Groq Cloud API. Ask me anything about your current semesters, study guidance, or career preparation!` }
@@ -362,6 +363,7 @@ Include this score on a separate line at the very end of your response in the ex
           { id: 'career', label: 'Career Roadmaps', icon: Compass },
           { id: 'social', label: 'Events', icon: Calendar },
           { id: 'resume', label: 'Resume', icon: FileText },
+          { id: 'ats', label: 'ATS Score', icon: Sparkles },
         ].map((mod) => {
           const Icon = mod.icon;
           const isActive = activeModule === mod.id;
@@ -590,6 +592,13 @@ Include this score on a separate line at the very end of your response in the ex
         {activeModule === 'resume' && (
           <div className="p-4">
             <ResumeBuilder />
+          </div>
+        )}
+
+        {/* ATS Scorer Module */}
+        {activeModule === 'ats' && (
+          <div className="p-4">
+            <ATSScorer apiKey={apiKey} />
           </div>
         )}
 
