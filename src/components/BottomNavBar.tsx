@@ -28,7 +28,7 @@ export default function BottomNavBar({ activeTab, onChangeTab }: BottomNavBarPro
               onClick={() => onChangeTab(tab.id)}
               className={`bottom-nav-btn relative py-2 px-4 rounded-full flex flex-col items-center justify-center gap-0.5 transition-all active:scale-90 ${
                 isActive ? 'active' : ''
-              }`}
+              } ${tab.id === 'settings' ? '-ml-2' : ''}`}
             >
               <IconComponent className="w-5 h-5 stroke-[1.8]" />
               <span className="text-[9px] font-mono font-medium tracking-wide">

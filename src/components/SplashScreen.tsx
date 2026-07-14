@@ -61,7 +61,7 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
       </motion.div>
 
       {/* Progress line */}
-      <div className="absolute bottom-16 left-1/2 transform -translate-x-1/2 w-48 h-[1px] bg-neutral-900 overflow-hidden">
+      <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2 w-48 h-[1px] bg-neutral-900 overflow-hidden">
         <motion.div 
           initial={{ left: "-100%" }}
           animate={{ left: "100%" }}
@@ -69,6 +69,15 @@ export default function SplashScreen({ onComplete }: SplashScreenProps) {
           className="absolute top-0 bottom-0 w-1/2 bg-white/40"
         />
       </div>
+
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.5 }}
+        transition={{ delay: 1.0, duration: 0.6 }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-[9px] text-neutral-500 uppercase tracking-widest font-mono whitespace-nowrap"
+      >
+        developed by team detroit
+      </motion.div>
     </div>
   );
 }

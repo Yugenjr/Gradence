@@ -243,11 +243,14 @@ function AppContent() {
 
   if (isStorageLoading) {
     return (
-      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4">
+      <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center gap-4 relative">
         <div className="w-8 h-8 border-2 border-t-white border-white/10 rounded-full animate-spin" />
         <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
           Gradence OS is initializing...
         </span>
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-[9px] text-neutral-600 uppercase tracking-widest font-mono whitespace-nowrap">
+          developed by team detroit
+        </div>
       </div>
     );
   }
