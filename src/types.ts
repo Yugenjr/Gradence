@@ -70,4 +70,4 @@ export interface CareerRoadmap {
 }
 
 export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
-export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps' | 'planner';
+export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps' | 'planner' | 'events' | 'resume';
