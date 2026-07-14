@@ -48,6 +48,7 @@ function AppContent() {
     isStorageLoading,
     updateProfile,
     saveSemester,
+    saveSemesters,
     saveAttendance,
     saveExams,
     resetData,
@@ -86,7 +87,7 @@ function AppContent() {
         document.documentElement.style.backgroundColor = '#000000';
       } else if (activeTheme === 'se-light') {
         document.documentElement.classList.add('light-theme', 'se-light-theme');
-        document.documentElement.style.backgroundColor = '#f5f5f7';
+        document.documentElement.style.backgroundColor = '#153e75';
       } else if (activeTheme === 'dark') {
         document.documentElement.classList.add('dark');
         document.documentElement.style.backgroundColor = '#000000';
@@ -102,16 +103,15 @@ function AppContent() {
     updateProfile(newProfile);
 
     if (initialSemesters && initialSemesters.length > 0) {
-      initialSemesters.forEach(item => {
-        saveSemester({
-          id: `sem-${item.number}`,
-          number: item.number,
-          name: `Semester ${item.number}`,
-          sgpa: item.sgpa,
-          totalCredits: 20, // default credits
-          subjects: []
-        });
-      });
+      const semestersToSave = initialSemesters.map(item => ({
+        id: `sem-${item.number}`,
+        number: item.number,
+        name: `Semester ${item.number}`,
+        sgpa: item.sgpa,
+        totalCredits: 20, // default credits
+        subjects: []
+      }));
+      saveSemesters(semestersToSave);
     }
   };
 
