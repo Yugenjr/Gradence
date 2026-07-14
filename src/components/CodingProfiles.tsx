@@ -15,14 +15,22 @@ interface ProfileData {
 }
 
 const getLeetcodeUrl = () => {
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  // Check if running natively inside Capacitor
+  const isNative = (window as any).Capacitor?.isNativePlatform ? (window as any).Capacitor.isNativePlatform() : false;
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  
+  if (!isNative && isLocal) {
     return '/leetcode-graphql';
   }
   return 'https://leetcode.com/graphql';
 };
 
 const getCodechefUrl = (username: string) => {
-  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+  // Check if running natively inside Capacitor
+  const isNative = (window as any).Capacitor?.isNativePlatform ? (window as any).Capacitor.isNativePlatform() : false;
+  const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+  
+  if (!isNative && isLocal) {
     return `/codechef-api/${username}`;
   }
   return `https://codechef-rating-i7yd.onrender.com/${username}`;
@@ -138,43 +146,74 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
       }
     }
 
-    // 3. Fetch LeetCode (GraphQL via proxy/direct)
+    // 3. Fetch LeetCode (GraphQL via proxy/direct with REST fallback)
     if (leetcode.username) {
       try {
-        const query = `
-          query getUserProfile($username: String!) {
-            matchedUser(username: $username) {
-              username
-              profile {
-                ranking
-              }
-              submitStats {
-                acSubmissionNum {
-                  difficulty
-                  count
+        let success = false;
+        
+        // A. Attempt GraphQL query (works natively on device and locally on dev proxy)
+        try {
+          const query = `
+            query getUserProfile($username: String!) {
+              matchedUser(username: $username) {
+                username
+                profile {
+                  ranking
+                }
+                submitStats {
+                  acSubmissionNum {
+                    difficulty
+                    count
+                  }
                 }
               }
             }
+          `;
+          const res = await fetch(getLeetcodeUrl(), {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Referer": "https://leetcode.com"
+            },
+            body: JSON.stringify({
+              query: query,
+              variables: { username: leetcode.username }
+            })
+          });
+          if (res.ok) {
+            const info = await res.json();
+            if (info?.data?.matchedUser) {
+              const user = info.data.matchedUser;
+              const allStats = user.submitStats?.acSubmissionNum?.find((item: any) => item.difficulty === 'All');
+              const solvedVal = allStats ? allStats.count : 0;
+              const rankVal = user.profile?.ranking ? `Rank #${user.profile.ranking.toLocaleString()}` : 'Beginner';
+              
+              setLeetcode(prev => ({
+                ...prev,
+                solved: solvedVal,
+                rating: rankVal
+              }));
+              synced.push('LeetCode');
+              success = true;
+            }
           }
-        `;
-        const res = await fetch(getLeetcodeUrl(), {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Referer": "https://leetcode.com"
-          },
-          body: JSON.stringify({
-            query: query,
-            variables: { username: leetcode.username }
-          })
-        });
-        if (res.ok) {
-          const info = await res.json();
-          if (info?.data?.matchedUser) {
-            const user = info.data.matchedUser;
-            const allStats = user.submitStats?.acSubmissionNum?.find((item: any) => item.difficulty === 'All');
-            const solvedVal = allStats ? allStats.count : 0;
-            const rankVal = user.profile?.ranking ? `Rank #${user.profile.ranking.toLocaleString()}` : 'Beginner';
+        } catch (gqlErr) {
+          console.warn("GraphQL sync attempt failed, trying REST API fallback...", gqlErr);
+        }
+
+        // B. Fallback to public REST API (alfa-leetcode-api) - works everywhere including production web deployments
+        if (!success) {
+          const [profileRes, solvedRes] = await Promise.all([
+            fetch(`https://alfa-leetcode-api.onrender.com/${leetcode.username}`),
+            fetch(`https://alfa-leetcode-api.onrender.com/${leetcode.username}/solved`)
+          ]);
+          
+          if (profileRes.ok && solvedRes.ok) {
+            const profileInfo = await profileRes.json();
+            const solvedInfo = await solvedRes.json();
+            
+            const solvedVal = solvedInfo.solvedProblem !== undefined ? solvedInfo.solvedProblem : 0;
+            const rankVal = profileInfo.ranking ? `Rank #${parseInt(profileInfo.ranking).toLocaleString()}` : 'Beginner';
             
             setLeetcode(prev => ({
               ...prev,
@@ -182,11 +221,12 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
               rating: rankVal
             }));
             synced.push('LeetCode');
-          } else {
-            throw new Error('User not found on LeetCode');
+            success = true;
           }
-        } else {
-          throw new Error('LeetCode GraphQL request failed');
+        }
+
+        if (!success) {
+          throw new Error('All LeetCode sync endpoints failed');
         }
       } catch (e) {
         const u = leetcode.username.toLowerCase();
