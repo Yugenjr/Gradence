@@ -14,7 +14,8 @@ import {
   PieChart, 
   TrendingUp, 
   Compass,
-  Clock
+  Clock,
+  Bell
 } from 'lucide-react';
 
 interface HomeDashboardProps {
@@ -45,6 +46,7 @@ export default function HomeDashboard({
 }: HomeDashboardProps) {
   const [greeting, setGreeting] = useState('Good Evening');
   const [quote, setQuote] = useState<Quote>(() => QUOTES[0]);
+  const [showNotifications, setShowNotifications] = useState(false);
 
 
   const {
@@ -112,13 +114,44 @@ export default function HomeDashboard({
           </p>
         </div>
         
-        {/* Top visual accent - brand logo */}
-        <div className="w-16 h-16 rounded-[20px] bg-neutral-100 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm">
-          <img 
-            src={logoImg} 
-            alt="Gradence Logo" 
-            className="w-full h-full object-contain rounded-[14px]"
-          />
+        {/* Notifications Bell */}
+        <div className="relative">
+          <button 
+            onClick={() => setShowNotifications(!showNotifications)}
+            className="w-12 h-12 rounded-[20px] bg-neutral-100 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm hover:border-neutral-500 transition-colors cursor-pointer relative"
+          >
+            <Bell className="w-5 h-5 text-neutral-400" />
+            {activities.length > 0 && (
+              <div className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full border border-[#171717]"></div>
+            )}
+          </button>
+          
+          {/* Notifications Dropdown */}
+          {showNotifications && (
+            <div className="absolute top-14 right-0 w-72 bg-[#0F0F10] border border-[#2A2A2A] rounded-2xl shadow-xl z-50 overflow-hidden animate-fade-in">
+              <div className="p-3 border-b border-[#2A2A2A] flex justify-between items-center">
+                <span className="text-xs font-bold text-white uppercase tracking-widest">Notifications</span>
+                <span className="text-[10px] bg-neutral-900 px-2 py-0.5 rounded text-neutral-400">{activities.length} new</span>
+              </div>
+              <div className="max-h-64 overflow-y-auto p-2 space-y-1">
+                {activities.length === 0 ? (
+                  <div className="p-4 text-center text-xs text-neutral-500 font-mono">No new notifications</div>
+                ) : (
+                  activities.map((act) => (
+                    <div key={act.id} className="p-2.5 rounded-xl hover:bg-neutral-900 transition-colors">
+                      <div className="flex justify-between items-start mb-1">
+                        <span className="font-semibold text-white text-xs">{act.title}</span>
+                        <span className="text-[9px] text-neutral-500 font-mono shrink-0 ml-2">
+                          {new Date(act.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-neutral-400 leading-tight">{act.detail}</p>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
 

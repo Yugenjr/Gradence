@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { UserProfile, Semester, AttendanceSubject, Exam, Activity, CareerRoadmap } from '../types';
 import { setItem, getItem, clearAll, migrateLocalStorageToPreferences } from '../services/storage';
 import { saveApiKey, getApiKey, removeApiKey } from '../services/secureStorage';
+import { scheduleExamNotifications, scheduleClassNotifications } from '../utils/notifications';
 
 export interface TimetableItem {
   id: string;
@@ -64,6 +65,8 @@ interface GradenceContextType {
   resetData: () => Promise<void>;
   importData: (dataString: string) => Promise<boolean>;
   exportData: () => Promise<string>;
+  saveResumeDraft: (draft: any) => Promise<void>;
+  resumeDraft: any | null;
 }
 
 const GradenceContext = createContext<GradenceContextType | undefined>(undefined);
@@ -79,6 +82,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [countdowns, setCountdowns] = useState<CountdownItem[]>([]);
   const [habits, setHabits] = useState<HabitItem[]>([]);
   const [codingProfiles, setCodingProfiles] = useState<CodingProfilesState | null>(null);
+  const [resumeDraft, setResumeDraft] = useState<any | null>(null);
   
   const [isInitialized, setIsInitialized] = useState(false);
   const [isStorageLoading, setIsStorageLoading] = useState(true);
@@ -99,6 +103,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const storedCountdowns = await getItem('gradence_countdowns');
         const storedHabits = await getItem('gradence_habits');
         const storedCoding = await getItem('gradence_coding_profiles');
+        const storedResumeDraft = await getItem('gradence_resume_draft');
         const securedApiKey = await getApiKey();
 
         if (storedProfile) {
@@ -124,6 +129,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (storedCountdowns) setCountdowns(JSON.parse(storedCountdowns));
         if (storedHabits) setHabits(JSON.parse(storedHabits));
         if (storedCoding) setCodingProfiles(JSON.parse(storedCoding));
+        if (storedResumeDraft) setResumeDraft(JSON.parse(storedResumeDraft));
       } catch (e) {
         console.error('Failed to load storage values in GradenceContext', e);
       } finally {
@@ -206,11 +212,17 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } else if (newExams.length < exams.length) {
       await logActivity('exam', 'Assessment Cleared', 'Upcoming assessment log updated.');
     }
+    
+    // Schedule push notifications
+    scheduleExamNotifications(newExams);
   };
 
   const saveTimetable = async (list: TimetableItem[]) => {
     setTimetable(list);
     await setItem('gradence_timetable', JSON.stringify(list));
+    
+    // Schedule push notifications
+    scheduleClassNotifications(list);
   };
 
   const saveCountdowns = async (list: CountdownItem[]) => {
@@ -228,6 +240,15 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     await setItem('gradence_coding_profiles', JSON.stringify(data));
   };
 
+  const saveResumeDraft = async (draft: any) => {
+    setResumeDraft(draft);
+    if (draft === null) {
+      await setItem('gradence_resume_draft', '');
+    } else {
+      await setItem('gradence_resume_draft', JSON.stringify(draft));
+    }
+  };
+
   const resetData = async () => {
     await clearAll();
     await removeApiKey();
@@ -241,6 +262,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setCountdowns([]);
     setHabits([]);
     setCodingProfiles(null);
+    setResumeDraft(null);
     setIsInitialized(false);
   };
 
@@ -379,6 +401,8 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         saveHabits,
         saveCodingProfiles,
         saveRoadmaps,
+        saveResumeDraft,
+        resumeDraft,
         logActivity,
         resetData,
         importData,

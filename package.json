@@ -12,10 +12,12 @@
   },
   "dependencies": {
     "@aparajita/capacitor-secure-storage": "^8.0.0",
+    "@capacitor-community/file-opener": "^7.0.1",
     "@capacitor/android": "^7.6.7",
     "@capacitor/cli": "^7.6.7",
     "@capacitor/core": "^7.6.7",
     "@capacitor/filesystem": "^8.1.2",
+    "@capacitor/local-notifications": "^7.0.7",
     "@capacitor/preferences": "^8.0.1",
     "@capgo/capacitor-file-picker": "^8.1.11",
     "@google/genai": "^2.4.0",

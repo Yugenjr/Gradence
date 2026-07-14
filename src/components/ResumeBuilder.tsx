@@ -1,6 +1,8 @@
-import React, { useState, useRef } from 'react';
-import { Plus, Trash2, Download, Eye, EyeOff, ArrowLeft } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Plus, Trash2, Download, Eye, EyeOff, ArrowLeft, Save } from 'lucide-react';
 import secelogo from '../assets/sece.png';
+import { useGradence } from '../context/GradenceContext';
+import { generateResumePDF } from '../utils/pdfGenerator';
 
 interface Education {
   id: string;
@@ -307,13 +309,39 @@ interface ResumeBuilderProps {
 }
 
 export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
-  const [data, setData] = useState<ResumeData>(defaultData);
+  const { resumeDraft, saveResumeDraft } = useGradence();
+  const [data, setData] = useState<ResumeData>(resumeDraft || defaultData);
   const [preview, setPreview] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
-  const [scale, setScale] = React.useState(1);
+  const [scale, setScale] = useState(1);
 
-  React.useEffect(() => {
+  // Monitor changes to show draft alert
+  useEffect(() => {
+    if (JSON.stringify(data) !== JSON.stringify(resumeDraft || defaultData)) {
+      setHasUnsavedChanges(true);
+    } else {
+      setHasUnsavedChanges(false);
+    }
+  }, [data, resumeDraft]);
+
+  const handleBack = async () => {
+    if (hasUnsavedChanges) {
+      if (window.confirm("You have unsaved changes. Do you want to save them as a draft before leaving? \n\nClick OK to Save, or Cancel to Discard.")) {
+        await saveResumeDraft(data);
+      }
+    }
+    onBack();
+  };
+
+  const handleSaveDraft = async () => {
+    await saveResumeDraft(data);
+    setHasUnsavedChanges(false);
+    alert('Draft saved successfully!');
+  };
+
+  useEffect(() => {
     if (!preview) return;
     const handleResize = () => {
       if (previewRef.current) {
@@ -350,22 +378,12 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
     setData(d => ({ ...d, [key]: (d[key] as any[]).filter(i => i.id !== id) }));
 
   const handleDownload = async () => {
-    setPreview(true);
     setDownloading(true);
-    await new Promise(r => setTimeout(r, 300));
+    await new Promise(r => setTimeout(r, 100)); // allow UI to update
     try {
-      const [{ default: html2canvas }, { default: jsPDF }] = await Promise.all([
-        import('html2canvas'),
-        import('jspdf'),
-      ]);
-      const el = document.getElementById('resume-preview')!;
-      const canvas = await html2canvas(el, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
-      const imgData = canvas.toDataURL('image/png');
-      const pdf = new jsPDF({ orientation: 'portrait', unit: 'px', format: [794, 1123] });
-      pdf.addImage(imgData, 'PNG', 0, 0, 794, 1123);
-      pdf.save(`${data.name || 'resume'}.pdf`);
+      await generateResumePDF(data);
     } catch (e) {
-      alert('Download failed. Make sure html2canvas and jspdf are installed.');
+      alert('Download failed. Make sure jsPDF is installed.');
     }
     setDownloading(false);
   };
@@ -376,7 +394,7 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-4">
         <div className="flex items-center gap-3">
           <button 
-            onClick={onBack}
+            onClick={handleBack}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer animate-fade-in"
           >
             <ArrowLeft className="w-5 h-5" />
@@ -388,6 +406,15 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
         </div>
         
         <div className="flex gap-2">
+          {!preview && (
+            <button
+              onClick={handleSaveDraft}
+              className={`flex items-center gap-1.5 px-3 py-2 border rounded-xl text-xs cursor-pointer transition-colors ${hasUnsavedChanges ? 'bg-indigo-900 border-indigo-700 text-white' : 'bg-neutral-900 border-neutral-800 text-neutral-400 hover:border-neutral-600'}`}
+            >
+              <Save className="w-3.5 h-3.5" />
+              Save Draft
+            </button>
+          )}
           <button
             onClick={() => setPreview(p => !p)}
             className="flex items-center gap-1.5 px-3 py-2 bg-neutral-900 border border-neutral-800 rounded-xl text-xs text-white cursor-pointer hover:border-neutral-600"
