@@ -27,6 +27,7 @@ import AISpace from './components/AISpace';
 import CodingProfiles from './components/CodingProfiles';
 import RoadmapsManager from './components/RoadmapsManager';
 import DailyPlanner from './components/DailyPlanner';
+import EventsScreen from './components/EventsScreen';
 import { GradenceProvider, useGradence } from './context/GradenceContext';
 
 export default function App() {
@@ -208,6 +209,13 @@ function AppContent() {
         if (activeTool === 'planner') {
           return (
             <DailyPlanner
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
+        if (activeTool === 'events') {
+          return (
+            <EventsScreen
               onBack={() => setActiveTool(null)}
             />
           );

@@ -54,6 +54,12 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       title: 'OS Daily Planner',
       subtitle: 'Manage class schedules, daily habits checklists and target date countdowns',
       icon: Clock,
+    },
+    {
+      id: 'events' as ToolType,
+      title: 'Campus & External Events',
+      subtitle: 'Browse internal Sri Eshwar events and external hackathons from Unstop',
+      icon: Calendar,
     }
   ];
 
