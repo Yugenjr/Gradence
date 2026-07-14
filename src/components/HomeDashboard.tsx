@@ -44,7 +44,8 @@ export default function HomeDashboard({
   attendanceAvg 
 }: HomeDashboardProps) {
   const [greeting, setGreeting] = useState('Good Evening');
-  const [quote, setQuote] = useState<Quote>(QUOTES[0]);
+  const [quote, setQuote] = useState<Quote>(() => QUOTES[0]);
+
 
   const {
     habits,
@@ -175,7 +176,7 @@ export default function HomeDashboard({
           {/* Digital Twin Core Metrics */}
           <div className="pt-6">
             <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest block mb-3">
-              DIGITAL TWIN TWIN ENGINE
+
             </span>
             <div className="grid grid-cols-3 gap-4">
               <div>
