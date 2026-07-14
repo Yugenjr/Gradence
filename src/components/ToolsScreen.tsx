@@ -1,4 +1,4 @@
-import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code, Map, Clock } from 'lucide-react';
+import { Calculator, CheckSquare, PieChart, Calendar, Hash, ArrowRight, Compass, Code, Map, Clock, FileText } from 'lucide-react';
 import { ToolType } from '../types';
 
 interface ToolsScreenProps {
@@ -60,6 +60,12 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       title: 'Campus & External Events',
       subtitle: 'Browse internal Sri Eshwar events and external hackathons from Unstop',
       icon: Calendar,
+    },
+    {
+      id: 'resume' as ToolType,
+      title: 'Resume Builder',
+      subtitle: 'Build, edit, and download a professional resume aligned with SECE standards',
+      icon: FileText,
     }
   ];
 

@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Plus, Trash2, Download, Eye, EyeOff } from 'lucide-react';
+import { Plus, Trash2, Download, Eye, EyeOff, ArrowLeft } from 'lucide-react';
 import secelogo from '../assets/sece.png';
 
 interface Education {
@@ -302,7 +302,11 @@ function Field({ label, value, onChange, placeholder, multiline }: {
 }
 
 // ── Main Component ───────────────────────────────────────────────────────────
-export default function ResumeBuilder() {
+interface ResumeBuilderProps {
+  onBack: () => void;
+}
+
+export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
   const [data, setData] = useState<ResumeData>(defaultData);
   const [preview, setPreview] = useState(false);
   const [downloading, setDownloading] = useState(false);
@@ -345,12 +349,22 @@ export default function ResumeBuilder() {
   };
 
   return (
-    <div className="space-y-5">
-      <div className="flex items-center justify-between">
-        <div>
-          <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Resume Builder</p>
-          <p className="text-xs text-neutral-400 mt-0.5">Fill in your details — download as PDF in your template.</p>
+    <div className="space-y-6 pb-6">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-4">
+        <div className="flex items-center gap-3">
+          <button 
+            onClick={onBack}
+            className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer animate-fade-in"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+          <div>
+            <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
+            <h1 className="text-xl font-bold text-white font-odoo-slant">Resume Builder</h1>
+          </div>
         </div>
+        
         <div className="flex gap-2">
           <button
             onClick={() => setPreview(p => !p)}

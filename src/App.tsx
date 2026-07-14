@@ -28,6 +28,7 @@ import CodingProfiles from './components/CodingProfiles';
 import RoadmapsManager from './components/RoadmapsManager';
 import DailyPlanner from './components/DailyPlanner';
 import EventsScreen from './components/EventsScreen';
+import ResumeBuilder from './components/ResumeBuilder';
 import { GradenceProvider, useGradence } from './context/GradenceContext';
 
 export default function App() {
@@ -216,6 +217,13 @@ function AppContent() {
         if (activeTool === 'events') {
           return (
             <EventsScreen
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
+        if (activeTool === 'resume') {
+          return (
+            <ResumeBuilder
               onBack={() => setActiveTool(null)}
             />
           );
