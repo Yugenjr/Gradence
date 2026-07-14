@@ -1446,3 +1446,63 @@ body {
   fill: var(--college-yellow) !important;
   opacity: 1 !important;
 }
+
+/* Premium Hover Animations for Academic Tools & Press Cards in both themes */
+.se-dark-theme button.press-card,
+.se-light-theme button.press-card {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease !important;
+}
+
+.se-dark-theme button.press-card:hover,
+.se-light-theme button.press-card:hover {
+  transform: translateY(-2.5px) !important;
+}
+
+/* Arrow sliding translation on hover */
+button.press-card .w-8.h-8 svg,
+button.press-card .w-8.h-8.rounded-full svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+}
+
+button.press-card:hover .w-8.h-8 svg,
+button.press-card:hover .w-8.h-8.rounded-full svg {
+  transform: translateX(4px) !important;
+}
+
+/* Icon scale transition on hover */
+button.press-card .w-12.h-12 svg {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), color 0.25s ease !important;
+}
+
+button.press-card:hover .w-12.h-12 svg {
+  transform: scale(1.12) !important;
+}
+
+/* Light theme custom colors for active/hover states of elements inside the tools cards */
+.se-light-theme.light-theme button.press-card:hover h3,
+.se-light-theme button.press-card:hover h3 {
+  color: var(--college-blue) !important;
+}
+
+.se-light-theme.light-theme button.press-card:hover .w-8.h-8.rounded-full,
+.se-light-theme button.press-card:hover .w-8.h-8.rounded-full {
+  background-color: var(--college-yellow) !important;
+  border-color: var(--college-yellow) !important;
+}
+
+.se-light-theme.light-theme button.press-card:hover .w-8.h-8.rounded-full svg,
+.se-light-theme button.press-card:hover .w-8.h-8.rounded-full svg {
+  color: #000000 !important;
+}
+
+.se-light-theme.light-theme button.press-card:hover .w-12.h-12.rounded-2xl,
+.se-light-theme button.press-card:hover .w-12.h-12.rounded-2xl {
+  background-color: rgba(242, 193, 15, 0.15) !important;
+  border-color: rgba(242, 193, 15, 0.45) !important;
+}
+
+/* Bold typography for card/section subheadings in both themes */
+.se-dark-theme .font-mono.uppercase.tracking-widest,
+.se-light-theme .font-mono.uppercase.tracking-widest {
+  font-weight: 700 !important;
+}
