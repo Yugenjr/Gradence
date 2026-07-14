@@ -104,7 +104,7 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
     if (gpaData.length === 0) return null;
 
     return (
-      <svg className="w-full h-32 text-white" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none">
+      <svg className="w-full h-40 text-white" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
         {/* Horizontal grid lines */}
         <line x1="0" y1={chartHeight * 0.25} x2={chartWidth} y2={chartHeight * 0.25} stroke="#222" strokeDasharray="3,3" />
         <line x1="0" y1={chartHeight * 0.5} x2={chartWidth} y2={chartHeight * 0.5} stroke="#222" strokeDasharray="3,3" />
@@ -169,7 +169,7 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
     const polylinePath = points.map(p => `${p.x},${p.y}`).join(' ');
 
     return (
-      <svg className="w-full h-32 text-white overflow-visible" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="none">
+      <svg className="w-full h-40 text-white overflow-visible" viewBox={`0 0 ${chartWidth} ${chartHeight}`} preserveAspectRatio="xMidYMid meet">
         {/* Grids */}
         <line x1="0" y1={chartHeight * 0.3} x2={chartWidth} y2={chartHeight * 0.3} stroke="#1f1f21" />
         <line x1="0" y1={chartHeight * 0.6} x2={chartWidth} y2={chartHeight * 0.6} stroke="#1f1f21" />
@@ -186,7 +186,7 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
         {/* Glow definitions */}
         <defs>
           <linearGradient id="area-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#ffffff" />
+            <stop offset="0%" stopColor="#f2c10f" />
             <stop offset="100%" stopColor="transparent" />
           </linearGradient>
         </defs>
@@ -194,7 +194,7 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
         {/* Growth Line */}
         <polyline
           fill="none"
-          stroke="#ffffff"
+          stroke="#f2c10f"
           strokeWidth="2.5"
           points={polylinePath}
           className="transition-all"
@@ -208,15 +208,15 @@ export default function ProgressScreen({ semesters, attendanceSubjects, gpaScale
               cy={p.y}
               r="4"
               fill="#000000"
-              stroke="#ffffff"
+              stroke="#f2c10f"
               strokeWidth="2"
             />
             {/* Value tooltip */}
-            <text x={p.x} y={p.y - 10} fill="#fff" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
+            <text x={p.x} y={p.y - 10} fill="#f2c10f" fontSize="9" fontWeight="bold" fontFamily="monospace" textAnchor="middle">
               {p.cgpa.toFixed(2)}
             </text>
             {/* Label */}
-            <text x={p.x} y={chartHeight - 2} fill="#666" fontSize="8" fontFamily="monospace" textAnchor="middle">
+            <text x={p.x} y={chartHeight - 2} fill="#888" fontSize="8" fontFamily="monospace" textAnchor="middle">
               {p.label}
             </text>
           </g>
