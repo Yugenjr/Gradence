@@ -11,9 +11,9 @@ interface OnboardingProps {
 export default function Onboarding({ onComplete }: OnboardingProps) {
   const [step, setStep] = useState(1);
   const [name, setName] = useState('');
-  const [university, setUniversity] = useState('Stanford University');
+  const [university, setUniversity] = useState('Sri Eshwar College of Engineering');
   const [currentSemester, setCurrentSemester] = useState(1);
-  const [theme, setTheme] = useState<'dark' | 'light' | 'system'>('dark');
+  const [theme, setTheme] = useState<'se-dark' | 'se-light' | 'dark' | 'light' | 'system'>('se-dark');
   const [gpaScale, setGpaScale] = useState<4 | 10>(10);
   const [prevSgpas, setPrevSgpas] = useState<{[key: number]: string}>({});
 
@@ -22,13 +22,13 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const [isCustomUniActive, setIsCustomUniActive] = useState(false);
 
   const universities = [
-    'Stanford University',
-    'MIT',
-    'National University of Singapore',
+    'Sri Eshwar College of Engineering',
     'IIT Bombay',
+    'National University of Singapore',
     'University of Toronto',
     'Oxford University',
-    'University of Melbourne',
+    'MIT',
+    'Stanford University',
     'Custom...'
   ];
 
@@ -342,11 +342,55 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
 
               <div className="space-y-4">
                 {/* Theme Selector List */}
-                <div className="space-y-3">
+                <div className="space-y-2.5 max-h-80 overflow-y-auto pr-1">
+                  <button
+                    type="button"
+                    onClick={() => setTheme('se-dark')}
+                    className={`w-full p-3.5 rounded-3xl border text-left flex items-center justify-between transition-all ${
+                      theme === 'se-dark'
+                        ? 'border-white bg-[#171717]'
+                        : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center relative">
+                        <Moon className="w-5 h-5 text-[#f2c10f]" />
+                        <Sparkles className="w-3 h-3 text-[#1e4e8c] absolute top-1.5 right-1.5" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-white">Sri Eshwar Dark</div>
+                        <div className="text-xs text-neutral-500">Official Blue & Yellow branding on dark workspace</div>
+                      </div>
+                    </div>
+                    {theme === 'se-dark' && <Check className="w-5 h-5 text-white" />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setTheme('se-light')}
+                    className={`w-full p-3.5 rounded-3xl border text-left flex items-center justify-between transition-all ${
+                      theme === 'se-light'
+                        ? 'border-white bg-[#171717]'
+                        : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
+                    }`}
+                  >
+                    <div className="flex items-center gap-4">
+                      <div className="w-10 h-10 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center relative">
+                        <Sun className="w-5 h-5 text-[#f2c10f]" />
+                        <Sparkles className="w-3 h-3 text-[#1e4e8c] absolute top-1.5 right-1.5" />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-white">Sri Eshwar Light</div>
+                        <div className="text-xs text-neutral-500">Official Blue & Yellow branding on light workspace</div>
+                      </div>
+                    </div>
+                    {theme === 'se-light' && <Check className="w-5 h-5 text-white" />}
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => setTheme('dark')}
-                    className={`w-full p-4 rounded-3xl border text-left flex items-center justify-between transition-all ${
+                    className={`w-full p-3.5 rounded-3xl border text-left flex items-center justify-between transition-all ${
                       theme === 'dark'
                         ? 'border-white bg-[#171717]'
                         : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
@@ -367,7 +411,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <button
                     type="button"
                     onClick={() => setTheme('light')}
-                    className={`w-full p-4 rounded-3xl border text-left flex items-center justify-between transition-all ${
+                    className={`w-full p-3.5 rounded-3xl border text-left flex items-center justify-between transition-all ${
                       theme === 'light'
                         ? 'border-white bg-[#171717]'
                         : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
@@ -388,7 +432,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                   <button
                     type="button"
                     onClick={() => setTheme('system')}
-                    className={`w-full p-4 rounded-3xl border text-left flex items-center justify-between transition-all ${
+                    className={`w-full p-3.5 rounded-3xl border text-left flex items-center justify-between transition-all ${
                       theme === 'system'
                         ? 'border-white bg-[#171717]'
                         : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
