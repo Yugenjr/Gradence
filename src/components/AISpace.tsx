@@ -9,17 +9,13 @@ import {
   UserCheck,
   BookOpen,
   Compass,
-  Users,
+  Calendar,
   FileText,
-  Code,
-  TrendingUp,
-  Target,
-  AlertTriangle,
   User,
   Zap,
-  Globe,
   Map
 } from 'lucide-react';
+import EventsScreen from './EventsScreen';
 
 interface AISpaceProps {
   profile: UserProfile;
@@ -363,7 +359,7 @@ Include this score on a separate line at the very end of your response in the ex
           { id: 'chat', label: 'AI Workspace', icon: BookOpen },
           { id: 'placement', label: 'Placement OS', icon: UserCheck },
           { id: 'career', label: 'Career Roadmaps', icon: Compass },
-          { id: 'social', label: 'Peer Connect', icon: Users },
+          { id: 'social', label: 'Events', icon: Calendar },
         ].map((mod) => {
           const Icon = mod.icon;
           const isActive = activeModule === mod.id;
@@ -581,46 +577,10 @@ Include this score on a separate line at the very end of your response in the ex
           </div>
         )}
 
-        {/* Peer Connect / Social Module */}
+        {/* Events Module */}
         {activeModule === 'social' && (
-          <div className="p-6 flex flex-col items-center justify-center min-h-[380px] text-center space-y-6">
-            <div className="relative">
-              <div className="absolute inset-0 bg-white/5 blur-xl rounded-full scale-150 animate-pulse" />
-              <div className="relative w-16 h-16 bg-neutral-900 border border-neutral-800 rounded-full flex items-center justify-center text-neutral-400">
-                <Users className="w-8 h-8 text-neutral-300" />
-                <Sparkles className="w-4 h-4 text-white absolute -top-1 -right-1 animate-bounce" />
-              </div>
-            </div>
-
-            <div className="max-w-md space-y-3">
-              <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
-                FEATURE PIPELINE
-              </span>
-              <h3 className="text-lg font-bold text-white tracking-tight">Peer Connect & Academic Circles</h3>
-              <p className="text-xs text-neutral-400 leading-relaxed">
-                Gradence is currently offline-first to ensure 100% data ownership. We are architecting a zero-knowledge cloud sync system to let you securely collaborate, share lecture notes, and compare rankings without exposing private records.
-              </p>
-            </div>
-
-            <div className="w-full max-w-sm bg-black/40 border border-neutral-900 rounded-2xl p-4 text-left space-y-3">
-              <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block border-b border-neutral-950 pb-2">
-                RELEASE ROADMAP
-              </span>
-              <div className="space-y-2 text-[11px]">
-                <div className="flex items-center gap-2.5 text-neutral-400">
-                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">1</div>
-                  <span>End-to-End Encrypted Note Transfer</span>
-                </div>
-                <div className="flex items-center gap-2.5 text-neutral-400">
-                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">2</div>
-                  <span>Private Study Rooms via Room Codes</span>
-                </div>
-                <div className="flex items-center gap-2.5 text-neutral-400">
-                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">3</div>
-                  <span>Anonymous University-Wide Percentile Leaderboard</span>
-                </div>
-              </div>
-            </div>
+          <div className="p-4">
+            <EventsScreen />
           </div>
         )}
 
