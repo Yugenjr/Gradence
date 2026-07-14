@@ -137,8 +137,8 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
                     onClick={() => setPriority(p)}
                     className={`flex-1 py-2 text-xs font-mono rounded-xl border transition-all ${
                       priority === p
-                        ? 'border-white bg-[#262626] text-white'
-                        : 'border-neutral-800 bg-black text-neutral-400 hover:border-neutral-700'
+                        ? 'border-college-blue bg-college-blue text-white'
+                        : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
                     }`}
                   >
                     {p.toUpperCase()}

@@ -241,8 +241,8 @@ export default function Converter({ onBack }: ConverterProps) {
                   }}
                   className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${
                     scaleType === 10
-                      ? 'border-white bg-[#262626] text-white'
-                      : 'border-neutral-800 bg-black text-neutral-400 hover:border-neutral-700'
+                      ? 'border-college-blue bg-college-blue text-white'
+                      : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
                   }`}
                 >
                   10.0 scale (S / A+ / O)
@@ -254,8 +254,8 @@ export default function Converter({ onBack }: ConverterProps) {
                   }}
                   className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${
                     scaleType === 4
-                      ? 'border-white bg-[#262626] text-white'
-                      : 'border-neutral-800 bg-black text-neutral-400 hover:border-neutral-700'
+                      ? 'border-college-blue bg-college-blue text-white'
+                      : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
                   }`}
                 >
                   4.0 scale (A / A- / B)
@@ -273,7 +273,7 @@ export default function Converter({ onBack }: ConverterProps) {
                       onClick={() => setSelectedGrade(gr)}
                       className={`w-12 h-12 rounded-xl border text-sm font-bold transition-all ${
                         selectedGrade === gr
-                          ? 'border-white bg-black text-white'
+                          ? 'border-college-blue bg-college-blue text-white'
                           : 'border-neutral-800 bg-black/40 text-neutral-500 hover:border-neutral-600'
                       }`}
                     >

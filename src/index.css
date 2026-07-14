@@ -1514,3 +1514,207 @@ button.press-card:hover .w-12.h-12 svg {
 .se-light-theme div[class*="[background-size:16px_16px]"] {
   opacity: 0.08 !important;
 }
+
+/* ============================================================
+   SE LIGHT THEME — Active/Selected state visibility fixes
+   Dark bg elements (bg-black, bg-[#262626]) used for selected
+   states become white in light theme, making white text invisible
+   ============================================================ */
+
+/* Selected semester buttons & active grade scale buttons */
+.se-light-theme .bg-\[\#262626\],
+.se-light-theme button.bg-\[\#262626\] {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+
+/* bg-black used inside cards for inputs/selected states */
+.se-light-theme .bg-\[\#171717\] .bg-black,
+.se-light-theme .bg-\[\#121213\] .bg-black,
+.se-light-theme .bg-neutral-900 .bg-black {
+  background-color: #f1f5f9 !important;
+  color: #0c2547 !important;
+}
+
+/* bg-black/40 result panels inside cards */
+.se-light-theme .bg-black\/40,
+.se-light-theme .bg-black\/30 {
+  background-color: rgba(30, 78, 140, 0.06) !important;
+}
+
+/* Priority buttons active state (border-white bg-[#262626]) */
+.se-light-theme button.border-white.bg-\[\#262626\] {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+
+/* Grade selector active button (border-white bg-black) */
+.se-light-theme button.border-white.bg-black {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+
+/* Semester selector active (border-white bg-[#262626]) */
+.se-light-theme button.border-white.bg-\[\#262626\] span,
+.se-light-theme button.border-white.bg-\[\#262626\] {
+  color: #ffffff !important;
+}
+
+/* Cancel / secondary outline buttons */
+.se-light-theme button.border-neutral-800.text-neutral-400 {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Timeline node circles */
+.se-light-theme .bg-black.border-neutral-600,
+.se-light-theme .bg-black.border-white {
+  background-color: #ffffff !important;
+}
+
+/* Text inside active selected buttons must stay white */
+.se-light-theme button.bg-\[\#262626\] *,
+.se-light-theme button.border-white.bg-\[\#262626\] * {
+  color: #ffffff !important;
+}
+
+/* ============================================================
+   SE LIGHT THEME — Exam Planner & Grade-to-Points fixes
+   ============================================================ */
+
+/* Back/header nav buttons (w-10 h-10 border rounded-2xl) — keep icon visible */
+.se-light-theme .w-10.h-10.border.rounded-2xl svg,
+.se-light-theme .w-10.h-10.border.border-\\[\\#2A2A2A\\].rounded-2xl svg {
+  color: #0c2547 !important;
+}
+.se-light-theme .w-10.h-10.border.rounded-2xl:hover svg {
+  color: var(--college-blue) !important;
+}
+
+/* Grade selector buttons (active: border-white bg-black) in Converter */
+.se-light-theme button.border-white.bg-black {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+.se-light-theme button.border-white.bg-black * {
+  color: #ffffff !important;
+}
+
+/* Inactive grade buttons (bg-black/40) — make them clearly visible */
+.se-light-theme .bg-\\[\\#171717\\] button.bg-black\\/40,
+.se-light-theme .bg-neutral-900 button.bg-black\\/40 {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Bottom nav bar shell — ensure it stays white pill on blue background */
+.se-light-theme .fixed.bottom-6 > div {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(30, 78, 140, 0.25) !important;
+  backdrop-filter: blur(20px) !important;
+}
+
+/* Exam Planner priority badge text inside active bg-[#262626] buttons */
+.se-light-theme button.bg-\\[\\#262626\\] span,
+.se-light-theme button.bg-\\[\\#262626\\] {
+  color: #ffffff !important;
+}
+
+/* Timeline node dot (bg-white inside timeline) */
+.se-light-theme .border-l.border-neutral-800 {
+  border-color: rgba(30, 78, 140, 0.25) !important;
+}
+
+/* ============================================================
+   SE LIGHT THEME — HIGH SPECIFICITY FIXES
+   Priority buttons, Scale System, Grade Selector
+   ============================================================ */
+
+/* ACTIVE state: border-white + bg-[#262626] → college blue */
+html.se-light-theme button.border-white.bg-\[#262626\],
+html.se-light-theme button.bg-\[#262626\].border-white {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+html.se-light-theme button.border-white.bg-\[#262626\] *,
+html.se-light-theme button.bg-\[#262626\].border-white * {
+  color: #ffffff !important;
+}
+
+/* ACTIVE state: border-white + bg-black → college blue */
+html.se-light-theme button.border-white.bg-black,
+html.se-light-theme button.bg-black.border-white {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+html.se-light-theme button.border-white.bg-black *,
+html.se-light-theme button.bg-black.border-white * {
+  color: #ffffff !important;
+}
+
+/* INACTIVE state: border-neutral-800 + bg-black → light gray, dark text */
+html.se-light-theme button.border-neutral-800.bg-black,
+html.se-light-theme button.bg-black.border-neutral-800 {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* INACTIVE state: border-neutral-800 + bg-black/40 → light gray, dark text */
+html.se-light-theme button.border-neutral-800.bg-black\/40,
+html.se-light-theme button.bg-black\/40.border-neutral-800 {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* INACTIVE state: border-neutral-800 + bg-black/20 (credits stepper) */
+html.se-light-theme .border-neutral-800.bg-black\/20 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+/* Hover state for inactive buttons */
+html.se-light-theme button.border-neutral-800.bg-black:hover,
+html.se-light-theme button.border-neutral-800.bg-black\/40:hover {
+  border-color: var(--college-blue) !important;
+  color: var(--college-blue) !important;
+}
+
+/* ============================================================
+   SE LIGHT THEME — ATTRIBUTE SELECTOR FALLBACKS
+   These use [class*=] to bypass Tailwind escaping issues
+   ============================================================ */
+
+/* Active priority / scale / grade buttons with dark bg */
+html.se-light-theme button[class*="bg-[#262626]"],
+html.se-light-theme button[class*="bg-black"][class*="border-white"] {
+  background-color: var(--college-blue) !important;
+  color: #ffffff !important;
+  border-color: var(--college-blue) !important;
+}
+html.se-light-theme button[class*="bg-[#262626]"] *,
+html.se-light-theme button[class*="bg-black"][class*="border-white"] * {
+  color: #ffffff !important;
+}
+
+/* Inactive buttons with bg-black and neutral border */
+html.se-light-theme button[class*="bg-black"][class*="border-neutral-800"],
+html.se-light-theme button[class*="bg-black/40"][class*="border-neutral-800"] {
+  background-color: #f1f5f9 !important;
+  color: #334155 !important;
+  border-color: #cbd5e1 !important;
+}
+html.se-light-theme button[class*="bg-black"][class*="border-neutral-800"] *,
+html.se-light-theme button[class*="bg-black/40"][class*="border-neutral-800"] * {
+  color: #334155 !important;
+}

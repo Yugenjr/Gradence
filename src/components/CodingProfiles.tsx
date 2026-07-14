@@ -335,7 +335,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
               onClick={handleSave}
               className="flex-1 sm:flex-none py-2.5 px-5 bg-white text-black text-xs font-semibold rounded-xl hover:bg-neutral-200 flex items-center justify-center gap-2 cursor-pointer"
             >
-              <Save className="w-3.5 h-3.5" />
+              <Save className="w-3.5 h-3.5 !text-black" />
               <span>{isSaved ? 'Saved!' : 'Save Handles'}</span>
             </button>
           </div>

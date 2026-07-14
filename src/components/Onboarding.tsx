@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import logoImg from '../assets/logo.png';
 import { UserProfile } from '../types';
-import { Sparkles, GraduationCap, Moon, Sun, Monitor, ArrowRight, Check } from 'lucide-react';
+import { Sparkles, GraduationCap, Moon, Sun, Monitor, ArrowRight, ArrowLeft, Check } from 'lucide-react';
 
 interface OnboardingProps {
   onComplete: (profile: UserProfile, initialSemesters?: { number: number, sgpa: number }[]) => void;
@@ -477,17 +477,27 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
           ))}
         </div>
 
-        {/* Primary Action Button */}
-        <button
-          onClick={handleNext}
-          disabled={step === 2 && !name.trim()}
-          className={`w-full py-4 rounded-3xl border flex items-center justify-center gap-2 font-medium text-sm transition-all text-black bg-white cursor-pointer active:scale-[0.98] ${
-            step === 2 && !name.trim() ? 'opacity-50 pointer-events-none' : 'hover:bg-neutral-200'
-          }`}
-        >
-          <span>{step === totalSteps ? 'Finish Registration' : 'Continue'}</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
+        {/* Buttons row */}
+        <div className="flex gap-3">
+          {step > 1 && (
+            <button
+              onClick={() => setStep(s => s - 1)}
+              className="w-12 h-12 rounded-2xl border border-[#2A2A2A] flex items-center justify-center text-white hover:border-white transition-colors cursor-pointer shrink-0"
+            >
+              <ArrowLeft className="w-4 h-4" />
+            </button>
+          )}
+          <button
+            onClick={handleNext}
+            disabled={step === 2 && !name.trim()}
+            className={`flex-1 py-4 rounded-3xl border flex items-center justify-center gap-2 font-medium text-sm transition-all text-black bg-white cursor-pointer active:scale-[0.98] ${
+              step === 2 && !name.trim() ? 'opacity-50 pointer-events-none' : 'hover:bg-neutral-200'
+            }`}
+          >
+            <span>{step === totalSteps ? 'Finish Registration' : 'Continue'}</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   );

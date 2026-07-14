@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile, Semester, Subject } from '../types';
-import { Plus, Trash2, ArrowLeft, Save, PlusCircle, Check } from 'lucide-react';
+import { Plus, Trash2, ArrowLeft, Save, Check } from 'lucide-react';
 
 interface CGPACalculatorProps {
   profile: UserProfile;
@@ -23,6 +23,8 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
       { label: 'O (10)', value: 'O', points: 10 },
       { label: 'A+ (9)', value: 'A+', points: 9 },
       { label: 'A (8)', value: 'A', points: 8 },
+      // Added missing B+ for 10-point scale
+      { label: 'B+ (7.5)', value: 'B+', points: 7.5 },
       { label: 'B (7)', value: 'B', points: 7 },
       { label: 'C (6)', value: 'C', points: 6 },
       { label: 'D (5)', value: 'D', points: 5 },
@@ -163,7 +165,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
                 type="button"
                 onClick={() => setSelectedSemNum(num)}
                 className={`flex-1 min-w-[56px] py-2.5 rounded-xl border text-xs font-medium transition-all flex flex-col items-center justify-center gap-0.5 ${isSelected
-                    ? 'border-white bg-[#262626] text-white font-bold'
+                    ? 'border-college-blue bg-college-blue text-white font-bold'
                     : 'border-[#2A2A2A] bg-black/40 text-neutral-400 hover:border-neutral-700'
                   }`}
               >
@@ -329,7 +331,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
               onClick={handleSaveSemester}
               className={`w-full py-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${isSavedSuccessfully
                   ? 'bg-neutral-800 text-green-400 border border-green-900/30'
-                  : 'bg-black text-white hover:bg-neutral-950 border border-[#2A2A2A]'
+                  : 'bg-college-blue text-white hover:bg-college-blue/90 border border-college-blue'
                 }`}
             >
               {isSavedSuccessfully ? (
