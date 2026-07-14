@@ -48,6 +48,7 @@ function AppContent() {
     isStorageLoading,
     updateProfile,
     saveSemester,
+    saveSemesters,
     saveAttendance,
     saveExams,
     resetData,
@@ -102,16 +103,15 @@ function AppContent() {
     updateProfile(newProfile);
 
     if (initialSemesters && initialSemesters.length > 0) {
-      initialSemesters.forEach(item => {
-        saveSemester({
-          id: `sem-${item.number}`,
-          number: item.number,
-          name: `Semester ${item.number}`,
-          sgpa: item.sgpa,
-          totalCredits: 20, // default credits
-          subjects: []
-        });
-      });
+      const semestersToSave = initialSemesters.map(item => ({
+        id: `sem-${item.number}`,
+        number: item.number,
+        name: `Semester ${item.number}`,
+        sgpa: item.sgpa,
+        totalCredits: 20, // default credits
+        subjects: []
+      }));
+      saveSemesters(semestersToSave);
     }
   };
 

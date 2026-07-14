@@ -52,6 +52,7 @@ interface GradenceContextType {
 
   updateProfile: (profile: UserProfile) => Promise<void>;
   saveSemester: (semester: Semester) => Promise<void>;
+  saveSemesters: (semesters: Semester[]) => Promise<void>;
   saveAttendance: (subjects: AttendanceSubject[]) => Promise<void>;
   saveExams: (newExams: Exam[]) => Promise<void>;
   saveTimetable: (list: TimetableItem[]) => Promise<void>;
@@ -156,25 +157,39 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     await logActivity('profile', 'Settings Changed', 'System and academic parameters updated.');
   };
 
-  const saveSemester = async (semester: Semester) => {
-    const existsIdx = semesters.findIndex(s => s.number === semester.number);
-    let updated: Semester[];
-    if (existsIdx >= 0) {
-      updated = [...semesters];
-      updated[existsIdx] = semester;
-    } else {
-      updated = [...semesters, semester].sort((a, b) => a.number - b.number);
-    }
+  const saveSemesters = async (newSemesters: Semester[]) => {
+    if (newSemesters.length === 0) return;
+    
+    let updated = [...semesters];
+    newSemesters.forEach(semester => {
+      const existsIdx = updated.findIndex(s => s.number === semester.number);
+      if (existsIdx >= 0) {
+        updated[existsIdx] = semester;
+      } else {
+        updated.push(semester);
+      }
+    });
+    updated.sort((a, b) => a.number - b.number);
     setSemesters(updated);
     await setItem('gradence_semesters', JSON.stringify(updated));
-    await logActivity('cgpa', `Semester ${semester.number} Saved`, `Archived ${semester.subjects.length} courses with an SGPA of ${semester.sgpa.toFixed(2)}.`);
 
-    if (profile && semester.number >= profile.currentSemester && semester.number < 8) {
-      const updatedProfile = { ...profile, currentSemester: semester.number + 1 };
-      setProfile(updatedProfile);
-      const { groqApiKey: _, ...cleanProf } = updatedProfile;
-      await setItem('gradence_profile', JSON.stringify(cleanProf));
+    for (const semester of newSemesters) {
+      await logActivity('cgpa', `Semester ${semester.number} Saved`, `Archived ${semester.subjects.length} courses with an SGPA of ${semester.sgpa.toFixed(2)}.`);
     }
+
+    if (profile) {
+      const maxSemNum = Math.max(...newSemesters.map(s => s.number));
+      if (maxSemNum >= profile.currentSemester && maxSemNum < 8) {
+        const updatedProfile = { ...profile, currentSemester: maxSemNum + 1 };
+        setProfile(updatedProfile);
+        const { groqApiKey: _, ...cleanProf } = updatedProfile;
+        await setItem('gradence_profile', JSON.stringify(cleanProf));
+      }
+    }
+  };
+
+  const saveSemester = async (semester: Semester) => {
+    await saveSemesters([semester]);
   };
 
   const saveAttendance = async (subjects: AttendanceSubject[]) => {
@@ -356,6 +371,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         isStorageLoading,
         updateProfile,
         saveSemester,
+        saveSemesters,
         saveAttendance,
         saveExams,
         saveTimetable,
