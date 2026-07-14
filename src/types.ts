@@ -30,6 +30,7 @@ export interface AttendanceSubject {
   present: number;
   total: number;
   requiredPercentage: number;
+  history?: ('present' | 'absent')[];
 }
 
 export interface Exam {

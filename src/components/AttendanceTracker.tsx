@@ -42,7 +42,8 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
       name: newSubName.trim(),
       present: 0,
       total: 0,
-      requiredPercentage: newSubTarget
+      requiredPercentage: newSubTarget,
+      history: []
     };
     const updated = [...subjects, newSub];
     setSubjects(updated);
@@ -66,18 +67,50 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
       if (s.id === id) {
         let p = s.present;
         let t = s.total;
+        let hist = [...(s.history || [])];
+
+        // Sanitize pre-existing invalid states where present > total
+        if (t < p) {
+          t = p;
+        }
 
         if (isIncrement) {
           t += 1;
-          if (isPresent) p += 1;
+          if (isPresent) {
+            p += 1;
+            hist.push('present');
+          } else {
+            hist.push('absent');
+          }
         } else {
-          // Decrement (safeguard)
-          if (t > 0) {
-            t -= 1;
-            if (isPresent && p > 0) p -= 1;
+          // Decrement (reverting/deleting last logged state)
+          if (isPresent) {
+            // Revert/minus an Attended class
+            if (p > 0) {
+              p -= 1;
+              t -= 1;
+              const lastIdx = hist.lastIndexOf('present');
+              if (lastIdx !== -1) {
+                hist.splice(lastIdx, 1);
+              }
+            }
+          } else {
+            // Revert/minus a Missed class
+            if (t > p) {
+              t -= 1;
+              const lastIdx = hist.lastIndexOf('absent');
+              if (lastIdx !== -1) {
+                hist.splice(lastIdx, 1);
+              }
+            }
           }
         }
-        return { ...s, present: p, total: t };
+
+        // Final safeguard to ensure total >= present and no negative values
+        if (p < 0) p = 0;
+        if (t < p) t = p;
+
+        return { ...s, present: p, total: t, history: hist };
       }
       return s;
     });
