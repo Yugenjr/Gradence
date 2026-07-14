@@ -1111,7 +1111,17 @@ body {
   color: #c09000 !important;
 }
 
-/* Ensure svgs inside buttons correctly inherit the button's active/inactive text color */
+/* Ensure svgs inside buttons correctly inherit the button's active/inactive text color with high specificity */
+.se-light-theme.light-theme .bg-\[\#121213\] button svg,
+.se-light-theme.light-theme .bg-\[\#171717\] button svg,
+.se-light-theme.light-theme .bg-neutral-900 button svg,
+.se-light-theme.light-theme .bg-neutral-950 button svg,
+.se-light-theme.light-theme .bg-\[\#0F0F10\] button svg,
+.se-light-theme .bg-\[\#121213\] button svg,
+.se-light-theme .bg-\[\#171717\] button svg,
+.se-light-theme .bg-neutral-900 button svg,
+.se-light-theme .bg-neutral-950 button svg,
+.se-light-theme .bg-\[\#0F0F10\] button svg,
 .se-light-theme.light-theme button svg,
 .se-light-theme button svg {
   color: inherit !important;
@@ -1244,21 +1254,21 @@ body {
 }
 
 /* Active Module switcher pills (AI Workspace tabs) color remappings to yellow */
-.se-light-theme.light-theme .bg-\[\#121213\] button.bg-white,
-.se-light-theme.light-theme .bg-white\/5 button.bg-white,
-.se-light-theme.light-theme .bg-neutral-900 button.bg-white,
-.se-light-theme .bg-\[\#121213\] button.bg-white,
-.se-light-theme .bg-white\/5 button.bg-white,
-.se-light-theme .bg-neutral-900 button.bg-white {
+.se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button.bg-white,
+.se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button.bg-white,
+.se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button.bg-white,
+.se-light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button.bg-white,
+.se-light-theme .bg-white\/5:not(.bg-neutral-950) button.bg-white,
+.se-light-theme .bg-neutral-900:not(.bg-neutral-950) button.bg-white {
   background-color: var(--college-yellow) !important;
   color: #000000 !important;
 }
-.se-light-theme.light-theme .bg-\[\#121213\] button.bg-white svg,
-.se-light-theme.light-theme .bg-white\/5 button.bg-white svg,
-.se-light-theme.light-theme .bg-neutral-900 button.bg-white svg,
-.se-light-theme .bg-\[\#121213\] button.bg-white svg,
-.se-light-theme .bg-white\/5 button.bg-white svg,
-.se-light-theme .bg-neutral-900 button.bg-white svg {
+.se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button.bg-white svg,
+.se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button.bg-white svg,
+.se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button.bg-white svg,
+.se-light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button.bg-white svg,
+.se-light-theme .bg-white\/5:not(.bg-neutral-950) button.bg-white svg,
+.se-light-theme .bg-neutral-900:not(.bg-neutral-950) button.bg-white svg {
   color: #000000 !important;
 }
 
@@ -1271,13 +1281,13 @@ body {
 .se-light-theme .bg-neutral-900 button:not(.bg-white) {
   color: #4a5d78 !important;
 }
-.se-light-theme.light-theme .bg-\[\#121213\] button:not(.bg-white) svg,
-.se-light-theme.light-theme .bg-white\/5 button:not(.bg-white) svg,
-.se-light-theme.light-theme .bg-neutral-900 button:not(.bg-white) svg,
-.se-light-theme .bg-\[\#121213\] button:not(.bg-white) svg,
-.se-light-theme .bg-white\/5 button:not(.bg-white) svg,
-.se-light-theme .bg-neutral-900 button:not(.bg-white) svg {
-  color: #4a5d78 !important;
+.se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white) svg,
+.se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white) svg,
+.se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white) svg,
+.se-light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white) svg,
+.se-light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white) svg,
+.se-light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white) svg {
+  color: var(--college-blue) !important; /* Make inactive tab icons College Blue for high contrast */
 }
 .se-light-theme.light-theme .bg-\[\#121213\] button:not(.bg-white):hover,
 .se-light-theme.light-theme .bg-white\/5 button:not(.bg-white):hover,
@@ -1287,13 +1297,13 @@ body {
 .se-light-theme .bg-neutral-900 button:not(.bg-white):hover {
   color: var(--college-blue) !important;
 }
-.se-light-theme.light-theme .bg-\[\#121213\] button:not(.bg-white):hover svg,
-.se-light-theme.light-theme .bg-white\/5 button:not(.bg-white):hover svg,
-.se-light-theme.light-theme .bg-neutral-900 button:not(.bg-white):hover svg,
-.se-light-theme .bg-\[\#121213\] button:not(.bg-white):hover svg,
-.se-light-theme .bg-white\/5 button:not(.bg-white):hover svg,
-.se-light-theme .bg-neutral-900 button:not(.bg-white):hover svg {
-  color: var(--college-blue) !important;
+.se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white):hover svg,
+.se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white):hover svg,
+.se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white):hover svg,
+.se-light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white):hover svg,
+.se-light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white):hover svg,
+.se-light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white):hover svg {
+  color: var(--college-blue-hover) !important;
 }
 
 /* Sub-pill Navigator bar background remappings (e.g. Placement OS sub-menu bar) */
