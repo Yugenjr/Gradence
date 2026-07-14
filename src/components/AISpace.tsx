@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { UserProfile, Semester, AttendanceSubject, RoadmapStage } from '../types';
 import { askGroq, ChatMessage, calculateHeuristicScore, extractScore } from '../services/ai';
@@ -13,7 +13,9 @@ import {
   FileText,
   User,
   Zap,
-  Map
+  Map,
+  Copy,
+  Check
 } from 'lucide-react';
 import EventsScreen from './EventsScreen';
 import ResumeBuilder from './ResumeBuilder';
@@ -63,6 +65,84 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
     { role: 'assistant', content: `Hello, **${profile.name}**! I am your Gradence AI Academic OS Assistant. I'm connected to the Groq Cloud API. Ask me anything about your current semesters, study guidance, or career preparation!` }
   ]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const lastMessage = chatHistory[chatHistory.length - 1];
+    if (lastMessage && (lastMessage.role === 'user' || isLoading)) {
+      messagesContainerRef.current?.scrollTo({
+        top: messagesContainerRef.current.scrollHeight,
+        behavior: 'smooth'
+      });
+    }
+  }, [chatHistory, isLoading]);
+
+  const [copySuccess, setCopySuccess] = useState(false);
+
+  const handleCopyWholeChat = () => {
+    const formattedChat = chatHistory
+      .map(msg => {
+        const sender = msg.role === 'user' ? 'Student' : 'Gradence AI';
+        return `[${sender}]:\n${msg.content}\n`;
+      })
+      .join('\n---\n\n');
+
+    navigator.clipboard.writeText(formattedChat)
+      .then(() => {
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy chat: ', err);
+      });
+  };
+
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+
+  const handleCopySingleMessage = (content: string, index: number) => {
+    navigator.clipboard.writeText(content)
+      .then(() => {
+        setCopiedIndex(index);
+        setTimeout(() => setCopiedIndex(null), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy message: ', err);
+      });
+  };
+
+  const [copiedPlacement, setCopiedPlacement] = useState(false);
+  const handleCopyPlacementFeedback = () => {
+    let header = 'Placement OS Feedback';
+    if (placementTab === 'skills') header = 'Skills Alignment Compatibility Feedback';
+    else if (placementTab === 'project') header = 'Project Roadmap & Tech Stack Feedback';
+    else if (placementTab === 'resume') header = 'Resume Audit Feedback';
+
+    const scoreString = placementTab === 'resume' ? ` (Score: ${placementScore}/100)` : '';
+    const textToCopy = `${header}${scoreString}\n\n${placementFeedback}`;
+    
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        setCopiedPlacement(true);
+        setTimeout(() => setCopiedPlacement(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy: ', err);
+      });
+  };
+
+  const [copiedRoadmap, setCopiedRoadmap] = useState(false);
+  const handleCopyRoadmap = () => {
+    const textToCopy = `AI Career Roadmap - ${careerGoal}\n\n${roadmapResult}`;
+    navigator.clipboard.writeText(textToCopy)
+      .then(() => {
+        setCopiedRoadmap(true);
+        setTimeout(() => setCopiedRoadmap(false), 2000);
+      })
+      .catch(err => {
+        console.error('Failed to copy roadmap: ', err);
+      });
+  };
 
   // Resume & Placement states
   const [resumeText, setResumeText] = useState('');
@@ -386,8 +466,22 @@ Include this score on a separate line at the very end of your response in the ex
 
         {/* Chat / AI Assistant Module */}
         {activeModule === 'chat' && (
-          <div className="flex-1 flex flex-col p-6 h-[500px]">
-            <div className="flex-1 overflow-y-auto space-y-4 pr-2 scrollbar-none">
+          <div className="flex flex-col p-6">
+            <div className="flex justify-between items-center mb-4 border-b border-neutral-800 pb-3">
+              <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest font-bold">
+                AI Chat Assistant
+              </span>
+              {chatHistory.length > 1 && (
+                <button
+                  onClick={handleCopyWholeChat}
+                  className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 hover:text-white cursor-pointer transition-all"
+                >
+                  {copySuccess ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copySuccess ? 'Copied!' : 'Copy Chat'}
+                </button>
+              )}
+            </div>
+            <div ref={messagesContainerRef} className="h-[380px] overflow-y-auto space-y-4 pr-2 scrollbar-none">
               {chatHistory.map((msg, idx) => (
                 <div
                   key={idx}
@@ -397,9 +491,22 @@ Include this score on a separate line at the very end of your response in the ex
                     }`}>
                     {msg.role === 'user' ? <User className="w-4 h-4" /> : <Sparkles className="w-4 h-4" />}
                   </div>
-                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed ${msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
+                  <div className={`p-4 rounded-[20px] text-xs leading-relaxed relative group ${msg.role === 'user' ? 'bg-white text-black' : 'bg-neutral-900 border border-neutral-800 text-neutral-200'
                     }`}>
-                    <div className="whitespace-pre-line">{parseMarkdown(msg.content)}</div>
+                    <div className="whitespace-pre-line pr-5">{parseMarkdown(msg.content)}</div>
+                    <button
+                      onClick={() => handleCopySingleMessage(msg.content, idx)}
+                      className={`absolute top-2 right-2 p-1 border border-transparent cursor-pointer ${
+                        msg.role === 'user' ? 'text-neutral-400' : 'text-neutral-500'
+                      }`}
+                      title="Copy message"
+                    >
+                      {copiedIndex === idx ? (
+                        <Check className="w-3 h-3 text-emerald-500" />
+                      ) : (
+                        <Copy className="w-3 h-3" />
+                      )}
+                    </button>
                   </div>
                 </div>
               ))}
@@ -519,13 +626,26 @@ Include this score on a separate line at the very end of your response in the ex
 
               {placementFeedback && (
                 <div className="bg-[#0F0F10] border border-neutral-800 rounded-2xl p-4 space-y-4">
+                  <div className="flex justify-between items-center pb-2 border-b border-neutral-900">
+                    <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-widest font-bold">
+                      Audit Feedback
+                    </span>
+                    <button
+                      onClick={handleCopyPlacementFeedback}
+                      className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 hover:text-white cursor-pointer transition-all"
+                    >
+                      {copiedPlacement ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                      {copiedPlacement ? 'Copied!' : 'Copy Results'}
+                    </button>
+                  </div>
+
                   {placementTab === 'resume' && (
-                    <div className="flex justify-between items-center">
+                    <div className="flex justify-between items-center border-b border-neutral-900 pb-2">
                       <span className="text-[10px] font-mono text-neutral-400">{tabConfig.scoreLabel}</span>
                       <span className="text-lg font-bold font-mono text-white">{placementScore}/100</span>
                     </div>
                   )}
-                  <div className={`text-xs leading-relaxed text-neutral-300 ${placementTab === 'resume' ? 'border-t border-neutral-900 pt-3' : ''}`}>
+                  <div className="text-xs leading-relaxed text-neutral-300 pt-1">
                     {parseMarkdown(placementFeedback)}
                   </div>
                 </div>
@@ -566,6 +686,18 @@ Include this score on a separate line at the very end of your response in the ex
 
             {roadmapResult && (
               <div className="space-y-4">
+                <div className="flex justify-between items-center mb-1">
+                  <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">
+                    Roadmap Details
+                  </span>
+                  <button
+                    onClick={handleCopyRoadmap}
+                    className="flex items-center gap-1.5 text-[10px] font-mono text-neutral-500 hover:text-white cursor-pointer transition-all"
+                  >
+                    {copiedRoadmap ? <Check className="w-3.5 h-3.5 text-emerald-500" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedRoadmap ? 'Copied!' : 'Copy Roadmap'}
+                  </button>
+                </div>
                 <div className="bg-black/40 border border-neutral-800 rounded-2xl p-5 text-xs text-neutral-300 leading-relaxed">
                   {parseMarkdown(roadmapResult)}
                 </div>
