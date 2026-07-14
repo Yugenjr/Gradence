@@ -464,7 +464,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
       </div>
 
       {/* Navigation Footer */}
-      <div className="max-w-md mx-auto w-full flex flex-col gap-4">
+      <div className="max-w-md mx-auto w-full flex flex-col gap-4 pb-6 sm:pb-0">
         {/* Step Indicators */}
         <div className="flex justify-center gap-1.5 py-2">
           {Array.from({ length: totalSteps }, (_, i) => i + 1).map((s) => (
