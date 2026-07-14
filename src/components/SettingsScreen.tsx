@@ -389,7 +389,7 @@ export default function SettingsScreen({
               className="w-full bg-black border border-neutral-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-semibold h-9"
             >
               <option value="se-dark">Sri Eshwar Dark</option>
-              <option value="se-light">Sri Eshwar Light</option>
+              <option value="se-light">Sri Eshwar White</option>
               <option value="dark">Classic Dark</option>
               <option value="light">Nordic Light</option>
               <option value="system">System Synchronized</option>

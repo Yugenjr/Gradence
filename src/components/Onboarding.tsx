@@ -13,7 +13,7 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
   const [name, setName] = useState('');
   const [university, setUniversity] = useState('Sri Eshwar College of Engineering');
   const [currentSemester, setCurrentSemester] = useState(1);
-  const [theme, setTheme] = useState<'se-dark' | 'se-light' | 'dark' | 'light' | 'system'>('se-dark');
+  const [theme, setTheme] = useState<'se-dark' | 'se-light' | 'dark' | 'light' | 'system'>('se-light');
   const [gpaScale, setGpaScale] = useState<4 | 10>(10);
   const [prevSgpas, setPrevSgpas] = useState<{[key: number]: string}>({});
 
@@ -380,8 +380,8 @@ export default function Onboarding({ onComplete }: OnboardingProps) {
                         <Sparkles className="w-3 h-3 text-[#1e4e8c] absolute top-1.5 right-1.5" />
                       </div>
                       <div>
-                        <div className="text-sm font-medium text-white">Sri Eshwar Light</div>
-                        <div className="text-xs text-neutral-500">Official Blue & Yellow branding on light workspace</div>
+                        <div className="text-sm font-medium text-white">Sri Eshwar White</div>
+                        <div className="text-xs text-neutral-500">Official Blue & Yellow branding on white-card workspace</div>
                       </div>
                     </div>
                     {theme === 'se-light' && <Check className="w-5 h-5 text-white" />}

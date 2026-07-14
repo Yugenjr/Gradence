@@ -87,7 +87,7 @@ function AppContent() {
         document.documentElement.style.backgroundColor = '#000000';
       } else if (activeTheme === 'se-light') {
         document.documentElement.classList.add('light-theme', 'se-light-theme');
-        document.documentElement.style.backgroundColor = '#f5f5f7';
+        document.documentElement.style.backgroundColor = '#153e75';
       } else if (activeTheme === 'dark') {
         document.documentElement.classList.add('dark');
         document.documentElement.style.backgroundColor = '#000000';
