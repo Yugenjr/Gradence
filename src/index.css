@@ -1079,12 +1079,36 @@ body {
   color: #64748b !important;
 }
 
-/* Make key numeric score display text in premium high contrast gold inside white cards */
+/* Make key numeric display texts outside cards bright yellow, and inside cards premium gold */
 .se-light-theme.light-theme .text-3xl.font-extrabold,
 .se-light-theme .text-3xl.font-extrabold,
 .se-light-theme.light-theme .text-4xl.font-extrabold,
 .se-light-theme .text-4xl.font-extrabold {
-  color: #b08200 !important;
+  color: var(--college-yellow) !important;
+}
+
+.se-light-theme.light-theme .bg-\[\#171717\] .text-3xl.font-extrabold,
+.se-light-theme.light-theme .bg-\[\#121213\] .text-3xl.font-extrabold,
+.se-light-theme.light-theme .bg-neutral-900 .text-3xl.font-extrabold,
+.se-light-theme.light-theme .bg-neutral-950 .text-3xl.font-extrabold,
+.se-light-theme.light-theme .bg-\[\#0F0F10\] .text-3xl.font-extrabold,
+.se-light-theme .bg-\[\#171717\] .text-3xl.font-extrabold,
+.se-light-theme .bg-\[\#121213\] .text-3xl.font-extrabold,
+.se-light-theme .bg-neutral-900 .text-3xl.font-extrabold,
+.se-light-theme .bg-neutral-950 .text-3xl.font-extrabold,
+.se-light-theme .bg-\[\#0F0F10\] .text-3xl.font-extrabold,
+.se-light-theme.light-theme .bg-\[\#171717\] .text-4xl.font-extrabold,
+.se-light-theme.light-theme .bg-\[\#121213\] .text-4xl.font-extrabold,
+.se-light-theme.light-theme .bg-neutral-900 .text-4xl.font-extrabold,
+.se-light-theme.light-theme .bg-neutral-955 .text-4xl.font-extrabold,
+.se-light-theme.light-theme .bg-neutral-950 .text-4xl.font-extrabold,
+.se-light-theme.light-theme .bg-\[\#0F0F10\] .text-4xl.font-extrabold,
+.se-light-theme .bg-\[\#171717\] .text-4xl.font-extrabold,
+.se-light-theme .bg-\[\#121213\] .text-4xl.font-extrabold,
+.se-light-theme .bg-neutral-900 .text-4xl.font-extrabold,
+.se-light-theme .bg-neutral-950 .text-4xl.font-extrabold,
+.se-light-theme .bg-\[\#0F0F10\] .text-4xl.font-extrabold {
+  color: #c09000 !important;
 }
 
 /* Ensure svgs inside buttons correctly inherit the button's active/inactive text color */
