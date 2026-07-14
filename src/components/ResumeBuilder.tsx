@@ -311,6 +311,28 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
   const [preview, setPreview] = useState(false);
   const [downloading, setDownloading] = useState(false);
   const previewRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = React.useState(1);
+
+  React.useEffect(() => {
+    if (!preview) return;
+    const handleResize = () => {
+      if (previewRef.current) {
+        const containerWidth = previewRef.current.offsetWidth;
+        if (containerWidth < 794) {
+          setScale(containerWidth / 794);
+        } else {
+          setScale(1);
+        }
+      }
+    };
+    handleResize();
+    const t = setTimeout(handleResize, 50);
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(t);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [preview]);
 
   const set = (key: keyof ResumeData, val: any) => setData(d => ({ ...d, [key]: val }));
 
@@ -386,8 +408,22 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
 
       {/* Preview panel */}
       {preview && (
-        <div ref={previewRef} className="overflow-x-auto rounded-2xl border border-neutral-800 bg-white">
-          <ResumePreview data={data} />
+        <div 
+          ref={previewRef} 
+          className="w-full rounded-2xl border border-neutral-800 bg-white overflow-hidden flex justify-center"
+          style={{ height: `${1123 * scale}px` }}
+        >
+          <div 
+            style={{ 
+              transform: `scale(${scale})`, 
+              transformOrigin: 'top center',
+              width: '794px',
+              height: '1123px',
+              flexShrink: 0
+            }}
+          >
+            <ResumePreview data={data} />
+          </div>
         </div>
       )}
 
