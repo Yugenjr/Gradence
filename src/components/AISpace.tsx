@@ -70,6 +70,7 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   const [resumeText, setResumeText] = useState('');
   const [placementScore, setPlacementScore] = useState<number | null>(null);
   const [placementFeedback, setPlacementFeedback] = useState('');
+  const [placementTab, setPlacementTab] = useState<'skills' | 'project' | 'resume'>('skills');
 
   // Custom Roadmap states
   const [careerGoal, setCareerGoal] = useState('Full Stack Software Engineer');
@@ -205,14 +206,52 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
   const handleAnalyzePlacement = async () => {
     if (!resumeText.trim()) return;
     setIsLoading(true);
+
+    let systemPrompt = '';
+    if (placementTab === 'skills') {
+      systemPrompt = `You are the Gradence Career & Placement Assistant.
+Analyze the student's technical skills list for placement readiness and alignment with tier-1 placement companies.
+Identify matching industry-relevant roles (e.g., Frontend Developer, Backend Developer, Fullstack) and sector compatibility.
+Specify critical complementary skills they should study to pair with these.
+Keep the response extremely brief, clear, and structured using markdown (maximum 120-150 words).
+
+IMPORTANT: You MUST evaluate the completeness and alignment of the input to calculate a realistic compatibility score between 0 and 100.
+- If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0.
+- For valid queries, return a realistic score reflecting alignment.
+Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g., SCORE: 75). Do not include any text after this.`;
+    } else if (placementTab === 'project') {
+      systemPrompt = `You are the Gradence Project Architectural Mentor.
+Analyze the user's project idea.
+Recommend a modern, industry-standard tech stack (Frontend, Backend, Database, DevOps).
+Provide a structured 3-phase development roadmap (e.g., Phase 1: Database & API Setup, Phase 2: Frontend Integration, Phase 3: Optimizations & Deployment).
+Detail how building this project fits resume expectations and alignment with premium placement companies.
+Keep the response extremely brief, clear, and structured using markdown (maximum 120-150 words).
+
+IMPORTANT: You MUST evaluate the complexity and industry relevance of the project to calculate a realistic implementation score between 0 and 100.
+- If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0.
+- For valid queries, return a realistic score reflecting complexity.
+Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g., SCORE: 75). Do not include any text after this.`;
+    } else {
+      systemPrompt = `You are the Gradence Resume Audit Expert.
+Audit the provided student resume points or project experience details.
+Identify structural formatting gaps, missing tech metrics (e.g., performance speedups, user capacity, scaling stats), or generic phrasing.
+Provide a clear, 2-step actionable revision plan with concrete rewrite advice.
+Keep the response extremely brief, clear, and structured using markdown (maximum 120-150 words).
+
+IMPORTANT: You MUST evaluate the completeness and impact of the resume points to calculate a realistic resume score between 0 and 100.
+- If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0.
+- For valid queries, return a realistic score reflecting quality.
+Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g., SCORE: 75). Do not include any text after this.`;
+    }
+
     const messages: ChatMessage[] = [
       {
         role: 'system',
-        content: 'Analyze this student resume/skills for placement readiness. Keep the response extremely brief, concise, and professional (maximum 80-100 words). Point out exactly what is missing in a clean, bulleted format, and give a 2-step actionable advice.\n\nIMPORTANT: You MUST evaluate the provided skills and projects to calculate a realistic placement readiness score between 0 and 100. If the input is extremely short, generic, invalid, or meaningless (such as just a single character, number, symbol, or gibberish), the score MUST be 0. Include this score on a separate line at the very end of your response in the exact format: "SCORE: X" where X is the integer score (e.g. SCORE: 75). Do not include any text after this.'
+        content: systemPrompt
       },
       {
         role: 'user',
-        content: `Resume Info/Skills: ${resumeText}. University: ${profile.university}`
+        content: `PlacementTab: ${placementTab}\nInput: ${resumeText}\nUniversity: ${profile.university}`
       }
     ];
 
@@ -395,43 +434,104 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
         )}
 
         {/* Placement Readiness Module */}
-        {activeModule === 'placement' && (
-          <div className="p-6 space-y-6">
-            <div>
-              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">PLACEMENT READINESS INDEX</h3>
-              <p className="text-xs text-neutral-400 mt-1">Paste your skills, projects, or resume points below to calculate alignment with premium placement companies.</p>
-            </div>
+        {activeModule === 'placement' && (() => {
+          const tabConfig = {
+            skills: {
+              title: "SKILLS ALIGNMENT COMPATIBILITY",
+              desc: "Paste your technical skills or stack below to calculate your alignment with premium placement companies.",
+              placeholder: "e.g., React, Node.js, SQL, TypeScript, Docker, Python...",
+              btnLabel: "Calculate Skills Alignment",
+              scoreLabel: "COMPATIBILITY SCORE"
+            },
+            project: {
+              title: "PROJECT ROADMAP & ARCHITECTURE",
+              desc: "Paste your project ideas or requirements below to generate a step-by-step development roadmap and tech stack.",
+              placeholder: "e.g., A collaborative real-time code editing platform with chat rooms and shared workspaces...",
+              btnLabel: "Generate Development Roadmap",
+              scoreLabel: "COMPLEXITY SCORE"
+            },
+            resume: {
+              title: "RESUME AUDIT & METRICS CHECK",
+              desc: "Paste your resume bullet points or project accomplishment details to audit for impact, phrasing, and metrics.",
+              placeholder: "e.g., Developed the task planner backend with Node/Express. Configured authentication. Sped up DB calls...",
+              btnLabel: "Audit Resume Points",
+              scoreLabel: "RESUME STRENGTH SCORE"
+            }
+          }[placementTab];
 
-            <textarea
-              rows={5}
-              value={resumeText}
-              onChange={(e) => setResumeText(e.target.value)}
-              placeholder="e.g. Frontend developer, skills: React, Tailwind CSS, SQL. Projects: Task Manager application..."
-              className="w-full bg-black border border-neutral-800 rounded-2xl p-4 text-xs text-white focus:outline-none focus:border-neutral-600"
-            />
-
-            <button
-              onClick={handleAnalyzePlacement}
-              disabled={isLoading || !resumeText.trim()}
-              className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <FileText className="w-4 h-4" />
-              Analyze Placement Eligibility & Skill Gaps
-            </button>
-
-            {placementFeedback && (
-              <div className="bg-[#0F0F10] border border-neutral-800 rounded-2xl p-4 space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-[10px] font-mono text-neutral-400">PLACEMENT SCORE</span>
-                  <span className="text-lg font-bold font-mono text-white">{placementScore}/100</span>
+          return (
+            <div className="p-6 space-y-6">
+              <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
+                <div>
+                  <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">PLACEMENT & PROJECT OS</h3>
+                  <p className="text-xs text-neutral-400 mt-1">Select an audit tool below to analyze your readiness.</p>
                 </div>
-                <div className="text-xs leading-relaxed text-neutral-300 border-t border-neutral-900 pt-3">
-                  {parseMarkdown(placementFeedback)}
+
+                {/* Sub-pill Navigator */}
+                <div className="flex bg-neutral-950 border border-neutral-900 rounded-xl p-0.5 gap-0.5 max-w-md shrink-0">
+                  {[
+                    { id: 'skills', label: 'Skills Alignment' },
+                    { id: 'project', label: 'Project Roadmap' },
+                    { id: 'resume', label: 'Resume Audit' }
+                  ].map(tab => (
+                    <button
+                      key={tab.id}
+                      onClick={() => {
+                        setPlacementTab(tab.id as any);
+                        setPlacementFeedback('');
+                        setPlacementScore(null);
+                        setResumeText('');
+                      }}
+                      className={`py-1.5 px-3 rounded-lg text-[10px] font-semibold transition-all cursor-pointer ${
+                        placementTab === tab.id ? 'bg-white/10 text-white' : 'text-neutral-500 hover:text-neutral-300'
+                      }`}
+                    >
+                      {tab.label}
+                    </button>
+                  ))}
                 </div>
               </div>
-            )}
-          </div>
-        )}
+
+              <div className="border-t border-neutral-900 pt-4">
+                <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">
+                  {tabConfig.title}
+                </span>
+                <p className="text-xs text-neutral-400 mb-4">{tabConfig.desc}</p>
+
+                <textarea
+                  rows={5}
+                  value={resumeText}
+                  onChange={(e) => setResumeText(e.target.value)}
+                  placeholder={tabConfig.placeholder}
+                  className="w-full bg-black border border-neutral-800 rounded-2xl p-4 text-xs text-white focus:outline-none focus:border-neutral-600"
+                />
+              </div>
+
+              <button
+                onClick={handleAnalyzePlacement}
+                disabled={isLoading || !resumeText.trim()}
+                className="w-full py-3.5 bg-white text-black font-semibold text-xs rounded-xl flex items-center justify-center gap-2 hover:bg-neutral-200 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <FileText className="w-4 h-4" />
+                {tabConfig.btnLabel}
+              </button>
+
+              {placementFeedback && (
+                <div className="bg-[#0F0F10] border border-neutral-800 rounded-2xl p-4 space-y-4">
+                  {placementTab === 'resume' && (
+                    <div className="flex justify-between items-center">
+                      <span className="text-[10px] font-mono text-neutral-400">{tabConfig.scoreLabel}</span>
+                      <span className="text-lg font-bold font-mono text-white">{placementScore}/100</span>
+                    </div>
+                  )}
+                  <div className={`text-xs leading-relaxed text-neutral-300 ${placementTab === 'resume' ? 'border-t border-neutral-900 pt-3' : ''}`}>
+                    {parseMarkdown(placementFeedback)}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })()}
 
         {/* Career OS Module */}
         {activeModule === 'career' && (
@@ -482,48 +582,41 @@ export default function AISpace({ profile, semesters, attendanceSubjects }: AISp
 
         {/* Peer Connect / Social Module */}
         {activeModule === 'social' && (
-          <div className="p-6 space-y-6">
-            <div>
-              <h3 className="text-sm font-bold text-white font-mono uppercase tracking-wider">ACADEMIC COMMUNITIES & PEER BENCHMARKING</h3>
-              <p className="text-xs text-neutral-400 mt-1">Collaborate, share notes, and compare study metrics with peers globally.</p>
+          <div className="p-6 flex flex-col items-center justify-center min-h-[380px] text-center space-y-6">
+            <div className="relative">
+              <div className="absolute inset-0 bg-white/5 blur-xl rounded-full scale-150 animate-pulse" />
+              <div className="relative w-16 h-16 bg-neutral-900 border border-neutral-800 rounded-full flex items-center justify-center text-neutral-400">
+                <Users className="w-8 h-8 text-neutral-300" />
+                <Sparkles className="w-4 h-4 text-white absolute -top-1 -right-1 animate-bounce" />
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">ACTIVE STUDY GROUPS</span>
-                <div className="space-y-2">
-                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
-                    <div>
-                      <h4 className="text-xs font-bold text-white">Algorithms & DS (GATE Prep)</h4>
-                      <span className="text-[9px] font-mono text-neutral-500">24 active members • 2 online</span>
-                    </div>
-                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
-                  </div>
-                  <div className="flex justify-between items-center p-2.5 bg-neutral-950 rounded-xl border border-neutral-900">
-                    <div>
-                      <h4 className="text-xs font-bold text-white">AWS Architect Study Group</h4>
-                      <span className="text-[9px] font-mono text-neutral-500">18 active members • 4 online</span>
-                    </div>
-                    <button className="px-3 py-1 bg-white text-black text-[10px] font-semibold rounded-lg">Join</button>
-                  </div>
-                </div>
-              </div>
+            <div className="max-w-md space-y-3">
+              <span className="inline-block px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-mono text-neutral-400 uppercase tracking-wider">
+                FEATURE PIPELINE
+              </span>
+              <h3 className="text-lg font-bold text-white tracking-tight">Peer Connect & Academic Circles</h3>
+              <p className="text-xs text-neutral-400 leading-relaxed">
+                Gradence is currently offline-first to ensure 100% data ownership. We are architecting a zero-knowledge cloud sync system to let you securely collaborate, share lecture notes, and compare rankings without exposing private records.
+              </p>
+            </div>
 
-              <div className="bg-black/40 border border-neutral-900 rounded-2xl p-4 space-y-3">
-                <span className="text-[10px] font-mono text-neutral-400 uppercase tracking-wider block">PEER BENCHMARKING</span>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
-                    <span className="text-neutral-400">Your CGPA Percentile:</span>
-                    <span className="font-bold text-white font-mono">Top 15%</span>
-                  </div>
-                  <div className="flex justify-between text-xs py-1 border-b border-neutral-900">
-                    <span className="text-neutral-400">Attendance Rank (Univ):</span>
-                    <span className="font-bold text-white font-mono">#42 of 240</span>
-                  </div>
-                  <div className="flex justify-between text-xs py-1">
-                    <span className="text-neutral-400">Daily Study Streak:</span>
-                    <span className="font-bold text-white font-mono">5 Days 🔥</span>
-                  </div>
+            <div className="w-full max-w-sm bg-black/40 border border-neutral-900 rounded-2xl p-4 text-left space-y-3">
+              <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block border-b border-neutral-950 pb-2">
+                RELEASE ROADMAP
+              </span>
+              <div className="space-y-2 text-[11px]">
+                <div className="flex items-center gap-2.5 text-neutral-400">
+                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">1</div>
+                  <span>End-to-End Encrypted Note Transfer</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-neutral-400">
+                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">2</div>
+                  <span>Private Study Rooms via Room Codes</span>
+                </div>
+                <div className="flex items-center gap-2.5 text-neutral-400">
+                  <div className="w-3.5 h-3.5 border border-neutral-800 rounded-full shrink-0 flex items-center justify-center text-[9px] font-mono text-neutral-600">3</div>
+                  <span>Anonymous University-Wide Percentile Leaderboard</span>
                 </div>
               </div>
             </div>

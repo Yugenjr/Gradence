@@ -48,33 +48,51 @@ export async function askGroq(
 export const calculateHeuristicScore = (text: string): number => {
   const cleanText = text.toLowerCase().trim();
   if (!cleanText) return 0;
-  if (cleanText.length < 5) return 0;
+  if (cleanText.length < 3) return 0;
 
-  let score = 30; // base score for entering something
+  // Detect project intent
+  const isProjectIdea = /build|create|develop|make|design|project|app|application|website|system|tool|platform|how to/i.test(cleanText);
 
-  // Keyword lists
-  const tier1 = ['react', 'vue', 'angular', 'next.js', 'node', 'express', 'django', 'spring boot', 'laravel', 'flutter', 'react native', 'fastapi'];
-  const tier2 = ['typescript', 'javascript', 'python', 'java', 'c++', 'golang', 'rust', 'ruby', 'sql', 'nosql', 'postgresql', 'mongodb', 'mysql', 'redis'];
-  const tier3 = ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'ci/cd', 'github actions', 'jenkins', 'terraform', 'graphql', 'grpc', 'websocket', 'socket.io'];
-  const qualityKeywords = ['optimize', 'scale', 'reduce', 'improve', 'secure', 'deploy', 'architect', 'design', 'implement', 'lead', 'coordinate'];
+  let score = 45; // Generous baseline score for any valid input
 
-  let matches = 0;
-  // Add points
-  tier1.forEach(kw => { if (cleanText.includes(kw)) { score += 6; matches++; } });
-  tier2.forEach(kw => { if (cleanText.includes(kw)) { score += 4; matches++; } });
-  tier3.forEach(kw => { if (cleanText.includes(kw)) { score += 8; matches++; } });
-  qualityKeywords.forEach(kw => { if (cleanText.includes(kw)) { score += 3; matches++; } });
+  // Technology keyword lists
+  const frontend = ['react', 'vue', 'angular', 'next.js', 'svelte', 'html', 'css', 'tailwind', 'bootstrap', 'javascript', 'typescript'];
+  const backend = ['node', 'express', 'django', 'spring boot', 'laravel', 'fastapi', 'flask', 'nest.js', 'go', 'golang', 'python', 'java', 'c++', 'c#', 'ruby', 'rust', 'php'];
+  const database = ['sql', 'nosql', 'postgresql', 'mongodb', 'mysql', 'redis', 'sqlite', 'oracle', 'firebase', 'supabase', 'prisma', 'sequelize'];
+  const devops = ['docker', 'kubernetes', 'aws', 'gcp', 'azure', 'ci/cd', 'github actions', 'jenkins', 'terraform', 'vercel', 'netlify', 'heroku'];
+  const concepts = ['rest api', 'graphql', 'grpc', 'websocket', 'microservices', 'system design', 'authentication', 'security', 'oauth', 'jwt', 'mvc'];
 
-  // If no keywords match and text is short, return 0
-  if (matches === 0 && cleanText.length < 15) {
-    return 0;
+  let matchedCategories = 0;
+  let frontendMatches = 0;
+  let backendMatches = 0;
+  let dbMatches = 0;
+  let devopsMatches = 0;
+  let conceptMatches = 0;
+
+  frontend.forEach(kw => { if (cleanText.includes(kw)) frontendMatches++; });
+  backend.forEach(kw => { if (cleanText.includes(kw)) backendMatches++; });
+  database.forEach(kw => { if (cleanText.includes(kw)) dbMatches++; });
+  devops.forEach(kw => { if (cleanText.includes(kw)) devopsMatches++; });
+  concepts.forEach(kw => { if (cleanText.includes(kw)) conceptMatches++; });
+
+  if (frontendMatches > 0) { score += Math.min(10, frontendMatches * 3); matchedCategories++; }
+  if (backendMatches > 0) { score += Math.min(10, backendMatches * 3); matchedCategories++; }
+  if (dbMatches > 0) { score += Math.min(10, dbMatches * 3); matchedCategories++; }
+  if (devopsMatches > 0) { score += Math.min(12, devopsMatches * 4); matchedCategories++; }
+  if (conceptMatches > 0) { score += Math.min(10, conceptMatches * 3); matchedCategories++; }
+
+  if (isProjectIdea) {
+    score += 15; // Project context bonus
+    if (cleanText.length > 40) score += 10;
+  } else {
+    // Resume context: bonus for fullstack capabilities
+    if (matchedCategories >= 3) score += 10;
   }
 
   // Length bonus
-  score += Math.min(15, Math.floor(cleanText.length / 50));
+  score += Math.min(15, Math.floor(cleanText.length / 30));
 
-  // Caps
-  return Math.min(98, Math.max(10, score));
+  return Math.min(99, Math.max(20, score));
 };
 
 export const extractScore = (text: string): number => {
@@ -101,53 +119,168 @@ function simulateResponse(messages: ChatMessage[]): string {
   const lastMessage = messages[messages.length - 1].content;
   const lastMessageLower = lastMessage.toLowerCase();
 
-  if (lastMessageLower.includes('resume info/skills:')) {
-    const match = lastMessage.match(/Resume Info\/Skills:\s*(.*?)\.?\s*University:/i);
-    const resumeText = match ? match[1] : '';
-    const score = calculateHeuristicScore(resumeText);
+  if (lastMessageLower.includes('placementtab:')) {
+    const tabMatch = lastMessage.match(/PlacementTab:\s*(\w+)/i);
+    const tab = tabMatch ? tabMatch[1].toLowerCase() : 'skills';
 
-    const missing: string[] = [];
-    const resumeLower = resumeText.toLowerCase();
+    const inputMatch = lastMessage.match(/Input:\s*([\s\S]*?)(?:\nUniversity:|\.?\s*University:|$)/i);
+    const inputText = inputMatch ? inputMatch[1] : '';
+    const cleanInput = inputText.trim();
+    const inputLower = cleanInput.toLowerCase();
+    const score = calculateHeuristicScore(cleanInput);
 
-    if (!resumeLower.includes('docker') && !resumeLower.includes('kubernetes') && !resumeLower.includes('aws') && !resumeLower.includes('gcp') && !resumeLower.includes('cloud') && !resumeLower.includes('azure')) {
-      missing.push('* **Cloud & DevOps:** No Docker containerization or cloud services (AWS/GCP) listed.');
-    }
-    if (!resumeLower.includes('sql') && !resumeLower.includes('mongodb') && !resumeLower.includes('postgresql') && !resumeLower.includes('database') && !resumeLower.includes('redis')) {
-      missing.push('* **Database Systems:** No SQL/NoSQL databases or caching systems mentioned.');
-    }
-    if (!resumeLower.includes('git') && !resumeLower.includes('github') && !resumeLower.includes('ci/cd')) {
-      missing.push('* **Version Control:** No mention of Git version control or workflow tools.');
-    }
-    if (!resumeLower.includes('optimize') && !resumeLower.includes('scale') && !resumeLower.includes('reduce') && !resumeLower.includes('improve')) {
-      missing.push('* **Performance Optimization:** Project descriptions lack metrics (e.g. latency, load speed improvements).');
-    }
+    if (tab === 'project') {
+      let topic = "Custom Project";
+      if (inputLower.includes('decentralized') || inputLower.includes('defi') || inputLower.includes('blockchain') || inputLower.includes('crypto')) {
+        topic = "Web3 / Decentralized Application";
+      } else if (inputLower.includes('chat') || inputLower.includes('ai') || inputLower.includes('agent') || inputLower.includes('llm') || inputLower.includes('gpt')) {
+        topic = "AI-Powered Intelligence Application";
+      } else if (inputLower.includes('ecommerce') || inputLower.includes('shop') || inputLower.includes('store') || inputLower.includes('payment')) {
+        topic = "E-Commerce / Transactional Platform";
+      } else if (inputLower.includes('social') || inputLower.includes('network') || inputLower.includes('peer') || inputLower.includes('connect')) {
+        topic = "Social Collaboration Workspace";
+      } else if (inputLower.includes('task') || inputLower.includes('todo') || inputLower.includes('manage') || inputLower.includes('planner')) {
+        topic = "Productivity / Task Management Tool";
+      } else if (inputLower.includes('portfolio') || inputLower.includes('resume') || inputLower.includes('placement')) {
+        topic = "Career / Portfolio Operating System";
+      } else {
+        const cleanWords = cleanInput.replace(/how to|develop|build|create|make|design|an|a|the|app|project|application|system/gi, '').trim();
+        if (cleanWords.length > 3) {
+          topic = cleanWords.split(' ').slice(0, 4).map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ') + " Application";
+        }
+      }
 
-    if (missing.length === 0) {
-      missing.push('* **Advanced Certifications:** Consider adding specialized cloud or security certifications.');
-      missing.push('* **System Design:** Include microservices or advanced system design details.');
-    }
+      const suggestedStack: string[] = [];
+      if (inputLower.includes('python') || inputLower.includes('django') || inputLower.includes('fastapi') || inputLower.includes('ai')) {
+        suggestedStack.push('**Backend:** FastAPI / Python with Uvicorn');
+      } else if (inputLower.includes('java') || inputLower.includes('spring')) {
+        suggestedStack.push('**Backend:** Java Spring Boot');
+      } else {
+        suggestedStack.push('**Backend:** Node.js (Express.js or NestJS) with TypeScript');
+      }
 
-    const actionPlan: string[] = [];
-    if (resumeLower.includes('docker')) {
-      actionPlan.push('1. Deploy your dockerized application to a cloud provider like AWS ECS or GCP Cloud Run.');
-    } else {
-      actionPlan.push('1. Containerize your key applications using Docker to ensure cross-environment consistency.');
-    }
+      if (inputLower.includes('next') || inputLower.includes('next.js')) {
+        suggestedStack.push('**Frontend:** Next.js (React 19) with Tailwind CSS');
+      } else if (inputLower.includes('vue')) {
+        suggestedStack.push('**Frontend:** Vue.js with Vite');
+      } else {
+        suggestedStack.push('**Frontend:** React 19 with Vite & Tailwind CSS');
+      }
 
-    if (resumeLower.includes('sql') || resumeLower.includes('mongodb') || resumeLower.includes('database')) {
-      actionPlan.push('2. Implement Redis caching or database indexing to optimize query response times.');
-    } else {
-      actionPlan.push('2. Add a persistent database storage layer (PostgreSQL/MongoDB) to your projects.');
-    }
+      if (inputLower.includes('mongodb') || inputLower.includes('nosql')) {
+        suggestedStack.push('**Database:** MongoDB (NoSQL) or Supabase');
+      } else {
+        suggestedStack.push('**Database:** PostgreSQL (Relational) with Prisma ORM');
+      }
 
-    return `### 📊 Placement Readiness Feedback
-**Score: ${score}/100**
+      if (inputLower.includes('aws') || inputLower.includes('cloud')) {
+        suggestedStack.push('**Deployment:** AWS (ECS/Fargate) with Docker');
+      } else {
+        suggestedStack.push('**Deployment:** Vercel (Frontend) + Render/Railway (Backend) with Docker');
+      }
 
-**What is Missing:**
+      return `### 🛠️ Project Development Guide: ${topic}
+
+Here is the dynamic roadmap to build and implement your project:
+
+**1. Recommended Tech Stack:**
+* ${suggestedStack.join('\n* ')}
+
+**2. Key Architecture Steps:**
+* **Phase 1 (Database & API Setup):** Initialize database schemas with proper relations. Implement secure RESTful endpoints for user authentication and core business logic.
+* **Phase 2 (Frontend Integration):** Build out the UI using modern, responsive components. Connect endpoints using custom hooks and state management (Zustand or Redux).
+* **Phase 3 (Optimization & Containerization):** Add Redis/local-caching for frequent queries, write unit tests for critical handlers, and containerize the build using Docker.
+
+**3. Placement Impact Analysis:**
+* **Recruiter Appeal:** Demonstrates complete full-stack ownership and architectural capability.
+* **Resume Tip:** Quantify performance optimizations (e.g., "Reduced response latency by 35% using database indexing and caching").
+
+SCORE: ${score}`;
+
+    } else if (tab === 'resume') {
+      const missing: string[] = [];
+      const suggestions: string[] = [];
+
+      const hasMetrics = /\d+%/i.test(cleanInput) || /ms\b|seconds\b|queries\b|users\b/i.test(cleanInput) || /\d+\s*x\b/i.test(cleanInput);
+      const hasDevops = /docker|kubernetes|aws|gcp|azure|ci\/cd|github actions/i.test(inputLower);
+      const hasDB = /sql|postgres|mongo|mysql|redis|sqlite|database/i.test(inputLower);
+
+      if (!hasMetrics) {
+        missing.push('* **Quantifiable Impact Metrics:** Project accomplishments lack numerical metrics (e.g. latency reduced by X%, active users count, scale metrics).');
+        suggestions.push('- Rewrite key impact bullet points to show quantified outcomes, e.g. "Optimized API load time by 30% through index optimization".');
+      }
+      if (!hasDevops) {
+        missing.push('* **Deployment/DevOps details:** Resume points do not show how projects were deployed or containerized.');
+        suggestions.push('- Mention Docker containerization or CI/CD pipelines (e.g. GitHub Actions) to prove production readiness.');
+      }
+      if (!hasDB) {
+        missing.push('* **Database Optimization:** No mention of query tuning, migrations, or indexing.');
+        suggestions.push('- Include specific details on schema design, transactional integrity, or caching.');
+      }
+
+      if (missing.length === 0) {
+        missing.push('* **Formatting & Phrasing:** Technical phrasing is strong. Ensure standard action-oriented verbs start every bullet point.');
+        suggestions.push('- Start each resume point with strong action verbs (e.g., "Spearheaded", "Engineered", "Optimized").');
+        suggestions.push('- Keep bullets concise, focusing on **Situation -> Task -> Action -> Result** format.');
+      }
+
+      const formattedSuggestions = suggestions.map((s, idx) => `${idx + 1}. ${s.replace(/^-\s*/, '')}`).join('\n');
+
+      return `### 📊 Resume Audit Feedback
+**Placement Readiness Score: ${score}/100**
+
+**Identified Structural Gaps:**
 ${missing.join('\n')}
 
-**Action Plan:**
-${actionPlan.join('\n')}`;
+**Actionable Revisions:**
+${formattedSuggestions}
+
+SCORE: ${score}`;
+
+    } else {
+      const matchingRoles: string[] = [];
+      const missingComplementary: string[] = [];
+
+      const hasReact = /react|next|vue|angular|svelte/i.test(inputLower);
+      const hasNode = /node|express|nest|spring|django|fastapi|laravel/i.test(inputLower);
+      const hasSQL = /sql|postgres|mongo|mysql|database/i.test(inputLower);
+      const hasDevops = /docker|kubernetes|aws|gcp|azure|ci\/cd/i.test(inputLower);
+
+      if (hasReact && hasNode) {
+        matchingRoles.push('Full Stack Web Developer (Tier-1 Placement Aligned)');
+      } else if (hasReact) {
+        matchingRoles.push('Frontend Engineer (React Developer)');
+        missingComplementary.push('* **Backend API Engineering:** Learn Node.js/Express or Python FastAPI to become full-stack capable.');
+      } else if (hasNode) {
+        matchingRoles.push('Backend Engineer / API Developer');
+        missingComplementary.push('* **Modern UI Frameworks:** Add React 19 or Next.js to complete the full-stack loop.');
+      } else {
+        matchingRoles.push('General Software Developer Apprentice');
+        missingComplementary.push('* **Core Technical Stack:** Choose a target domain (Web development or Mobile dev) and learn its primary stack (e.g. React & Node.js).');
+      }
+
+      if (!hasSQL) {
+        missingComplementary.push('* **Data Persistence:** Learn relational database systems (PostgreSQL/MySQL) and ORMs (Prisma).');
+      }
+      if (!hasDevops) {
+        missingComplementary.push('* **Cloud & DevOps:** Gain basic familiarity with Docker containerization and cloud hosting services.');
+      }
+
+      if (missingComplementary.length === 0) {
+        missingComplementary.push('* **System Design Concepts:** Study design patterns, caching structures (Redis), and microservices to prepare for advanced interviews.');
+      }
+
+      return `### 🎯 Skills Alignment Feedback
+
+**Aligned Career Paths:**
+* **Primary Target:** ${matchingRoles[0] || 'Software Engineer'}
+* **Sector Relevance:** Highly compatible with modern product-based SaaS companies and tech consulting firms.
+
+**Complementary Skills to Learn:**
+${missingComplementary.slice(0, 3).join('\n')}
+
+SCORE: ${score}`;
+    }
   }
 
   if (lastMessageLower.includes('resume') || lastMessageLower.includes('portfolio') || lastMessageLower.includes('readiness')) {
