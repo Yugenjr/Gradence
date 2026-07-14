@@ -1,27 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, Semester, AttendanceSubject, Exam, Activity, CareerRoadmap } from '../types';
+import { UserProfile, Semester, AttendanceSubject, Exam, Activity, CareerRoadmap, TimetableItem, HabitItem, CountdownItem } from '../types';
 import { setItem, getItem, clearAll, migrateLocalStorageToPreferences } from '../services/storage';
 import { saveApiKey, getApiKey, removeApiKey } from '../services/secureStorage';
 import { scheduleExamNotifications, scheduleClassNotifications } from '../utils/notifications';
-
-export interface TimetableItem {
-  id: string;
-  subject: string;
-  time: string;
-  room: string;
-}
-
-export interface HabitItem {
-  id: string;
-  name: string;
-  completed: boolean;
-}
-
-export interface CountdownItem {
-  id: string;
-  title: string;
-  date: string;
-}
 
 export interface ProfileData {
   username: string;

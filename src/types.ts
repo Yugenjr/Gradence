@@ -71,3 +71,22 @@ export interface CareerRoadmap {
 
 export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
 export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps' | 'planner' | 'events' | 'resume';
+
+export interface TimetableItem {
+  id: string;
+  subject: string;
+  time: string;
+  room: string;
+}
+
+export interface HabitItem {
+  id: string;
+  name: string;
+  completed: boolean;
+}
+
+export interface CountdownItem {
+  id: string;
+  title: string;
+  date: string;
+}
