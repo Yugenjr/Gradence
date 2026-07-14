@@ -1350,3 +1350,51 @@ body {
 .se-light-theme .border-t.border-neutral-900 {
   border-color: #cbd5e1 !important;
 }
+
+/* Bottom Navigation Bar Theme Overrides */
+.se-light-theme.light-theme .fixed.bottom-6 > div,
+.se-light-theme .fixed.bottom-6 > div {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(30, 78, 140, 0.2) !important;
+  box-shadow: 0 12px 40px rgba(13, 40, 76, 0.15) !important;
+}
+
+/* Active tab text, icon, and glow overrides inside white navbar */
+.se-light-theme.light-theme button.bottom-nav-btn.active svg,
+.se-light-theme.light-theme button.bottom-nav-btn.active span,
+.se-light-theme button.bottom-nav-btn.active svg,
+.se-light-theme button.bottom-nav-btn.active span {
+  color: var(--college-blue) !important;
+  filter: none !important;
+}
+
+.se-light-theme.light-theme button.bottom-nav-btn.active .bottom-nav-dot,
+.se-light-theme button.bottom-nav-btn.active .bottom-nav-dot {
+  background-color: var(--college-yellow) !important;
+  box-shadow: 0 0 8px var(--college-yellow) !important;
+}
+
+/* Inactive tab text and icon overrides inside white navbar (to slate-blue) */
+.se-light-theme.light-theme button.bottom-nav-btn:not(.active) svg,
+.se-light-theme.light-theme button.bottom-nav-btn:not(.active) span,
+.se-light-theme button.bottom-nav-btn:not(.active) svg,
+.se-light-theme button.bottom-nav-btn:not(.active) span {
+  color: #4a5d78 !important;
+}
+
+/* Hover state overrides inside white navbar (to royal blue) */
+.se-light-theme.light-theme button.bottom-nav-btn:not(.active):hover svg,
+.se-light-theme.light-theme button.bottom-nav-btn:not(.active):hover span,
+.se-light-theme button.bottom-nav-btn:not(.active):hover svg,
+.se-light-theme button.bottom-nav-btn:not(.active):hover span {
+  color: var(--college-blue) !important;
+}
+
+/* Sri Eshwar Dark Theme Bottom Nav Dot & Active layout */
+.se-dark-theme button.bottom-nav-btn.active svg,
+.se-dark-theme button.bottom-nav-btn.active span {
+  color: var(--college-yellow) !important;
+}
+.se-dark-theme button.bottom-nav-btn.active .bottom-nav-dot {
+  background-color: var(--college-yellow) !important;
+}
