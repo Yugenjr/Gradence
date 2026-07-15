@@ -16,6 +16,9 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
   const [calculatedSGPA, setCalculatedSGPA] = useState<number | null>(null);
   const [calculatedCredits, setCalculatedCredits] = useState<number>(0);
   const [isSavedSuccessfully, setIsSavedSuccessfully] = useState(false);
+  const [inputMode, setInputMode] = useState<'subjects' | 'direct'>('subjects');
+  const [directSgpa, setDirectSgpa] = useState<string>('');
+  const [directCredits, setDirectCredits] = useState<string>('');
 
   // Define grades based on GPA scale
   const gradeOptions = profile.gpaScale === 10
@@ -45,11 +48,20 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
   // Load existing semester data if it exists, otherwise initialize template subjects
   useEffect(() => {
     const existing = savedSemesters.find(s => s.number === selectedSemNum);
-    if (existing && existing.subjects.length > 0) {
-      setSubjects(existing.subjects);
-      setCalculatedSGPA(existing.sgpa);
-      const totalC = existing.subjects.reduce((sum, s) => sum + s.credits, 0);
-      setCalculatedCredits(totalC);
+    if (existing) {
+      if (existing.subjects && existing.subjects.length > 0) {
+        setSubjects(existing.subjects);
+        setCalculatedSGPA(existing.sgpa);
+        setCalculatedCredits(existing.subjects.reduce((sum, s) => sum + s.credits, 0));
+        setInputMode('subjects');
+      } else {
+        setSubjects([]);
+        setCalculatedSGPA(existing.sgpa);
+        setCalculatedCredits(existing.totalCredits);
+        setDirectSgpa(existing.sgpa.toString());
+        setDirectCredits(existing.totalCredits.toString());
+        setInputMode('direct');
+      }
     } else {
       // Default placeholder subjects
       setSubjects([
@@ -59,6 +71,9 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
       ]);
       setCalculatedSGPA(null);
       setCalculatedCredits(0);
+      setInputMode('subjects');
+      setDirectSgpa('');
+      setDirectCredits('');
     }
     setIsSavedSuccessfully(false);
   }, [selectedSemNum, savedSemesters, profile.gpaScale]);
@@ -97,6 +112,18 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
   };
 
   const calculateResults = () => {
+    if (inputMode === 'direct') {
+      const parsedSgpa = parseFloat(directSgpa);
+      const parsedCredits = parseInt(directCredits, 10);
+      if (isNaN(parsedSgpa) || isNaN(parsedCredits) || parsedCredits <= 0) {
+        alert("Please enter valid numbers for SGPA and Credits.");
+        return;
+      }
+      setCalculatedSGPA(parsedSgpa);
+      setCalculatedCredits(parsedCredits);
+      return;
+    }
+
     if (subjects.length === 0) {
       setCalculatedSGPA(0);
       setCalculatedCredits(0);
@@ -124,7 +151,7 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
       name: `Semester ${selectedSemNum}`,
       sgpa: calculatedSGPA,
       totalCredits: calculatedCredits,
-      subjects: subjects
+      subjects: inputMode === 'subjects' ? subjects : []
     };
     onSaveSemester(sem);
     setIsSavedSuccessfully(true);
@@ -181,7 +208,25 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
         </div>
       </div>
 
-      {/* List of subject cards */}
+      {/* Input Mode Toggle */}
+      <div className="flex bg-[#171717] border border-[#2A2A2A] rounded-2xl p-1 w-full max-w-sm mb-4">
+        <button
+          type="button"
+          onClick={() => { setInputMode('subjects'); setCalculatedSGPA(null); }}
+          className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all ${inputMode === 'subjects' ? 'bg-college-blue text-white' : 'text-neutral-500 hover:text-white hover:bg-neutral-800'}`}
+        >
+          By Subjects
+        </button>
+        <button
+          type="button"
+          onClick={() => { setInputMode('direct'); setCalculatedSGPA(null); }}
+          className={`flex-1 py-2.5 rounded-xl text-xs font-semibold transition-all ${inputMode === 'direct' ? 'bg-college-blue text-white' : 'text-neutral-500 hover:text-white hover:bg-neutral-800'}`}
+        >
+          Direct SGPA
+        </button>
+      </div>
+
+      {inputMode === 'subjects' ? (
       <div className="space-y-3">
         <div className="flex justify-between items-center px-1">
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
@@ -279,6 +324,38 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
           </div>
         )}
       </div>
+      ) : (
+      <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 space-y-5">
+        <p className="text-sm text-neutral-400 font-medium">Enter your final SGPA and total credits for Semester {selectedSemNum} directly.</p>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-1.5">
+            <label className="text-xs font-mono text-neutral-500 uppercase tracking-widest pl-1">SGPA</label>
+            <input
+              type="number"
+              step="0.01"
+              min="0"
+              max={profile.gpaScale}
+              value={directSgpa}
+              onChange={(e) => { setDirectSgpa(e.target.value); setCalculatedSGPA(null); }}
+              className="bg-black/40 border border-neutral-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-college-blue w-full font-medium font-mono transition-colors"
+              placeholder={`e.g. ${profile.gpaScale === 10 ? '8.5' : '3.8'}`}
+            />
+          </div>
+          <div className="space-y-1.5">
+            <label className="text-xs font-mono text-neutral-500 uppercase tracking-widest pl-1">Total Credits</label>
+            <input
+              type="number"
+              step="1"
+              min="1"
+              value={directCredits}
+              onChange={(e) => { setDirectCredits(e.target.value); setCalculatedSGPA(null); }}
+              className="bg-black/40 border border-neutral-800 rounded-2xl px-4 py-3 text-sm text-white focus:outline-none focus:border-college-blue w-full font-medium font-mono transition-colors"
+              placeholder="e.g. 21"
+            />
+          </div>
+        </div>
+      </div>
+      )}
 
       {/* Floating Add Subject & Calculate Buttons */}
       <div className="space-y-4">
@@ -324,7 +401,10 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
                 GRADE SUMMARY
               </span>
               <p className="text-xs text-neutral-400 leading-relaxed">
-                You passed <span className="text-white font-bold font-mono">{subjects.length}</span> subjects for an aggregated total of <span className="text-white font-bold font-mono">{calculatedCredits} credits</span>. This is {calculatedSGPA >= (profile.gpaScale === 10 ? 8.5 : 3.5) ? 'an Outstanding' : 'a solid'} performance!
+                {inputMode === 'subjects' 
+                  ? <>You passed <span className="text-white font-bold font-mono">{subjects.length}</span> subjects for an aggregated total of <span className="text-white font-bold font-mono">{calculatedCredits} credits</span>.</>
+                  : <>You have directly added an aggregated total of <span className="text-white font-bold font-mono">{calculatedCredits} credits</span>.</>
+                } This is {calculatedSGPA >= (profile.gpaScale === 10 ? 8.5 : 3.5) ? 'an Outstanding' : 'a solid'} performance!
               </p>
             </div>
 
