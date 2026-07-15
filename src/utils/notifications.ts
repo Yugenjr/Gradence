@@ -33,6 +33,8 @@ export const scheduleExamNotifications = async (exams: Exam[]) => {
           id: 200000 + (idx * 10) + 3,
           title: 'Exam Approaching! 🎯',
           body: `Your ${exam.subject} exam is in 3 days. Start preparing!`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
           schedule: { at: threeDaysBefore }
         });
       }
@@ -44,6 +46,8 @@ export const scheduleExamNotifications = async (exams: Exam[]) => {
           id: 200000 + (idx * 10) + 1,
           title: 'Exam Tomorrow! ⚠️',
           body: `Your ${exam.subject} exam is tomorrow. Time to revise!`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
           schedule: { at: oneDayBefore }
         });
       }
@@ -55,6 +59,8 @@ export const scheduleExamNotifications = async (exams: Exam[]) => {
           id: 200000 + (idx * 10) + 0,
           title: 'Final Prep! 🌙',
           body: `Your ${exam.subject} exam is tomorrow morning. Get some sleep!`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
           schedule: { at: twelveHoursBefore }
         });
       }
@@ -110,6 +116,8 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
           id: 300000 + (idx * 10) + 1,
           title: 'Class Nearing 📚',
           body: `${item.subject} in Room ${item.room} starts in 30 minutes.`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
           schedule: { 
             on: { hour: h30, minute: m30 },
             allowWhileIdle: true
@@ -126,6 +134,8 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
           id: 300000 + (idx * 10) + 2,
           title: 'Class Starting Soon! 🏃',
           body: `${item.subject} starts in 10 minutes.`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
           schedule: { 
             on: { hour: h10, minute: m10 },
             allowWhileIdle: true

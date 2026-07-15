@@ -1,95 +1,46 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Building2, Trophy, Clock, ArrowLeft, ChevronRight, Code2 } from 'lucide-react';
 import ExternalEvents from './ExternalEvents';
-import agentverseImg from '../assets/agentverse.jpg';
 
 interface EventsScreenProps {
   onBack: () => void;
 }
 
-const INTERNAL_EVENTS = [
-  {
-    id: 'agentverse-2026',
-    title: 'AGENTVERSE – Grand Challenge 2026',
-    badges: ['36-Hour Hackathon', 'Agentic AI'],
-    description: 'AGENTVERSE is a 36-hour institution-wide Agentic AI Innovation Challenge. Exclusively for 3rd year Eshwarites. Submit your team project title using the registration sheet.',
-    date: 'August 7 & 8, 2026',
-    eligibility: '3rd Year Students',
-    link: 'https://docs.google.com/spreadsheets/d/1iw83q2OaFx9fyA-h7FM9RFgWQ_BGwky_bqDluNRnHQ4/edit?usp=sharing',
-    image: agentverseImg,
-    ctaText: 'Submit Team Project Title',
-    tag: 'EXCLUSIVE'
-  },
-  {
-    id: 'codechef-starters-247',
-    title: 'CodeChef Starters 247',
-    badges: ['Coding Contest', 'CP Contest'],
-    description: 'Weekly global coding challenge by CodeChef. Consistent participation enhances problem-solving skills, improves competitive programming performance, and strengthens placement preparation.',
-    date: 'Wed, 15 Jul 2026 (08:00 PM – 10:00 PM IST)',
-    eligibility: 'All Students',
-    link: 'https://www.codechef.com/START247',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  },
-  {
-    id: 'code360-weekly-239',
-    title: 'Code360 Weekly Contest 239',
-    badges: ['Coding Contest', 'CP Contest'],
-    description: 'Weekly global coding challenge on Code360. benchmark against global peers, enhance analytical thinking, and improve coding skills.',
-    date: 'Thu, 16 Jul 2026 (08:31 PM – 10:31 PM IST)',
-    eligibility: 'All Students',
-    link: 'https://www.naukri.com/code360/contests/weekly-contest-239',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  },
-  {
-    id: 'atcoder-abc-467',
-    title: 'AtCoder Beginner Contest 467',
-    badges: ['Coding Contest', 'CP Contest'],
-    description: '100-minute competitive programming contest designed for beginner to intermediate levels on AtCoder.',
-    date: 'Sat, 18 Jul 2026 (05:30 PM – 07:10 PM IST)',
-    eligibility: 'All Students',
-    link: 'https://atcoder.jp/contests/abc467',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  },
-  {
-    id: 'leetcode-biweekly-187',
-    title: 'LeetCode Biweekly Contest 187',
-    badges: ['Coding Contest', 'DSA Contest'],
-    description: 'LeetCode biweekly algorithmic challenges to test data structures and algorithms (DSA) skills. Highly recommended for placement prep.',
-    date: 'Sat, 18 Jul 2026 (08:00 PM – 09:30 PM IST)',
-    eligibility: 'All Students',
-    link: 'https://leetcode.com/contest/biweekly-contest-187/',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  },
-  {
-    id: 'leetcode-weekly-511',
-    title: 'LeetCode Weekly Contest 511',
-    badges: ['Coding Contest', 'DSA Contest'],
-    description: 'Standard 90-minute weekly DSA coding challenge on LeetCode. Builds coding speed, logical skills, and clean execution.',
-    date: 'Sun, 19 Jul 2026 (08:00 AM – 09:30 AM IST)',
-    eligibility: 'All Students',
-    link: 'https://leetcode.com/contest/weekly-contest-511/',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  },
-  {
-    id: 'atcoder-arc-225',
-    title: 'AtCoder Regular Contest 225',
-    badges: ['Coding Contest', 'CP Contest'],
-    description: '120-minute competitive coding test on AtCoder targeting regular algorithmic problems to boost rating.',
-    date: 'Sun, 19 Jul 2026 (05:30 PM – 07:30 PM IST)',
-    eligibility: 'All Students',
-    link: 'https://atcoder.jp/contests/arc225',
-    ctaText: 'Register / Compete Now',
-    tag: 'CODING CONTEST'
-  }
-];
+// @ts-ignore
+import fallbackEventsData from '../assets/internal_events.json';
 
 export default function EventsScreen({ onBack }: EventsScreenProps) {
   const [tab, setTab] = useState<'internal' | 'external'>('internal');
+  const [internalEvents, setInternalEvents] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  // Fetch internal events from GAS Web App URL or fallback to local JSON
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      try {
+        const gasUrl = import.meta.env.VITE_INTERNAL_EVENTS_GAS_URL;
+        let data = fallbackEventsData;
+        
+        if (gasUrl) {
+          try {
+            const response = await fetch(gasUrl);
+            if (response.ok) {
+              data = await response.json();
+            }
+          } catch (e) {
+            console.error("Failed to fetch from GAS, using fallback", e);
+          }
+        }
+        
+        setInternalEvents(data);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchEvents();
+  }, []);
 
   return (
     <div id="events-screen" className="space-y-8 pb-6">
@@ -138,7 +89,12 @@ export default function EventsScreen({ onBack }: EventsScreenProps) {
 
             {/* Mapped Events */}
             <div className="space-y-5">
-              {INTERNAL_EVENTS.map((event) => (
+              {loading ? (
+                <div className="text-center py-10 text-neutral-400 font-mono text-xs">
+                  Fetching latest circulars from cloud...
+                </div>
+              ) : (
+                internalEvents.map((event) => (
                 <div key={event.id} className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] overflow-hidden shadow-xl hover:border-neutral-700 transition-all flex flex-col md:flex-row">
                   {/* Banner Image / Placeholder */}
                   <div className="md:w-2/5 relative h-48 md:h-auto min-h-[220px] bg-neutral-900 overflow-hidden flex items-center justify-center">
@@ -205,7 +161,7 @@ export default function EventsScreen({ onBack }: EventsScreenProps) {
                     </a>
                   </div>
                 </div>
-              ))}
+              )))}
             </div>
           </div>
         ) : (
