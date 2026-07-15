@@ -1,10 +1,92 @@
 import { useState } from 'react';
-import { Building2, Trophy, Clock, ArrowLeft } from 'lucide-react';
+import { Building2, Trophy, Clock, ArrowLeft, ChevronRight, Code2 } from 'lucide-react';
 import ExternalEvents from './ExternalEvents';
+import agentverseImg from '../assets/agentverse.jpg';
 
 interface EventsScreenProps {
   onBack: () => void;
 }
+
+const INTERNAL_EVENTS = [
+  {
+    id: 'agentverse-2026',
+    title: 'AGENTVERSE – Grand Challenge 2026',
+    badges: ['36-Hour Hackathon', 'Agentic AI'],
+    description: 'AGENTVERSE is a 36-hour institution-wide Agentic AI Innovation Challenge. Exclusively for 3rd year Eshwarites. Submit your team project title using the registration sheet.',
+    date: 'August 7 & 8, 2026',
+    eligibility: '3rd Year Students',
+    link: 'https://docs.google.com/spreadsheets/d/1iw83q2OaFx9fyA-h7FM9RFgWQ_BGwky_bqDluNRnHQ4/edit?usp=sharing',
+    image: agentverseImg,
+    ctaText: 'Submit Team Project Title',
+    tag: 'EXCLUSIVE'
+  },
+  {
+    id: 'codechef-starters-247',
+    title: 'CodeChef Starters 247',
+    badges: ['Coding Contest', 'CP Contest'],
+    description: 'Weekly global coding challenge by CodeChef. Consistent participation enhances problem-solving skills, improves competitive programming performance, and strengthens placement preparation.',
+    date: 'Wed, 15 Jul 2026 (08:00 PM – 10:00 PM IST)',
+    eligibility: 'All Students',
+    link: 'https://www.codechef.com/START247',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  },
+  {
+    id: 'code360-weekly-239',
+    title: 'Code360 Weekly Contest 239',
+    badges: ['Coding Contest', 'CP Contest'],
+    description: 'Weekly global coding challenge on Code360. benchmark against global peers, enhance analytical thinking, and improve coding skills.',
+    date: 'Thu, 16 Jul 2026 (08:31 PM – 10:31 PM IST)',
+    eligibility: 'All Students',
+    link: 'https://www.naukri.com/code360/contests/weekly-contest-239',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  },
+  {
+    id: 'atcoder-abc-467',
+    title: 'AtCoder Beginner Contest 467',
+    badges: ['Coding Contest', 'CP Contest'],
+    description: '100-minute competitive programming contest designed for beginner to intermediate levels on AtCoder.',
+    date: 'Sat, 18 Jul 2026 (05:30 PM – 07:10 PM IST)',
+    eligibility: 'All Students',
+    link: 'https://atcoder.jp/contests/abc467',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  },
+  {
+    id: 'leetcode-biweekly-187',
+    title: 'LeetCode Biweekly Contest 187',
+    badges: ['Coding Contest', 'DSA Contest'],
+    description: 'LeetCode biweekly algorithmic challenges to test data structures and algorithms (DSA) skills. Highly recommended for placement prep.',
+    date: 'Sat, 18 Jul 2026 (08:00 PM – 09:30 PM IST)',
+    eligibility: 'All Students',
+    link: 'https://leetcode.com/contest/biweekly-contest-187/',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  },
+  {
+    id: 'leetcode-weekly-511',
+    title: 'LeetCode Weekly Contest 511',
+    badges: ['Coding Contest', 'DSA Contest'],
+    description: 'Standard 90-minute weekly DSA coding challenge on LeetCode. Builds coding speed, logical skills, and clean execution.',
+    date: 'Sun, 19 Jul 2026 (08:00 AM – 09:30 AM IST)',
+    eligibility: 'All Students',
+    link: 'https://leetcode.com/contest/weekly-contest-511/',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  },
+  {
+    id: 'atcoder-arc-225',
+    title: 'AtCoder Regular Contest 225',
+    badges: ['Coding Contest', 'CP Contest'],
+    description: '120-minute competitive coding test on AtCoder targeting regular algorithmic problems to boost rating.',
+    date: 'Sun, 19 Jul 2026 (05:30 PM – 07:30 PM IST)',
+    eligibility: 'All Students',
+    link: 'https://atcoder.jp/contests/arc225',
+    ctaText: 'Register / Compete Now',
+    tag: 'CODING CONTEST'
+  }
+];
 
 export default function EventsScreen({ onBack }: EventsScreenProps) {
   const [tab, setTab] = useState<'internal' | 'external'>('internal');
@@ -47,16 +129,83 @@ export default function EventsScreen({ onBack }: EventsScreenProps) {
 
         {/* Detailed Status Card */}
         {tab === 'internal' ? (
-          <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-12 flex flex-col items-center justify-center text-center gap-4 relative overflow-hidden mt-4">
-            <div className="absolute inset-0 bg-[radial-gradient(#2A2A2A_1px,transparent_1px)] [background-size:16px_16px] opacity-25 pointer-events-none" />
-            <div className="relative z-10 flex flex-col items-center gap-3">
-              <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center">
-                <Clock className="w-6 h-6 text-neutral-500" />
-              </div>
-              <p className="text-base font-bold text-white mt-2">Coming Soon</p>
-              <p className="text-xs text-neutral-400 max-w-sm leading-relaxed">
-                Sri Eshwar Campus Connect is currently cataloging upcoming internal college events. Check back soon for workshops, seminars, and tech fests.
-              </p>
+          <div className="space-y-6 mt-4 animate-fade-in">
+            {/* Section Header */}
+            <div>
+              <p className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest">Active Campus Circulars</p>
+              <h2 className="text-xs font-bold text-white uppercase tracking-wider font-mono mt-1">LATEST COLLEGE NOTIFICATIONS</h2>
+            </div>
+
+            {/* Mapped Events */}
+            <div className="space-y-5">
+              {INTERNAL_EVENTS.map((event) => (
+                <div key={event.id} className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] overflow-hidden shadow-xl hover:border-neutral-700 transition-all flex flex-col md:flex-row">
+                  {/* Banner Image / Placeholder */}
+                  <div className="md:w-2/5 relative h-48 md:h-auto min-h-[220px] bg-neutral-900 overflow-hidden flex items-center justify-center">
+                    {event.image ? (
+                      <img 
+                        src={event.image} 
+                        alt={`${event.title} Banner`} 
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-gradient-to-br from-[#1F1F21] to-[#0A0A0C] border-r border-[#2A2A2A] flex flex-col items-center justify-center p-6 gap-3">
+                        <div className="w-12 h-12 rounded-2xl bg-neutral-900 border border-neutral-800 flex items-center justify-center shadow-lg">
+                          <Code2 className="w-6 h-6 text-college-yellow" />
+                        </div>
+                        <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest text-center">Sri Eshwar Campus OS</span>
+                      </div>
+                    )}
+                    {event.tag && (
+                      <div className="absolute top-3 left-3 bg-college-yellow text-black text-[9px] font-bold font-mono px-2 py-0.5 rounded uppercase tracking-wider">
+                        {event.tag}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Event Content */}
+                  <div className="p-6 flex-1 flex flex-col justify-between space-y-4">
+                    <div className="space-y-2">
+                      <div className="flex flex-wrap gap-2">
+                        {event.badges.map((badge, idx) => (
+                          <span key={idx} className="text-[9px] font-semibold bg-neutral-900 border border-neutral-800 text-neutral-350 px-2.5 py-0.5 rounded-lg">
+                            {badge}
+                          </span>
+                        ))}
+                      </div>
+                      <h3 className="text-lg font-bold text-white leading-tight">
+                        {event.title}
+                      </h3>
+                      <p className="text-xs text-neutral-400 leading-relaxed font-sans">
+                        {event.description}
+                      </p>
+                    </div>
+
+                    {/* Event Details Grid */}
+                    <div className="grid grid-cols-2 gap-3 py-3 border-t border-b border-neutral-900">
+                      <div>
+                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block">Event Date</span>
+                        <span className="text-xs text-white font-semibold block mt-0.5">{event.date}</span>
+                      </div>
+                      <div>
+                        <span className="text-[9px] font-mono text-neutral-500 uppercase tracking-widest block">Eligibility</span>
+                        <span className="text-xs text-white font-semibold block mt-0.5">{event.eligibility}</span>
+                      </div>
+                    </div>
+
+                    {/* CTA Link Button */}
+                    <a 
+                      href={event.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-full py-3.5 bg-college-yellow hover:bg-college-yellow-hover text-black text-xs font-bold rounded-xl transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md text-center"
+                    >
+                      <span>{event.ctaText}</span>
+                      <ChevronRight className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ) : (
