@@ -42,7 +42,7 @@ export interface Exam {
 
 export interface Activity {
   id: string;
-  type: 'cgpa' | 'attendance' | 'exam' | 'converter' | 'profile';
+  type: 'cgpa' | 'attendance' | 'exam' | 'converter' | 'profile' | 'planner';
   title: string;
   detail: string;
   timestamp: string; // ISO string

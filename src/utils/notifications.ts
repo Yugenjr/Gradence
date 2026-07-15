@@ -95,12 +95,16 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
         // Schedule daily repeating notification 30 mins before
         let t30 = new Date();
         t30.setHours(hours, minutes - 30, 0, 0);
+        if (t30.getTime() <= Date.now()) {
+          t30.setDate(t30.getDate() + 1);
+        }
         
         notificationsToSchedule.push({
           id: 300000 + (idx * 10) + 1,
           title: 'Class Nearing 📚',
           body: `${item.subject} in Room ${item.room} starts in 30 minutes.`,
           schedule: { 
+            at: t30,
             on: { hour: t30.getHours(), minute: t30.getMinutes() },
             repeats: true 
           }
@@ -109,12 +113,16 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
         // 10 mins before
         let t10 = new Date();
         t10.setHours(hours, minutes - 10, 0, 0);
+        if (t10.getTime() <= Date.now()) {
+          t10.setDate(t10.getDate() + 1);
+        }
         
         notificationsToSchedule.push({
           id: 300000 + (idx * 10) + 2,
           title: 'Class Starting Soon! 🏃',
           body: `${item.subject} starts in 10 minutes.`,
           schedule: { 
+            at: t10,
             on: { hour: t10.getHours(), minute: t10.getMinutes() },
             repeats: true 
           }

@@ -1,6 +1,10 @@
-import { useState } from 'react';
-import { Sparkles, Loader } from 'lucide-react';
+import React, { useState } from 'react';
+import { Sparkles, Loader, Upload } from 'lucide-react';
 import { askGroq, ChatMessage } from '../services/ai';
+import * as pdfjsLib from 'pdfjs-dist';
+
+// Configure PDF.js worker
+pdfjsLib.GlobalWorkerOptions.workerSrc = `https://unpkg.com/pdfjs-dist@${pdfjsLib.version}/build/pdf.worker.min.mjs`;
 
 interface ATSScorerProps {
   apiKey: string;
@@ -40,6 +44,52 @@ export default function ATSScorer({ apiKey }: ATSScorerProps) {
   const [jobDesc, setJobDesc] = useState('');
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<ATSResult | null>(null);
+  const [uploadingFile, setUploadingFile] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    setUploadingFile(true);
+    setUploadError(null);
+
+    try {
+      const fileType = file.type;
+      
+      if (fileType === 'text/plain' || file.name.endsWith('.txt')) {
+        const text = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onload = (event) => resolve(event.target?.result as string || '');
+          reader.onerror = (err) => reject(err);
+          reader.readAsText(file);
+        });
+        setResumeText(text);
+      } else if (fileType === 'application/pdf' || file.name.endsWith('.pdf')) {
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        let text = '';
+        
+        for (let i = 1; i <= pdf.numPages; i++) {
+          const page = await pdf.getPage(i);
+          const textContent = await page.getTextContent();
+          const pageText = textContent.items
+            .map((item: any) => item.str)
+            .join(' ');
+          text += pageText + '\n';
+        }
+        setResumeText(text);
+      } else {
+        throw new Error('Unsupported file type. Please upload a PDF or TXT file.');
+      }
+    } catch (err: any) {
+      console.error('File reading failed', err);
+      setUploadError(err.message || 'Failed to read file. Please try again.');
+    } finally {
+      setUploadingFile(false);
+    }
+  };
 
   const handleAnalyze = async () => {
     if (!resumeText.trim() || !jobDesc.trim()) return;
@@ -91,12 +141,30 @@ Be strict and realistic. Score based on keyword match, skills alignment, and rol
 
       <div className="space-y-3">
         <div>
-          <label className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block mb-1">Your Resume Text</label>
+          <div className="flex justify-between items-center mb-1.5">
+            <label className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block">Your Resume Text</label>
+            <label className="flex items-center gap-1.5 text-[10px] font-mono text-college-yellow hover:text-college-yellow-hover cursor-pointer transition-colors">
+              <Upload className="w-3.5 h-3.5" />
+              Upload PDF / TXT
+              <input 
+                type="file" 
+                accept=".pdf,.txt" 
+                onChange={handleFileUpload} 
+                className="hidden" 
+              />
+            </label>
+          </div>
+          {uploadError && (
+            <p className="text-[10px] font-mono text-red-500 mb-1">{uploadError}</p>
+          )}
+          {uploadingFile && (
+            <p className="text-[10px] font-mono text-college-yellow animate-pulse mb-1">Extracting text from resume file...</p>
+          )}
           <textarea
             rows={6}
             value={resumeText}
             onChange={e => setResumeText(e.target.value)}
-            placeholder="Paste your full resume text here..."
+            placeholder="Paste your full resume text here or upload a file..."
             className="w-full bg-black border border-neutral-800 rounded-2xl p-4 text-xs text-white focus:outline-none focus:border-neutral-600 resize-none"
           />
         </div>

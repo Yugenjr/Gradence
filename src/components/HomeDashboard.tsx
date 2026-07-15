@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'motion/react';
 import { UserProfile, Semester, Exam, Activity, ToolType, Quote } from '../types';
 import { useGradence } from '../context/GradenceContext';
@@ -47,6 +47,25 @@ export default function HomeDashboard({
   const [greeting, setGreeting] = useState('Good Evening');
   const [quote, setQuote] = useState<Quote>(() => QUOTES[0]);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [hasUnread, setHasUnread] = useState(activities.length > 0);
+  const prevLengthRef = useRef(activities.length);
+
+  useEffect(() => {
+    if (activities.length > prevLengthRef.current) {
+      if (!showNotifications) {
+        setHasUnread(true);
+      }
+    }
+    prevLengthRef.current = activities.length;
+  }, [activities.length, showNotifications]);
+
+  const handleToggleNotifications = () => {
+    const nextShow = !showNotifications;
+    setShowNotifications(nextShow);
+    if (nextShow) {
+      setHasUnread(false);
+    }
+  };
 
 
   const {
@@ -117,11 +136,11 @@ export default function HomeDashboard({
         {/* Notifications Bell */}
         <div className="relative">
           <button 
-            onClick={() => setShowNotifications(!showNotifications)}
+            onClick={handleToggleNotifications}
             className="w-12 h-12 rounded-[20px] bg-neutral-100 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm hover:border-neutral-500 transition-colors cursor-pointer relative"
           >
             <Bell className="w-5 h-5 text-neutral-400" />
-            {activities.length > 0 && (
+            {hasUnread && activities.length > 0 && (
               <div className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full border border-[#171717]"></div>
             )}
           </button>
