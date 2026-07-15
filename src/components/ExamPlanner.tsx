@@ -66,7 +66,7 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={onBack}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -74,7 +74,9 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">Exam Planner</h1>
+            <h1 className="text-xl font-bold text-white">
+              Exam <span className="font-odoo-slant">Planner</span>
+            </h1>
           </div>
         </div>
 
@@ -135,11 +137,10 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
                     key={p}
                     type="button"
                     onClick={() => setPriority(p)}
-                    className={`flex-1 py-2 text-xs font-mono rounded-xl border transition-all ${
-                      priority === p
+                    className={`flex-1 py-2 text-xs font-mono rounded-xl border transition-all ${priority === p
                         ? 'border-college-blue bg-college-blue text-white'
                         : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
-                    }`}
+                      }`}
                   >
                     {p.toUpperCase()}
                   </button>
@@ -205,9 +206,8 @@ export default function ExamPlanner({ savedExams, onSaveExams, onBack }: ExamPla
                 className="relative"
               >
                 {/* Timeline node circle */}
-                <div className={`absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-black ${
-                  isCritical ? 'border-white animate-pulse' : 'border-neutral-600'
-                }`} />
+                <div className={`absolute -left-[31px] top-1.5 w-2.5 h-2.5 rounded-full border-2 bg-black ${isCritical ? 'border-white animate-pulse' : 'border-neutral-600'
+                  }`} />
 
                 <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-5 space-y-4 hover:border-neutral-600 transition-colors">
                   {/* Subject and Actions Row */}

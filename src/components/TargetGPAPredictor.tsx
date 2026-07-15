@@ -99,7 +99,7 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
     <div id="target-gpa-predictor" className="space-y-8 pb-4">
       {/* Top Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
         >
@@ -107,7 +107,9 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">Target GPA Predictor</h1>
+          <h1 className="text-xl font-bold text-white">
+            Target GPA <span className="font-odoo-slant">Predictor</span>
+          </h1>
         </div>
       </div>
 
@@ -220,13 +222,12 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
                 <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block">
                   PROBABILITY
                 </span>
-                <span className={`text-xs font-bold font-mono uppercase px-2.5 py-1 rounded-full border mt-1 inline-block ${
-                  probabilityLevel === 'high' 
-                    ? 'border-white text-white bg-white/5' 
+                <span className={`text-xs font-bold font-mono uppercase px-2.5 py-1 rounded-full border mt-1 inline-block ${probabilityLevel === 'high'
+                    ? 'border-white text-white bg-white/5'
                     : probabilityLevel === 'medium'
-                    ? 'border-neutral-500 text-neutral-400 bg-neutral-900/40'
-                    : 'border-neutral-800 text-neutral-500 bg-black'
-                }`}>
+                      ? 'border-neutral-500 text-neutral-400 bg-neutral-900/40'
+                      : 'border-neutral-800 text-neutral-500 bg-black'
+                  }`}>
                   {probabilityLevel}
                 </span>
               </div>
@@ -316,8 +317,8 @@ export default function TargetGPAPredictor({ profile, onBack }: TargetGPAPredict
           const complCredsNum = parseFloat(completedCredits) || 0;
           const totalSemCredits = 20; // assuming 20 credits per upcoming semester
           const totalGradCredits = complCredsNum + (totalSemCredits * 4);
-          const estimatedPoints = (curCgpaNum * complCredsNum) + 
-                                  ((sem5Sgpa + sem6Sgpa + sem7Sgpa + sem8Sgpa) * totalSemCredits);
+          const estimatedPoints = (curCgpaNum * complCredsNum) +
+            ((sem5Sgpa + sem6Sgpa + sem7Sgpa + sem8Sgpa) * totalSemCredits);
           const estimatedGradCGPA = totalGradCredits > 0 ? parseFloat((estimatedPoints / totalGradCredits).toFixed(2)) : 0.0;
 
           let graduationClass = 'Second Class';

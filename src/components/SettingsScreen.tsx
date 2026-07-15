@@ -2,18 +2,18 @@ import { useState, ChangeEvent } from 'react';
 import { Filesystem, Directory, Encoding } from '@capacitor/filesystem';
 import { CapgoFilePicker } from '@capgo/capacitor-file-picker';
 import { UserProfile } from '../types';
-import { 
-  User, 
-  Settings, 
-  Sliders, 
-  Trash2, 
-  Download, 
-  Upload, 
-  ShieldAlert, 
-  Info, 
-  Sparkles, 
-  Check, 
-  ArrowLeft 
+import {
+  User,
+  Settings,
+  Sliders,
+  Trash2,
+  Download,
+  Upload,
+  ShieldAlert,
+  Info,
+  Sparkles,
+  Check,
+  ArrowLeft
 } from 'lucide-react';
 
 interface SettingsScreenProps {
@@ -24,9 +24,9 @@ interface SettingsScreenProps {
   onExportData: () => Promise<string>;
 }
 
-export default function SettingsScreen({ 
-  profile, 
-  onUpdateProfile, 
+export default function SettingsScreen({
+  profile,
+  onUpdateProfile,
   onResetData,
   onImportData,
   onExportData
@@ -181,7 +181,7 @@ export default function SettingsScreen({
     return (
       <div className="space-y-6 pb-8">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => setActiveInfoPage(null)}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -189,7 +189,9 @@ export default function SettingsScreen({
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">INFO</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">About Gradence</h1>
+            <h1 className="text-xl font-bold text-white">
+              About <span className="font-odoo-slant">Gradence</span>
+            </h1>
           </div>
         </div>
 
@@ -220,7 +222,7 @@ export default function SettingsScreen({
     return (
       <div className="space-y-6 pb-8">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => setActiveInfoPage(null)}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -228,7 +230,9 @@ export default function SettingsScreen({
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">FAQ</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">Help & FAQ</h1>
+            <h1 className="text-xl font-bold text-white">
+              Help & <span className="font-odoo-slant">FAQ</span>
+            </h1>
           </div>
         </div>
 
@@ -253,7 +257,7 @@ export default function SettingsScreen({
     return (
       <div className="space-y-6 pb-8">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => setActiveInfoPage(null)}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -261,7 +265,9 @@ export default function SettingsScreen({
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">POLICY</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">Privacy Policy</h1>
+            <h1 className="text-xl font-bold text-white">
+              Privacy <span className="font-odoo-slant">Policy</span>
+            </h1>
           </div>
         </div>
 
@@ -281,7 +287,7 @@ export default function SettingsScreen({
     return (
       <div className="space-y-6 pb-8">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={() => setActiveInfoPage(null)}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -289,7 +295,9 @@ export default function SettingsScreen({
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">LEGAL</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">Terms & Conditions</h1>
+            <h1 className="text-xl font-bold text-white">
+              Terms & <span className="font-odoo-slant">Conditions</span>
+            </h1>
           </div>
         </div>
 
@@ -418,11 +426,10 @@ export default function SettingsScreen({
 
         <button
           onClick={handleSaveProfile}
-          className={`w-full py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${
-            isSaved
+          className={`w-full py-2.5 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-all cursor-pointer ${isSaved
               ? 'bg-neutral-800 text-green-400 border border-green-900/30'
               : 'bg-white hover:bg-neutral-200 text-black'
-          }`}
+            }`}
         >
           {isSaved ? (
             <>
@@ -484,7 +491,7 @@ export default function SettingsScreen({
               rows={4}
               className="w-full bg-black border border-neutral-800 rounded-xl p-3 text-xs text-white focus:outline-none focus:border-neutral-600 font-mono"
             />
-            
+
             <div className="border-t border-neutral-800/60 pt-3 space-y-1.5">
               <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block">
                 OR SELECT BACKUP JSON FILE
@@ -505,7 +512,7 @@ export default function SettingsScreen({
                 style={{ display: 'none' }}
               />
             </div>
-            
+
             {importStatus === 'success' && (
               <p className="text-xs text-green-400 font-mono">✓ Backup data imported successfully. Reloading workspace...</p>
             )}
@@ -571,7 +578,7 @@ export default function SettingsScreen({
             </button>
           ))}
         </div>
-        
+
         <div className="flex items-center gap-1.5 text-[9px] text-neutral-600 font-mono pt-2">
           <Sparkles className="w-3.5 h-3.5" />
           <span>DESIGNED FOR PRIVACY-FIRST FOCUS</span>
@@ -601,7 +608,7 @@ export default function SettingsScreen({
                 <Download className="w-4 h-4" />
                 <span>Export Backup First</span>
               </button>
-              
+
               <button
                 onClick={async () => {
                   await onResetData();

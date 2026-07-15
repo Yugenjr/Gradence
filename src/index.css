@@ -64,11 +64,15 @@ body {
 
 /* Hide scrollbars for native container-driven UX */
 .scrollbar-none {
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE and Edge */
 }
+
 .scrollbar-none::-webkit-scrollbar {
-  display: none; /* Chrome, Safari and Opera */
+  display: none;
+  /* Chrome, Safari and Opera */
 }
 
 /* Elegant Light Mode overrides */
@@ -101,77 +105,97 @@ body {
 .light-theme .bg-black {
   background-color: var(--bg-primary) !important;
 }
+
 .light-theme .bg-\[\#121213\] {
   background-color: var(--bg-secondary) !important;
 }
+
 .light-theme .bg-\[\#171717\] {
   background-color: var(--bg-tertiary) !important;
 }
+
 .light-theme .bg-\[\#171717\]\/40 {
   background-color: rgba(235, 235, 237, 0.4) !important;
 }
+
 .light-theme .border-\[\#2A2A2A\] {
   border-color: var(--border-color) !important;
 }
+
 .light-theme .text-white {
   color: var(--text-primary) !important;
 }
+
 .light-theme .text-neutral-200,
 .light-theme .text-neutral-300,
 .light-theme .text-neutral-400 {
   color: var(--text-secondary) !important;
 }
+
 .light-theme .text-neutral-500 {
   color: var(--text-tertiary) !important;
 }
+
 .light-theme .border-neutral-900,
 .light-theme .border-neutral-850,
 .light-theme .border-neutral-800 {
   border-color: var(--border-color) !important;
 }
+
 .light-theme .bg-neutral-900,
 .light-theme .bg-neutral-950,
 .light-theme .bg-neutral-955,
 .light-theme .bg-\[\#0F0F10\] {
   background-color: var(--bg-tertiary) !important;
 }
+
 .light-theme .bg-black\/30,
 .light-theme .bg-black\/40 {
   background-color: rgba(235, 235, 237, 0.6) !important;
 }
-.light-theme input, 
-.light-theme select, 
+
+.light-theme input,
+.light-theme select,
 .light-theme textarea {
   background-color: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
   border-color: var(--border-color) !important;
 }
+
 .light-theme ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 .light-theme ::-webkit-scrollbar-thumb {
   background: var(--border-color);
 }
+
 .light-theme .text-black {
   color: #ffffff !important;
 }
+
 .light-theme .bg-white {
   background-color: #000000 !important;
   color: #ffffff !important;
 }
+
 .light-theme .bg-white\/5 {
   background-color: rgba(0, 0, 0, 0.05) !important;
 }
+
 .light-theme .border-white\/10 {
   border-color: rgba(0, 0, 0, 0.1) !important;
 }
+
 .light-theme .text-neutral-350,
 .light-theme .text-neutral-450 {
   color: var(--text-secondary) !important;
 }
+
 .light-theme .bg-white\/10 {
   background-color: rgba(0, 0, 0, 0.08) !important;
 }
+
 .light-theme .text-neutral-100 {
   color: var(--text-primary) !important;
 }
@@ -311,11 +335,13 @@ body {
 .se-light-theme .bg-white {
   border-color: rgba(30, 78, 140, 0.4) !important;
 }
+
 .se-dark-theme .border-\[\#2A2A2A\],
 .se-light-theme .border-\[\#2A2A2A\],
 .se-light-theme .border-neutral-200 {
   border-color: rgba(30, 78, 140, 0.3) !important;
 }
+
 .se-dark-theme .border-neutral-900,
 .se-dark-theme .border-neutral-800,
 .se-light-theme .border-neutral-900,
@@ -347,10 +373,12 @@ body {
 .se-light-theme svg polyline[stroke="#ffffff"] {
   stroke: var(--college-yellow) !important;
 }
+
 .se-dark-theme svg stop[stopColor="#ffffff"],
 .se-light-theme svg stop[stopColor="#ffffff"] {
   stop-color: var(--college-yellow) !important;
 }
+
 .se-dark-theme svg text[fill="#fff"],
 .se-light-theme svg text[fill="#fff"] {
   fill: var(--college-yellow) !important;
@@ -391,19 +419,23 @@ body {
 .se-light-theme #ai-space .bg-white\/5.blur-xl {
   background-color: rgba(30, 78, 140, 0.25) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 {
   border-color: rgba(30, 78, 140, 0.5) !important;
   background-color: rgba(30, 78, 140, 0.1) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 svg,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 svg {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space span.bg-white\/5.border-white\/10,
 .se-light-theme #ai-space span.bg-white\/5.border-white\/10 {
   background-color: rgba(30, 78, 140, 0.15) !important;
@@ -462,6 +494,7 @@ body {
 .se-dark-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.22) 0%, #000000 80%) no-repeat fixed !important;
 }
+
 .se-light-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.12) 0%, #f5f5f7 85%) no-repeat fixed !important;
 }
@@ -471,6 +504,7 @@ body {
 .se-light-theme ::-webkit-scrollbar-thumb {
   background: var(--college-blue) !important;
 }
+
 .se-dark-theme ::-webkit-scrollbar-thumb:hover,
 .se-light-theme ::-webkit-scrollbar-thumb:hover {
   background: var(--college-blue-hover) !important;
@@ -488,15 +522,18 @@ body {
 .se-dark-theme .bg-\[\#171717\] {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.05) !important;
 }
+
 .se-dark-theme .press-card:hover,
 .se-dark-theme .bg-\[\#171717\]:hover {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.12) !important;
 }
+
 .se-light-theme .press-card,
 .se-light-theme .bg-\[\#171717\],
 .se-light-theme .bg-white {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.04) !important;
 }
+
 .se-light-theme .press-card:hover,
 .se-light-theme .bg-\[\#171717\]:hover,
 .se-light-theme .bg-white:hover {
@@ -512,6 +549,7 @@ body {
 .se-light-theme select {
   border-color: rgba(30, 78, 140, 0.3) !important;
 }
+
 .se-dark-theme textarea,
 .se-dark-theme input,
 .se-dark-theme select {
@@ -546,6 +584,7 @@ body {
 .se-light-theme svg stop[stopColor="#ffffff"] {
   stop-color: var(--college-yellow) !important;
 }
+
 .se-dark-theme svg text[fill="#fff"],
 .se-light-theme svg text[fill="#fff"] {
   fill: var(--college-yellow) !important;
@@ -586,19 +625,23 @@ body {
 .se-light-theme #ai-space .bg-white\/5.blur-xl {
   background-color: rgba(30, 78, 140, 0.25) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 {
   border-color: rgba(30, 78, 140, 0.5) !important;
   background-color: rgba(30, 78, 140, 0.1) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 svg,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 svg {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space span.bg-white\/5.border-white\/10,
 .se-light-theme #ai-space span.bg-white\/5.border-white\/10 {
   background-color: rgba(30, 78, 140, 0.15) !important;
@@ -657,6 +700,7 @@ body {
 .se-dark-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.22) 0%, #000000 80%) no-repeat fixed !important;
 }
+
 .se-light-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.12) 0%, #f5f5f7 85%) no-repeat fixed !important;
 }
@@ -666,6 +710,7 @@ body {
 .se-light-theme ::-webkit-scrollbar-thumb {
   background: var(--college-blue) !important;
 }
+
 .se-dark-theme ::-webkit-scrollbar-thumb:hover,
 .se-light-theme ::-webkit-scrollbar-thumb:hover {
   background: var(--college-blue-hover) !important;
@@ -683,15 +728,18 @@ body {
 .se-dark-theme .bg-\[\#171717\] {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.05) !important;
 }
+
 .se-dark-theme .press-card:hover,
 .se-dark-theme .bg-\[\#171717\]:hover {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.12) !important;
 }
+
 .se-light-theme .press-card,
 .se-light-theme .bg-\[\#171717\],
 .se-light-theme .bg-white {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.04) !important;
 }
+
 .se-light-theme .press-card:hover,
 .se-light-theme .bg-\[\#171717\]:hover,
 .se-light-theme .bg-white:hover {
@@ -707,6 +755,7 @@ body {
 .se-light-theme select {
   border-color: rgba(30, 78, 140, 0.3) !important;
 }
+
 .se-dark-theme textarea,
 .se-dark-theme input,
 .se-dark-theme select {
@@ -782,19 +831,23 @@ body {
 .se-light-theme #ai-space .bg-white\/5.blur-xl {
   background-color: rgba(30, 78, 140, 0.25) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 {
   border-color: rgba(30, 78, 140, 0.5) !important;
   background-color: rgba(30, 78, 140, 0.1) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 svg,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 svg {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white,
 .se-light-theme #ai-space .w-16.h-16.bg-neutral-900 .text-white {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme #ai-space span.bg-white\/5.border-white\/10,
 .se-light-theme #ai-space span.bg-white\/5.border-white\/10 {
   background-color: rgba(30, 78, 140, 0.15) !important;
@@ -853,6 +906,7 @@ body {
 .se-dark-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.22) 0%, #000000 80%) no-repeat fixed !important;
 }
+
 .se-light-theme body {
   background: radial-gradient(circle at 50% -10%, rgba(30, 78, 140, 0.12) 0%, #f5f5f7 85%) no-repeat fixed !important;
 }
@@ -862,6 +916,7 @@ body {
 .se-light-theme ::-webkit-scrollbar-thumb {
   background: var(--college-blue) !important;
 }
+
 .se-dark-theme ::-webkit-scrollbar-thumb:hover,
 .se-light-theme ::-webkit-scrollbar-thumb:hover {
   background: var(--college-blue-hover) !important;
@@ -879,15 +934,18 @@ body {
 .se-dark-theme .bg-\[\#171717\] {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.05) !important;
 }
+
 .se-dark-theme .press-card:hover,
 .se-dark-theme .bg-\[\#171717\]:hover {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.12) !important;
 }
+
 .se-light-theme .press-card,
 .se-light-theme .bg-\[\#171717\],
 .se-light-theme .bg-white {
   box-shadow: 0 6px 32px rgba(30, 78, 140, 0.04) !important;
 }
+
 .se-light-theme .press-card:hover,
 .se-light-theme .bg-\[\#171717\]:hover,
 .se-light-theme .bg-white:hover {
@@ -903,6 +961,7 @@ body {
 .se-light-theme select {
   border-color: rgba(30, 78, 140, 0.3) !important;
 }
+
 .se-dark-theme textarea,
 .se-dark-theme input,
 .se-dark-theme select {
@@ -969,6 +1028,7 @@ body {
 .se-light-theme .text-white {
   color: #ffffff !important;
 }
+
 .se-light-theme.light-theme .text-neutral-200,
 .se-light-theme.light-theme .text-neutral-300,
 .se-light-theme.light-theme .text-neutral-400,
@@ -977,10 +1037,12 @@ body {
 .se-light-theme .text-neutral-400 {
   color: #cbd5e1 !important;
 }
+
 .se-light-theme.light-theme .text-neutral-500,
 .se-light-theme .text-neutral-500 {
   color: #94a3b8 !important;
 }
+
 .se-light-theme.light-theme .text-neutral-600,
 .se-light-theme .text-neutral-600 {
   color: #64748b !important;
@@ -1148,6 +1210,7 @@ body {
   border-color: rgba(242, 193, 15, 0.4) !important;
   color: var(--college-yellow) !important;
 }
+
 .se-light-theme.light-theme span.bg-neutral-950.border-neutral-900.rounded-full svg,
 .se-light-theme span.bg-neutral-950.border-neutral-900.rounded-full svg {
   color: var(--college-yellow) !important;
@@ -1171,6 +1234,7 @@ body {
   color: #000000 !important;
   border-color: var(--college-yellow) !important;
 }
+
 .se-light-theme.light-theme button.w-full.bg-white:hover,
 .se-light-theme.light-theme button.bg-white.w-full:hover,
 .se-light-theme button.w-full.bg-white:hover,
@@ -1203,6 +1267,7 @@ body {
   color: #0f172a !important;
   border-color: #cbd5e1 !important;
 }
+
 .se-light-theme.light-theme .bg-\[\#171717\] button.bg-black:hover,
 .se-light-theme.light-theme .bg-\[\#121213\] button.bg-black:hover,
 .se-light-theme.light-theme .bg-neutral-900 button.bg-black:hover,
@@ -1235,6 +1300,7 @@ body {
   color: #0c2547 !important;
   border: 1px solid #cbd5e1 !important;
 }
+
 .se-light-theme.light-theme input::placeholder,
 .se-light-theme input::placeholder {
   color: #94a3b8 !important;
@@ -1263,6 +1329,7 @@ body {
   background-color: var(--college-yellow) !important;
   color: #000000 !important;
 }
+
 .se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button.bg-white svg,
 .se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button.bg-white svg,
 .se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button.bg-white svg,
@@ -1281,14 +1348,17 @@ body {
 .se-light-theme .bg-neutral-900 button:not(.bg-white) {
   color: #4a5d78 !important;
 }
+
 .se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white) svg,
 .se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white) svg,
 .se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white) svg,
 .se-light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white) svg,
 .se-light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white) svg,
 .se-light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white) svg {
-  color: var(--college-blue) !important; /* Make inactive tab icons College Blue for high contrast */
+  color: var(--college-blue) !important;
+  /* Make inactive tab icons College Blue for high contrast */
 }
+
 .se-light-theme.light-theme .bg-\[\#121213\] button:not(.bg-white):hover,
 .se-light-theme.light-theme .bg-white\/5 button:not(.bg-white):hover,
 .se-light-theme.light-theme .bg-neutral-900 button:not(.bg-white):hover,
@@ -1297,6 +1367,7 @@ body {
 .se-light-theme .bg-neutral-900 button:not(.bg-white):hover {
   color: var(--college-blue) !important;
 }
+
 .se-light-theme.light-theme .bg-\[\#121213\]:not(.bg-neutral-950) button:not(.bg-white):hover svg,
 .se-light-theme.light-theme .bg-white\/5:not(.bg-neutral-950) button:not(.bg-white):hover svg,
 .se-light-theme.light-theme .bg-neutral-900:not(.bg-neutral-950) button:not(.bg-white):hover svg,
@@ -1330,6 +1401,7 @@ body {
 .se-light-theme .bg-neutral-950 button:not(.bg-white\/10) {
   color: #4a5d78 !important;
 }
+
 .se-light-theme.light-theme .bg-neutral-950 button:not(.bg-white\/10):hover,
 .se-light-theme .bg-neutral-955 button:not(.bg-white\/10):hover,
 .se-light-theme .bg-neutral-950 button:not(.bg-white\/10):hover {
@@ -1346,6 +1418,7 @@ body {
   border-color: var(--college-yellow) !important;
   box-shadow: 0 0 0 1px var(--college-yellow) !important;
 }
+
 .se-light-theme.light-theme input:hover,
 .se-light-theme.light-theme select:hover,
 .se-light-theme.light-theme textarea:hover,
@@ -1360,6 +1433,7 @@ body {
 .se-light-theme label {
   color: #334155 !important;
 }
+
 .se-light-theme.light-theme #onboarding-container label,
 .se-light-theme #onboarding-container label {
   color: #cbd5e1 !important;
@@ -1388,8 +1462,8 @@ body {
 }
 
 /* Bottom Navigation Bar Theme Overrides */
-.se-light-theme.light-theme .fixed.bottom-6 > div,
-.se-light-theme .fixed.bottom-6 > div {
+.se-light-theme.light-theme .fixed.bottom-6>div,
+.se-light-theme .fixed.bottom-6>div {
   background-color: rgba(255, 255, 255, 0.9) !important;
   border-color: rgba(30, 78, 140, 0.2) !important;
   box-shadow: 0 12px 40px rgba(13, 40, 76, 0.15) !important;
@@ -1431,6 +1505,7 @@ body {
 .se-dark-theme button.bottom-nav-btn.active span {
   color: var(--college-yellow) !important;
 }
+
 .se-dark-theme button.bottom-nav-btn.active .bottom-nav-dot {
   background-color: var(--college-yellow) !important;
 }
@@ -1443,6 +1518,7 @@ body {
   stroke-width: 1px !important;
   transition: fill 0.2s ease, opacity 0.2s ease !important;
 }
+
 .se-light-theme.light-theme svg rect[fill="#ffffff"]:hover,
 .se-light-theme svg rect[fill="#ffffff"]:hover {
   fill: var(--college-yellow) !important;
@@ -1486,15 +1562,9 @@ button.press-card:hover .w-12.h-12 svg {
   color: var(--college-blue) !important;
 }
 
-.se-light-theme.light-theme button.press-card:hover .w-8.h-8.rounded-full,
-.se-light-theme button.press-card:hover .w-8.h-8.rounded-full {
-  background-color: var(--college-yellow) !important;
-  border-color: var(--college-yellow) !important;
-}
-
-.se-light-theme.light-theme button.press-card:hover .w-8.h-8.rounded-full svg,
-.se-light-theme button.press-card:hover .w-8.h-8.rounded-full svg {
-  color: #000000 !important;
+.se-light-theme.light-theme button.press-card:hover .w-8.h-8 svg,
+.se-light-theme button.press-card:hover .w-8.h-8 svg {
+  color: var(--college-blue) !important;
 }
 
 .se-light-theme.light-theme button.press-card:hover .w-12.h-12.rounded-2xl,
@@ -1524,9 +1594,9 @@ button.press-card:hover .w-12.h-12 svg {
 /* Selected semester buttons & active grade scale buttons */
 .se-light-theme .bg-\[\#262626\],
 .se-light-theme button.bg-\[\#262626\] {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
 
 /* bg-black used inside cards for inputs/selected states */
@@ -1545,22 +1615,22 @@ button.press-card:hover .w-12.h-12 svg {
 
 /* Priority buttons active state (border-white bg-[#262626]) */
 .se-light-theme button.border-white.bg-\[\#262626\] {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
 
 /* Grade selector active button (border-white bg-black) */
 .se-light-theme button.border-white.bg-black {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
 
 /* Semester selector active (border-white bg-[#262626]) */
 .se-light-theme button.border-white.bg-\[\#262626\] span,
 .se-light-theme button.border-white.bg-\[\#262626\] {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* Cancel / secondary outline buttons */
@@ -1576,10 +1646,10 @@ button.press-card:hover .w-12.h-12 svg {
   background-color: #ffffff !important;
 }
 
-/* Text inside active selected buttons must stay white */
+/* Text inside active selected buttons must stay dark */
 .se-light-theme button.bg-\[\#262626\] *,
 .se-light-theme button.border-white.bg-\[\#262626\] * {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* ============================================================
@@ -1588,42 +1658,44 @@ button.press-card:hover .w-12.h-12 svg {
 
 /* Back/header nav buttons (w-10 h-10 border rounded-2xl) — keep icon visible */
 .se-light-theme .w-10.h-10.border.rounded-2xl svg,
-.se-light-theme .w-10.h-10.border.border-\\[\\#2A2A2A\\].rounded-2xl svg {
+.se-light-theme .w-10.h-10.border.border-\[\#2A2A2A\].rounded-2xl svg {
   color: #0c2547 !important;
 }
+
 .se-light-theme .w-10.h-10.border.rounded-2xl:hover svg {
   color: var(--college-blue) !important;
 }
 
 /* Grade selector buttons (active: border-white bg-black) in Converter */
 .se-light-theme button.border-white.bg-black {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
+
 .se-light-theme button.border-white.bg-black * {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* Inactive grade buttons (bg-black/40) — make them clearly visible */
-.se-light-theme .bg-\\[\\#171717\\] button.bg-black\\/40,
-.se-light-theme .bg-neutral-900 button.bg-black\\/40 {
+.se-light-theme .bg-\[\#171717\] button.bg-black\/40,
+.se-light-theme .bg-neutral-900 button.bg-black\/40 {
   background-color: #f1f5f9 !important;
   color: #334155 !important;
   border-color: #cbd5e1 !important;
 }
 
 /* Bottom nav bar shell — ensure it stays white pill on blue background */
-.se-light-theme .fixed.bottom-6 > div {
+.se-light-theme .fixed.bottom-6>div {
   background-color: rgba(255, 255, 255, 0.95) !important;
   border-color: rgba(30, 78, 140, 0.25) !important;
   backdrop-filter: blur(20px) !important;
 }
 
 /* Exam Planner priority badge text inside active bg-[#262626] buttons */
-.se-light-theme button.bg-\\[\\#262626\\] span,
-.se-light-theme button.bg-\\[\\#262626\\] {
-  color: #ffffff !important;
+.se-light-theme button.bg-\[\#262626\] span,
+.se-light-theme button.bg-\[\#262626\] {
+  color: #000000 !important;
 }
 
 /* Timeline node dot (bg-white inside timeline) */
@@ -1636,28 +1708,30 @@ button.press-card:hover .w-12.h-12 svg {
    Priority buttons, Scale System, Grade Selector
    ============================================================ */
 
-/* ACTIVE state: border-white + bg-[#262626] → college blue */
-html.se-light-theme button.border-white.bg-\[#262626\],
-html.se-light-theme button.bg-\[#262626\].border-white {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
-}
-html.se-light-theme button.border-white.bg-\[#262626\] *,
-html.se-light-theme button.bg-\[#262626\].border-white * {
-  color: #ffffff !important;
+/* ACTIVE state: border-white + bg-[#262626] → college yellow */
+html.se-light-theme button.border-white.bg-\[\#262626\],
+html.se-light-theme button.bg-\[\#262626\].border-white {
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
 
-/* ACTIVE state: border-white + bg-black → college blue */
+html.se-light-theme button.border-white.bg-\[\#262626\] *,
+html.se-light-theme button.bg-\[\#262626\].border-white * {
+  color: #000000 !important;
+}
+
+/* ACTIVE state: border-white + bg-black → college yellow */
 html.se-light-theme button.border-white.bg-black,
 html.se-light-theme button.bg-black.border-white {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
+
 html.se-light-theme button.border-white.bg-black *,
 html.se-light-theme button.bg-black.border-white * {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* INACTIVE state: border-neutral-800 + bg-black → light gray, dark text */
@@ -1698,13 +1772,14 @@ html.se-light-theme button.border-neutral-800.bg-black\/40:hover {
 /* Active priority / scale / grade buttons with dark bg */
 html.se-light-theme button[class*="bg-[#262626]"],
 html.se-light-theme button[class*="bg-black"][class*="border-white"] {
-  background-color: var(--college-blue) !important;
-  color: #ffffff !important;
-  border-color: var(--college-blue) !important;
+  background-color: var(--college-yellow) !important;
+  color: #000000 !important;
+  border-color: var(--college-yellow) !important;
 }
+
 html.se-light-theme button[class*="bg-[#262626]"] *,
 html.se-light-theme button[class*="bg-black"][class*="border-white"] * {
-  color: #ffffff !important;
+  color: #000000 !important;
 }
 
 /* Inactive buttons with bg-black and neutral border */
@@ -1714,7 +1789,24 @@ html.se-light-theme button[class*="bg-black/40"][class*="border-neutral-800"] {
   color: #334155 !important;
   border-color: #cbd5e1 !important;
 }
+
 html.se-light-theme button[class*="bg-black"][class*="border-neutral-800"] *,
 html.se-light-theme button[class*="bg-black/40"][class*="border-neutral-800"] * {
   color: #334155 !important;
+}
+
+/* Ensure active college-blue elements (active tabs/selectors/buttons) turn to brand yellow in se-light-theme */
+html.se-light-theme .bg-college-blue,
+.se-light-theme .bg-college-blue {
+  background-color: var(--college-yellow) !important;
+}
+html.se-light-theme .border-college-blue,
+.se-light-theme .border-college-blue {
+  border-color: var(--college-yellow) !important;
+}
+html.se-light-theme button.bg-college-blue,
+html.se-light-theme button.bg-college-blue *,
+.se-light-theme .bg-college-blue span,
+.se-light-theme .bg-college-blue * {
+  color: #000000 !important;
 }

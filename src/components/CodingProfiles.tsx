@@ -18,7 +18,7 @@ const getLeetcodeUrl = () => {
   // Check if running natively inside Capacitor
   const isNative = (window as any).Capacitor?.isNativePlatform ? (window as any).Capacitor.isNativePlatform() : false;
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  
+
   if (!isNative && isLocal) {
     return '/leetcode-graphql';
   }
@@ -29,7 +29,7 @@ const getCodechefUrl = (username: string) => {
   // Check if running natively inside Capacitor
   const isNative = (window as any).Capacitor?.isNativePlatform ? (window as any).Capacitor.isNativePlatform() : false;
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  
+
   if (!isNative && isLocal) {
     return `/codechef-api/${username}`;
   }
@@ -140,7 +140,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     if (leetcode.username) {
       try {
         let success = false;
-        
+
         // A. Attempt GraphQL query (works natively on device and locally on dev proxy)
         try {
           const query = `
@@ -177,7 +177,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
               const allStats = user.submitStats?.acSubmissionNum?.find((item: any) => item.difficulty === 'All');
               const solvedVal = allStats ? allStats.count : 0;
               const rankVal = user.profile?.ranking ? `Rank #${user.profile.ranking.toLocaleString()}` : 'Beginner';
-              
+
               setLeetcode(prev => ({
                 ...prev,
                 solved: solvedVal,
@@ -199,18 +199,18 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             fetch(`https://alfa-leetcode-api.onrender.com/${leetcode.username}`),
             fetch(`https://alfa-leetcode-api.onrender.com/${leetcode.username}/solved`)
           ]);
-          
+
           if (profileRes.ok && solvedRes.ok) {
             const profileInfo = await profileRes.json();
             const solvedInfo = await solvedRes.json();
-            
+
             if (profileInfo.errors) {
               throw new Error('User not found on LeetCode');
             }
 
             const solvedVal = solvedInfo.solvedProblem !== undefined ? solvedInfo.solvedProblem : 0;
             const rankVal = profileInfo.ranking ? `Rank #${parseInt(profileInfo.ranking).toLocaleString()}` : 'Beginner';
-            
+
             setLeetcode(prev => ({
               ...prev,
               solved: solvedVal,
@@ -240,7 +240,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
           if (info.currentRank !== undefined && info.problemSolved !== undefined) {
             const solvedVal = parseInt(info.problemSolved) || 0;
             const ratingPoints = parseInt(info.currentRank) || 0;
-            
+
             let starsVal = '1-Star';
             if (ratingPoints >= 2500) starsVal = '7-Star';
             else if (ratingPoints >= 2200) starsVal = '6-Star';
@@ -249,7 +249,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
             else if (ratingPoints >= 1600) starsVal = '3-Star';
             else if (ratingPoints >= 1400) starsVal = '2-Star';
             else starsVal = '1-Star';
-            
+
             setCodechef(prev => ({
               ...prev,
               solved: solvedVal,
@@ -271,7 +271,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     }
 
     setIsFetching(false);
-    
+
     let alertMsg = '';
     if (synced.length > 0) {
       alertMsg += `✅ Synchronized successfully: ${synced.join(', ')}\n\n`;
@@ -279,11 +279,11 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     if (failed.length > 0) {
       alertMsg += `❌ Failed to sync:\n- ${failed.join('\n- ')}\n\nYou can try again later, or enter the values manually in the inputs.`;
     }
-    
+
     if (!synced.length && !failed.length) {
       alertMsg = 'Please enter at least one competitive programming handle to synchronize.';
     }
-    
+
     if (alertMsg) {
       alert(alertMsg.trim());
     }
@@ -295,7 +295,7 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
     <div id="coding-profiles" className="space-y-8 pb-8">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
         >
@@ -303,7 +303,9 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">PORTFOLIO</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">Coding Profile Tracker</h1>
+          <h1 className="text-xl font-bold text-white">
+            Coding Profiles <span className="font-odoo-slant">Tracker</span>
+          </h1>
         </div>
       </div>
 
@@ -345,42 +347,42 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
       {/* Grid List */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {[
-          { 
-            name: 'LeetCode', 
-            icon: Code, 
-            state: leetcode, 
-            set: setLeetcode, 
-            ph: 'leetcode_user', 
+          {
+            name: 'LeetCode',
+            icon: Code,
+            state: leetcode,
+            set: setLeetcode,
+            ph: 'leetcode_user',
             metric: 'Problems Solved',
             ratingLabel: 'Rank Tier',
             note: 'Auto-sync available'
           },
-          { 
-            name: 'GitHub', 
-            icon: Github, 
-            state: github, 
-            set: setGithub, 
-            ph: 'github_user', 
+          {
+            name: 'GitHub',
+            icon: Github,
+            state: github,
+            set: setGithub,
+            ph: 'github_user',
             metric: 'Public Repos count',
             ratingLabel: 'Profile Status',
             note: 'Auto-sync available'
           },
-          { 
-            name: 'Codeforces', 
-            icon: Award, 
-            state: codeforces, 
-            set: setCodeforces, 
-            ph: 'cf_handle', 
+          {
+            name: 'Codeforces',
+            icon: Award,
+            state: codeforces,
+            set: setCodeforces,
+            ph: 'cf_handle',
             metric: 'Solved Problems',
             ratingLabel: 'Contest Rank',
             note: 'Auto-sync available'
           },
-          { 
-            name: 'CodeChef', 
-            icon: Award, 
-            state: codechef, 
-            set: setCodechef, 
-            ph: 'codechef_chef', 
+          {
+            name: 'CodeChef',
+            icon: Award,
+            state: codechef,
+            set: setCodechef,
+            ph: 'codechef_chef',
             metric: 'Problems Solved',
             ratingLabel: 'Stars Tier',
             note: 'Auto-sync available'
@@ -399,9 +401,8 @@ export default function CodingProfiles({ onBack }: CodingProfilesProps) {
                     <span className="text-[9px] text-neutral-500 font-mono block">Platform profile config</span>
                   </div>
                 </div>
-                <span className={`text-[8px] font-mono font-semibold px-2 py-0.5 rounded ${
-                  platform.note.includes('Auto') ? 'bg-white/5 border border-white/10 text-neutral-300' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'
-                }`}>
+                <span className={`text-[8px] font-mono font-semibold px-2 py-0.5 rounded ${platform.note.includes('Auto') ? 'bg-white/5 border border-white/10 text-neutral-300' : 'bg-neutral-900 border border-neutral-800 text-neutral-500'
+                  }`}>
                   {platform.note}
                 </span>
               </div>
