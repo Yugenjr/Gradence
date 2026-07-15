@@ -201,6 +201,13 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const saveTimetable = async (list: TimetableItem[]) => {
     setTimetable(list);
     await setItem('gradence_timetable', JSON.stringify(list));
+
+    if (list.length > timetable.length) {
+      const added = list[list.length - 1];
+      await logActivity('planner', 'Class Added 📚', `New class "${added.subject}" scheduled at ${added.time} in Room ${added.room}.`);
+    } else if (list.length < timetable.length) {
+      await logActivity('planner', 'Class Removed 🗑️', 'Class schedule was updated.');
+    }
     
     // Schedule push notifications
     scheduleClassNotifications(list);
@@ -209,6 +216,13 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const saveCountdowns = async (list: CountdownItem[]) => {
     setCountdowns(list);
     await setItem('gradence_countdowns', JSON.stringify(list));
+
+    if (list.length > countdowns.length) {
+      const added = list[list.length - 1];
+      await logActivity('planner', 'Countdown Set ⏳', `Target date set for "${added.title}" on ${added.date}.`);
+    } else if (list.length < countdowns.length) {
+      await logActivity('planner', 'Countdown Cleared 🗑️', 'Countdown list updated.');
+    }
   };
 
   const saveHabits = async (list: HabitItem[]) => {
