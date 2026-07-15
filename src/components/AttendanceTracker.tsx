@@ -302,10 +302,13 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                       : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
                   }`}
                 >
-                  <div className="truncate">
+                  <div className="truncate pr-2">
                     <h4 className="text-sm font-bold text-white truncate">{sub.name}</h4>
                     <span className="text-[10px] font-mono text-neutral-400 block mt-1">
-                      {sub.present}/{sub.total} classes • Target {sub.requiredPercentage}%
+                      {sub.present}/{sub.total} attended • {sub.total - sub.present} missed
+                    </span>
+                    <span className="text-[9px] font-mono text-neutral-500 block mt-0.5">
+                      Target {sub.requiredPercentage}%
                     </span>
                   </div>
 
@@ -316,7 +319,9 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        handleRemoveSubject(sub.id);
+                        if (window.confirm("Are you sure you want to delete this subject?")) {
+                          handleRemoveSubject(sub.id);
+                        }
                       }}
                       className="text-[9px] font-mono text-neutral-600 hover:text-white mt-1 uppercase"
                     >
@@ -400,15 +405,19 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                 </div>
 
                 {/* Mini metrics columns */}
-                <div className="space-y-4 w-full sm:max-w-xs">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div className="bg-black/30 p-3.5 rounded-2xl border border-neutral-900">
-                      <span className="text-[9px] font-mono text-neutral-400 block uppercase">Classes Logged</span>
-                      <span className="text-lg font-bold font-mono text-white mt-0.5 block">{activeSubject.total}</span>
+                <div className="space-y-4 w-full sm:max-w-sm">
+                  <div className="grid grid-cols-3 gap-3">
+                    <div className="bg-black/30 p-3 rounded-2xl border border-neutral-900 flex flex-col justify-center">
+                      <span className="text-[9px] font-mono text-neutral-400 block uppercase">Logged</span>
+                      <span className="text-base font-bold font-mono text-white mt-0.5 block">{activeSubject.total}</span>
                     </div>
-                    <div className="bg-black/30 p-3.5 rounded-2xl border border-neutral-900">
-                      <span className="text-[9px] font-mono text-neutral-400 block uppercase">Classes Attended</span>
-                      <span className="text-lg font-bold font-mono text-white mt-0.5 block">{activeSubject.present}</span>
+                    <div className="bg-black/30 p-3 rounded-2xl border border-neutral-900 flex flex-col justify-center">
+                      <span className="text-[9px] font-mono text-neutral-400 block uppercase">Attended</span>
+                      <span className="text-base font-bold font-mono text-white mt-0.5 block">{activeSubject.present}</span>
+                    </div>
+                    <div className="bg-black/30 p-3 rounded-2xl border border-neutral-900 flex flex-col justify-center">
+                      <span className="text-[9px] font-mono text-neutral-400 block uppercase">Missed</span>
+                      <span className="text-base font-bold font-mono text-white mt-0.5 block">{activeSubject.total - activeSubject.present}</span>
                     </div>
                   </div>
 
