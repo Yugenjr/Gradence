@@ -473,7 +473,7 @@ export default function SettingsScreen({
         </div>
 
         {isImportBoxOpen && (
-          <div className="p-4 bg-black/60 border border-neutral-900 rounded-2xl space-y-3">
+          <div className="p-4 bg-white/5 border border-neutral-900 rounded-2xl space-y-3">
             <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block">
               PASTE BACKUP DATA HERE
             </span>
@@ -492,9 +492,9 @@ export default function SettingsScreen({
               <button
                 type="button"
                 onClick={handleUploadFileClick}
-                className="w-full py-2.5 bg-black/40 border border-neutral-900 hover:border-neutral-700 rounded-xl text-xs text-neutral-350 transition-all font-semibold flex items-center justify-center gap-1.5 cursor-pointer font-mono"
+                className="w-full py-2.5 bg-white/5 border border-neutral-900 hover:border-neutral-850 rounded-xl text-xs text-neutral-300 hover:text-white transition-all font-semibold flex items-center justify-center gap-1.5 cursor-pointer font-mono"
               >
-                <Upload className="w-4 h-4" />
+                <Upload className="w-4 h-4 text-college-yellow" />
                 <span>Upload JSON File</span>
               </button>
               <input
@@ -515,7 +515,7 @@ export default function SettingsScreen({
 
             <button
               onClick={handleImport}
-              className="w-full py-2 bg-neutral-800 hover:bg-neutral-700 text-white text-xs font-semibold rounded-xl"
+              className="w-full py-2.5 bg-college-yellow hover:bg-college-yellow-hover text-black text-xs font-semibold rounded-xl transition-colors cursor-pointer"
             >
               Verify and Restore Records
             </button>
