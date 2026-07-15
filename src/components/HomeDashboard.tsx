@@ -47,14 +47,16 @@ export default function HomeDashboard({
   const [greeting, setGreeting] = useState('Good Evening');
   const [quote, setQuote] = useState<Quote>(() => QUOTES[0]);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [hasUnread, setHasUnread] = useState(activities.length > 0);
+  const [hasUnread, setHasUnread] = useState(() => {
+    const lastRead = parseInt(localStorage.getItem('gradence_last_read_activities_count') || '0', 10);
+    return activities.length > lastRead;
+  });
   const prevLengthRef = useRef(activities.length);
 
   useEffect(() => {
-    if (activities.length > prevLengthRef.current) {
-      if (!showNotifications) {
-        setHasUnread(true);
-      }
+    const lastRead = parseInt(localStorage.getItem('gradence_last_read_activities_count') || '0', 10);
+    if (activities.length > lastRead && !showNotifications) {
+      setHasUnread(true);
     }
     prevLengthRef.current = activities.length;
   }, [activities.length, showNotifications]);
@@ -64,6 +66,7 @@ export default function HomeDashboard({
     setShowNotifications(nextShow);
     if (nextShow) {
       setHasUnread(false);
+      localStorage.setItem('gradence_last_read_activities_count', activities.length.toString());
     }
   };
 
@@ -72,7 +75,8 @@ export default function HomeDashboard({
     habits,
     timetable,
     countdowns: customCountdowns,
-    saveHabits
+    saveHabits,
+    clearActivities
   } = useGradence();
 
   const toggleHabit = (id: string) => {
@@ -137,9 +141,9 @@ export default function HomeDashboard({
         <div className="relative">
           <button 
             onClick={handleToggleNotifications}
-            className="w-12 h-12 rounded-[20px] bg-neutral-100 dark:bg-[#171717] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm hover:border-neutral-500 transition-colors cursor-pointer relative"
+            className="w-12 h-12 rounded-[20px] !bg-[#ffffff] border border-neutral-200 dark:border-[#2A2A2A] flex items-center justify-center overflow-hidden p-1 shadow-sm hover:border-neutral-500 transition-colors cursor-pointer relative"
           >
-            <Bell className="w-5 h-5 text-neutral-400" />
+            <Bell className="w-5 h-5 !text-college-yellow" strokeWidth={3} />
             {hasUnread && activities.length > 0 && (
               <div className="absolute top-3 right-3 w-2 h-2 bg-red-500 rounded-full border border-[#171717]"></div>
             )}
@@ -150,7 +154,22 @@ export default function HomeDashboard({
             <div className="absolute top-14 right-0 w-72 bg-[#0F0F10] border border-[#2A2A2A] rounded-2xl shadow-xl z-50 overflow-hidden animate-fade-in">
               <div className="p-3 border-b border-[#2A2A2A] flex justify-between items-center">
                 <span className="text-xs font-bold text-white uppercase tracking-widest">Notifications</span>
-                <span className="text-[10px] bg-neutral-900 px-2 py-0.5 rounded text-neutral-400">{activities.length} new</span>
+                <div className="flex gap-2 items-center">
+                  <span className="text-[10px] bg-neutral-900 px-2 py-0.5 rounded text-neutral-400">{activities.length} new</span>
+                  {activities.length > 0 && (
+                    <button 
+                      onClick={() => { 
+                        clearActivities(); 
+                        localStorage.setItem('gradence_last_read_activities_count', '0'); 
+                        setHasUnread(false); 
+                        setShowNotifications(false); 
+                      }}
+                      className="text-[10px] !text-white hover:!text-neutral-200 !bg-[rgba(255,255,255,0.1)] hover:!bg-[rgba(255,255,255,0.2)] px-2 py-0.5 rounded cursor-pointer transition-colors"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
               </div>
               <div className="max-h-64 overflow-y-auto p-2 space-y-1">
                 {activities.length === 0 ? (

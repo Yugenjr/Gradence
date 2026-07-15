@@ -43,6 +43,7 @@ interface GradenceContextType {
   saveCodingProfiles: (data: CodingProfilesState) => Promise<void>;
   saveRoadmaps: (roadmaps: CareerRoadmap[]) => Promise<void>;
   logActivity: (type: Activity['type'], title: string, detail: string) => Promise<void>;
+  clearActivities: () => Promise<void>;
   resetData: () => Promise<void>;
   importData: (dataString: string) => Promise<boolean>;
   exportData: () => Promise<string>;
@@ -131,6 +132,11 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const updated = [newActivity, ...activities].slice(0, 20);
     setActivities(updated);
     await setItem('gradence_activities', JSON.stringify(updated));
+  };
+
+  const clearActivities = async () => {
+    setActivities([]);
+    await setItem('gradence_activities', JSON.stringify([]));
   };
 
   const updateProfile = async (newProfile: UserProfile) => {
@@ -399,6 +405,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         saveResumeDraft,
         resumeDraft,
         logActivity,
+        clearActivities,
         resetData,
         importData,
         exportData
