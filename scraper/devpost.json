@@ -1,28 +1,5 @@
 [
   {
-    "id": "devpost_29541",
-    "title": "Build with Gemini XPRIZE",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://xprize.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/686/462/datas/medium_square.png",
-    "start_date": "May 19 - Aug 17, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,000,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Education",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30223",
     "title": "OpenAI Build Week",
     "description": "Machine Learning/AI",
@@ -39,6 +16,29 @@
     "tags": [
       "Machine Learning/AI",
       "DevOps",
+      "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29541",
+    "title": "Build with Gemini XPRIZE",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://xprize.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/686/462/datas/medium_square.png",
+    "start_date": "May 19 - Aug 17, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>2,000,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Education",
       "Productivity"
     ],
     "team_size": "",
