@@ -202,7 +202,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
     <div id="attendance-tracker" className="space-y-8 pb-6">
       {/* Top Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer animate-fade-in"
         >
@@ -210,7 +210,9 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">Attendance Tracker</h1>
+          <h1 className="text-xl font-bold text-white">
+            Attendance <span className="font-odoo-slant">Tracker</span>
+          </h1>
         </div>
       </div>
 
@@ -222,7 +224,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest px-1">
               SUBJECT WORKSPACE
             </span>
-            <button 
+            <button
               onClick={() => setIsAddFormOpen(!isAddFormOpen)}
               className="text-xs text-white hover:underline flex items-center gap-1 font-mono"
             >
@@ -296,11 +298,10 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                 <div
                   key={sub.id}
                   onClick={() => setSelectedSubId(sub.id)}
-                  className={`press-card p-4 rounded-[24px] border text-left flex items-center justify-between gap-3 cursor-pointer ${
-                    isSelected 
-                      ? 'border-white bg-[#171717]' 
+                  className={`press-card p-4 rounded-[24px] border text-left flex items-center justify-between gap-3 cursor-pointer ${isSelected
+                      ? 'border-white bg-[#171717]'
                       : 'border-[#2A2A2A] bg-[#0F0F10] hover:border-neutral-700'
-                  }`}
+                    }`}
                 >
                   <div className="truncate pr-2">
                     <h4 className="text-sm font-bold text-white truncate">{sub.name}</h4>
@@ -338,7 +339,7 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
         <div className="lg:col-span-2">
           {activeSubject ? (
             <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 space-y-6">
-              
+
               {/* Active Header */}
               <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-neutral-800 pb-6">
                 <div>
@@ -493,15 +494,14 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                     <span className="text-xs font-mono text-neutral-400 uppercase tracking-widest block">
                       RESCUE ENGINE SIMULATOR
                     </span>
-                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${
-                      simulatedTotal > 0 && simulatedPercentCapped >= activeSubject.requiredPercentage
+                    <span className={`text-[10px] font-mono px-2 py-0.5 rounded-full border ${simulatedTotal > 0 && simulatedPercentCapped >= activeSubject.requiredPercentage
                         ? 'border-white text-white'
                         : 'border-neutral-850 text-neutral-500'
-                    }`}>
+                      }`}>
                       {simulatedTotal > 0 ? `Simulated: ${simulatedPercentCapped}%` : 'No simulation'}
                     </span>
                   </div>
-                  
+
                   <p className="text-[11px] text-neutral-400 leading-relaxed">
                     Test hypothetical future schedules to predict if they rescue your attendance requirements.
                   </p>
@@ -534,11 +534,10 @@ export default function AttendanceTracker({ savedSubjects, onSaveSubjects, onBac
                   </div>
 
                   {simulatedTotal > 0 && (
-                    <div className={`p-4 rounded-xl border text-xs leading-relaxed ${
-                      simulatedPercentCapped >= activeSubject.requiredPercentage
+                    <div className={`p-4 rounded-xl border text-xs leading-relaxed ${simulatedPercentCapped >= activeSubject.requiredPercentage
                         ? 'bg-neutral-900/40 border-neutral-800 text-neutral-200'
                         : 'bg-red-950/20 border-red-900/30 text-red-300'
-                    }`}>
+                      }`}>
                       {simulatedPercentCapped >= activeSubject.requiredPercentage ? (
                         <span>✓ This schedule <strong>rescues</strong> your attendance! You will sit at <strong>{simulatedPercentCapped}%</strong> (above target {activeSubject.requiredPercentage}%).</span>
                       ) : (

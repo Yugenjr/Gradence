@@ -173,7 +173,9 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">CGPA Calculator</h1>
+          <h1 className="text-xl font-bold text-white">
+            CGPA <span className="font-odoo-slant">Calculator</span>
+          </h1>
         </div>
       </div>
 
@@ -192,8 +194,8 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
                 type="button"
                 onClick={() => setSelectedSemNum(num)}
                 className={`flex-1 min-w-[56px] py-2.5 rounded-xl border text-xs font-medium transition-all flex flex-col items-center justify-center gap-0.5 ${isSelected
-                    ? 'border-college-blue bg-college-blue text-white font-bold'
-                    : 'border-[#2A2A2A] bg-black/40 text-neutral-400 hover:border-neutral-700'
+                  ? 'border-college-blue bg-college-blue text-white font-bold'
+                  : 'border-[#2A2A2A] bg-black/40 text-neutral-400 hover:border-neutral-700'
                   }`}
               >
                 <span>Sem {num}</span>
@@ -410,8 +412,8 @@ export default function CGPACalculator({ profile, savedSemesters, onSaveSemester
             <button
               onClick={handleSaveSemester}
               className={`w-full py-3 rounded-2xl text-xs font-semibold flex items-center justify-center gap-2 transition-all ${isSavedSuccessfully
-                  ? 'bg-neutral-800 text-green-400 border border-green-900/30'
-                  : 'bg-college-blue text-white hover:bg-college-blue/90 border border-college-blue'
+                ? 'bg-neutral-800 text-green-400 border border-green-900/30'
+                : 'bg-college-blue text-white hover:bg-college-blue/90 border border-college-blue'
                 }`}
             >
               {isSavedSuccessfully ? (

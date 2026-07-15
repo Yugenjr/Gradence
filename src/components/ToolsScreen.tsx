@@ -107,8 +107,8 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
                   </p>
                 </div>
               </div>
-              <div className="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-800 flex items-center justify-center shrink-0">
-                <ArrowRight className="w-4 h-4 text-white" />
+              <div className="w-8 h-8 flex items-center justify-center shrink-0">
+                <ArrowRight className="w-5 h-5 text-white" />
               </div>
             </button>
           );

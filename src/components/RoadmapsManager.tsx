@@ -19,13 +19,13 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
             const nextSubStages = st.subStages?.map(sub => ({ ...sub, completed: nextCompleted })) || [];
             return { ...st, completed: nextCompleted, subStages: nextSubStages };
           }
-          
+
           if (st.subStages && st.subStages.some(sub => sub.id === stageId)) {
             const nextSubStages = st.subStages.map(sub => sub.id === stageId ? { ...sub, completed: !sub.completed } : sub);
             const allSubDone = nextSubStages.every(sub => sub.completed);
             return { ...st, completed: allSubDone, subStages: nextSubStages };
           }
-          
+
           return st;
         });
 
@@ -66,7 +66,7 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
       {/* Header */}
       <div className="flex items-center gap-3">
         {onBack && (
-          <button 
+          <button
             onClick={onBack}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
           >
@@ -75,7 +75,9 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
         )}
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block font-mono">CAREER PLANNER</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">Roadmaps Manager</h1>
+          <h1 className="text-xl font-bold text-white">
+            Roadmaps <span className="font-odoo-slant">Manager</span>
+          </h1>
         </div>
       </div>
 
@@ -128,13 +130,12 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
             const percent = totalStages > 0 ? Math.round((completedStages / totalStages) * 100) : 0;
 
             return (
-              <div 
-                key={rm.id} 
-                className={`border rounded-[24px] p-6 space-y-5 transition-all ${
-                  rm.isCompleted 
-                    ? 'bg-[#171717]/40 border-neutral-800' 
+              <div
+                key={rm.id}
+                className={`border rounded-[24px] p-6 space-y-5 transition-all ${rm.isCompleted
+                    ? 'bg-[#171717]/40 border-neutral-800'
                     : 'bg-[#121213] border-[#2A2A2A]'
-                }`}
+                  }`}
               >
                 {/* Info and delete actions */}
                 <div className="flex justify-between items-start gap-4">
@@ -151,7 +152,7 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                       Target Role: {rm.targetRole} • Followed on {new Date(rm.createdAt).toLocaleDateString()}
                     </span>
                   </div>
-                  <button 
+                  <button
                     onClick={() => handleDeleteRoadmap(rm.id)}
                     className="text-neutral-500 hover:text-white p-1"
                   >
@@ -166,8 +167,8 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                     <span>{percent}% ({completedStages}/{totalStages})</span>
                   </div>
                   <div className="w-full bg-neutral-900 h-1.5 rounded-full overflow-hidden">
-                    <div 
-                      className="bg-college-yellow h-full transition-all duration-500 ease-out" 
+                    <div
+                      className="bg-college-yellow h-full transition-all duration-500 ease-out"
                       style={{ width: `${percent}%` }}
                     />
                   </div>
@@ -176,7 +177,7 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                   {rm.stages.map((stage) => (
                     <div key={stage.id} className="space-y-2">
                       {/* Parent Stage */}
-                      <div 
+                      <div
                         onClick={() => handleToggleStage(rm.id, stage.id)}
                         className="flex items-center gap-3 p-3 bg-neutral-900 border border-neutral-850 hover:border-neutral-800 rounded-xl cursor-pointer select-none transition-all"
                       >
@@ -225,11 +226,10 @@ export default function RoadmapsManager({ onBack }: RoadmapsManagerProps) {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => handleToggleCompleted(rm.id)}
-                      className={`py-2 px-4 rounded-xl text-[10px] font-mono font-semibold transition-all ${
-                        rm.isCompleted
+                      className={`py-2 px-4 rounded-xl text-[10px] font-mono font-semibold transition-all ${rm.isCompleted
                           ? 'bg-neutral-800 text-neutral-400 hover:text-white'
                           : 'bg-college-yellow text-black hover:bg-college-yellow-hover'
-                      }`}
+                        }`}
                     >
                       {rm.isCompleted ? 'Mark as Active' : 'Mark Fully Completed'}
                     </button>

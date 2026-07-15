@@ -393,7 +393,7 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-neutral-900 pb-4">
         <div className="flex items-center gap-3">
-          <button 
+          <button
             onClick={handleBack}
             className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer animate-fade-in"
           >
@@ -401,10 +401,12 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
           </button>
           <div>
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-            <h1 className="text-xl font-bold text-white font-odoo-slant">Resume Builder</h1>
+            <h1 className="text-xl font-bold text-white">
+              Resume <span className="font-odoo-slant">Builder</span>
+            </h1>
           </div>
         </div>
-        
+
         <div className="flex gap-2">
           {!preview && (
             <button
@@ -435,14 +437,14 @@ export default function ResumeBuilder({ onBack }: ResumeBuilderProps) {
 
       {/* Preview panel */}
       {preview && (
-        <div 
-          ref={previewRef} 
+        <div
+          ref={previewRef}
           className="w-full rounded-2xl border border-neutral-800 bg-white overflow-hidden flex justify-center"
           style={{ height: `${1123 * scale}px` }}
         >
-          <div 
-            style={{ 
-              transform: `scale(${scale})`, 
+          <div
+            style={{
+              transform: `scale(${scale})`,
               transformOrigin: 'top center',
               width: '794px',
               height: '1123px',

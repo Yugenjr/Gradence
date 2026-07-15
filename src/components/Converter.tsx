@@ -92,7 +92,7 @@ export default function Converter({ onBack }: ConverterProps) {
     <div id="converter" className="space-y-8 pb-4">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
         >
@@ -100,7 +100,9 @@ export default function Converter({ onBack }: ConverterProps) {
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">TOOL</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">Academic Converters</h1>
+          <h1 className="text-xl font-bold text-white">
+            Academic <span className="font-odoo-slant">Converters</span>
+          </h1>
         </div>
       </div>
 
@@ -111,11 +113,10 @@ export default function Converter({ onBack }: ConverterProps) {
             setActiveTab('gpa-percent');
             setCgpaInput('8.5');
           }}
-          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
-            activeTab === 'gpa-percent'
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${activeTab === 'gpa-percent'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'
-          }`}
+            }`}
         >
           GPA ↔ Percent
         </button>
@@ -124,21 +125,19 @@ export default function Converter({ onBack }: ConverterProps) {
             setActiveTab('grade-points');
             setSelectedGrade(scaleType === 10 ? 'A+' : 'A');
           }}
-          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
-            activeTab === 'grade-points'
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${activeTab === 'grade-points'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'
-          }`}
+            }`}
         >
           Grade ↔ Points
         </button>
         <button
           onClick={() => setActiveTab('credits')}
-          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${
-            activeTab === 'credits'
+          className={`flex-1 py-2.5 sm:py-3 text-[10px] sm:text-xs px-1 sm:px-3 font-semibold rounded-2xl transition-all cursor-pointer ${activeTab === 'credits'
               ? 'bg-white text-black font-bold'
               : 'text-neutral-400 hover:text-white'
-          }`}
+            }`}
         >
           Credits Calc
         </button>
@@ -146,7 +145,7 @@ export default function Converter({ onBack }: ConverterProps) {
 
       {/* Dynamic Main Workspace Container */}
       <div className="bg-[#171717] border border-[#2A2A2A] rounded-[24px] p-6 space-y-6">
-        
+
         {/* GPA ↔ Percentage Converter */}
         {activeTab === 'gpa-percent' && (
           <div className="space-y-6">
@@ -239,11 +238,10 @@ export default function Converter({ onBack }: ConverterProps) {
                     setScaleType(10);
                     setSelectedGrade('O');
                   }}
-                  className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${
-                    scaleType === 10
+                  className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${scaleType === 10
                       ? 'border-college-blue bg-college-blue text-white'
                       : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
-                  }`}
+                    }`}
                 >
                   10.0 scale (S / A+ / O)
                 </button>
@@ -252,11 +250,10 @@ export default function Converter({ onBack }: ConverterProps) {
                     setScaleType(4);
                     setSelectedGrade('A');
                   }}
-                  className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${
-                    scaleType === 4
+                  className={`py-2.5 rounded-xl border text-xs font-semibold font-mono transition-all ${scaleType === 4
                       ? 'border-college-blue bg-college-blue text-white'
                       : 'border-neutral-800 bg-black/40 text-neutral-400 hover:border-neutral-700'
-                  }`}
+                    }`}
                 >
                   4.0 scale (A / A- / B)
                 </button>
@@ -271,11 +268,10 @@ export default function Converter({ onBack }: ConverterProps) {
                     <button
                       key={gr}
                       onClick={() => setSelectedGrade(gr)}
-                      className={`w-12 h-12 rounded-xl border text-sm font-bold transition-all ${
-                        selectedGrade === gr
+                      className={`w-12 h-12 rounded-xl border text-sm font-bold transition-all ${selectedGrade === gr
                           ? 'border-college-blue bg-college-blue text-white'
                           : 'border-neutral-800 bg-black/40 text-neutral-500 hover:border-neutral-600'
-                      }`}
+                        }`}
                     >
                       {gr}
                     </button>

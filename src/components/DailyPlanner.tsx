@@ -115,7 +115,7 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
     <div id="daily-planner" className="space-y-8 pb-8">
       {/* Header */}
       <div className="flex items-center gap-3">
-        <button 
+        <button
           onClick={onBack}
           className="w-10 h-10 border border-[#2A2A2A] rounded-2xl flex items-center justify-center hover:border-white transition-colors cursor-pointer"
         >
@@ -123,7 +123,9 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
         </button>
         <div>
           <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block font-mono">STUDENT LIFE OS</span>
-          <h1 className="text-xl font-bold text-white font-odoo-slant">OS Daily Planner</h1>
+          <h1 className="text-xl font-bold text-white">
+            OS Daily <span className="font-odoo-slant">Planner</span>
+          </h1>
         </div>
       </div>
 
@@ -140,9 +142,8 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
-              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${
-                isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
-              }`}
+              className={`flex-1 py-3 px-2 rounded-xl text-xs font-semibold flex items-center justify-center gap-2 transition-all cursor-pointer ${isActive ? 'bg-white text-black' : 'text-neutral-400 hover:text-white'
+                }`}
             >
               <Icon className="w-4 h-4 shrink-0" />
               <span>{tab.label}</span>
@@ -153,7 +154,7 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
 
       {/* Form and listing container */}
       <div className="bg-[#121213] border border-[#2A2A2A] rounded-[24px] p-6 space-y-6">
-        
+
         {/* Tab 1: Timetable */}
         {activeTab === 'timetable' && (
           <div className="space-y-6">
