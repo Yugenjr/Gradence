@@ -1,6 +1,6 @@
 import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
-import { Exam, TimetableItem } from '../types';
+import { Exam, TimetableItem, AcademicEvent } from '../types';
 
 export const scheduleExamNotifications = async (exams: Exam[]) => {
   if (!Capacitor.isNativePlatform()) return;
@@ -151,5 +151,77 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
     }
   } catch (e) {
     console.error('Failed to schedule class notifications', e);
+  }
+};
+
+export const scheduleAcademicNotifications = async (events: AcademicEvent[]) => {
+  if (!Capacitor.isNativePlatform()) return;
+  
+  try {
+    const perm = await LocalNotifications.checkPermissions();
+    if (perm.display !== 'granted') return;
+
+    // Clear previously scheduled academic notifications (ID starting with 40)
+    const pending = await LocalNotifications.getPending();
+    const toCancel = pending.notifications.filter(n => n.id.toString().startsWith('40'));
+    if (toCancel.length > 0) {
+      await LocalNotifications.cancel({ notifications: toCancel });
+    }
+
+    let notificationsToSchedule = [];
+    const now = new Date();
+
+    events.forEach((event, idx) => {
+      const eventDate = new Date(event.date);
+      if (isNaN(eventDate.getTime())) return;
+      
+      // Schedule for 8:00 PM the night before
+      const nightBefore = new Date(eventDate);
+      nightBefore.setDate(nightBefore.getDate() - 1);
+      nightBefore.setHours(20, 0, 0, 0);
+
+      let scheduleTime = nightBefore;
+      // If it's already past 8:00 PM on the night before the event, schedule it to trigger in 1 minute
+      if (
+        nightBefore <= now && 
+        nightBefore.getDate() === now.getDate() && 
+        nightBefore.getMonth() === now.getMonth() && 
+        nightBefore.getFullYear() === now.getFullYear()
+      ) {
+        scheduleTime = new Date(now.getTime() + 60000); // 1 minute from now
+      }
+
+      if (scheduleTime > now) {
+        notificationsToSchedule.push({
+          id: 400000 + (idx * 10) + 1,
+          title: 'Upcoming Academic Event 📅',
+          body: `Reminder: ${event.title} is scheduled for tomorrow.`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
+          schedule: { at: scheduleTime }
+        });
+      }
+
+      // Schedule for 7:00 AM the morning of
+      const morningOf = new Date(eventDate);
+      morningOf.setHours(7, 0, 0, 0);
+
+      if (morningOf > now) {
+        notificationsToSchedule.push({
+          id: 400000 + (idx * 10) + 2,
+          title: 'Today: Academic Event 📌',
+          body: `${event.title} is happening today.`,
+          largeIcon: 'ic_launcher',
+          smallIcon: 'ic_launcher',
+          schedule: { at: morningOf }
+        });
+      }
+    });
+
+    if (notificationsToSchedule.length > 0) {
+      await LocalNotifications.schedule({ notifications: notificationsToSchedule });
+    }
+  } catch (e) {
+    console.error('Failed to schedule academic notifications', e);
   }
 };

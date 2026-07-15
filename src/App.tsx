@@ -29,6 +29,7 @@ import RoadmapsManager from './components/RoadmapsManager';
 import DailyPlanner from './components/DailyPlanner';
 import EventsScreen from './components/EventsScreen';
 import ResumeBuilder from './components/ResumeBuilder';
+import AcademicCalendarScreen from './components/AcademicCalendarScreen';
 import { GradenceProvider, useGradence } from './context/GradenceContext';
 
 export default function App() {
@@ -217,6 +218,13 @@ function AppContent() {
         if (activeTool === 'events') {
           return (
             <EventsScreen
+              onBack={() => setActiveTool(null)}
+            />
+          );
+        }
+        if (activeTool === 'academic-calendar') {
+          return (
+            <AcademicCalendarScreen
               onBack={() => setActiveTool(null)}
             />
           );

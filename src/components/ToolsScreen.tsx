@@ -62,6 +62,12 @@ export default function ToolsScreen({ onSelectTool }: ToolsScreenProps) {
       icon: Calendar,
     },
     {
+      id: 'academic-calendar' as ToolType,
+      title: 'AI Academic Calendar',
+      subtitle: 'Upload PDF to extract academic events for your year and schedule notifications',
+      icon: Calendar,
+    },
+    {
       id: 'resume' as ToolType,
       title: 'Resume Builder',
       subtitle: 'Build, edit, and download a professional resume aligned with SECE standards',

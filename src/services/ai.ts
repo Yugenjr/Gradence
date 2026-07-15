@@ -348,3 +348,72 @@ I am online and ready to assist you. To unlock real-time intelligence with light
 * **Smart Simulator:** Predict cumulative GPA under different academic constraints.
 * **Domain Mentor:** Draft specialized roadmaps for SWE, Product Management, AI, or Higher Studies.`;
 }
+
+export async function parseAcademicCalendar(
+  pdfText: string,
+  currentSemester: number,
+  apiKey: string
+): Promise<import('../types').AcademicEvent[]> {
+  if (!apiKey || apiKey.trim() === '' || apiKey === 'MY_GROQ_API_KEY') {
+    throw new Error('A valid Groq API key is required to parse the Academic Calendar.');
+  }
+
+  const targetYear = Math.ceil(currentSemester / 2); // e.g. Sem 3 -> Year 2
+
+  const prompt = `You are an AI assistant that extracts academic calendar events from PDF text.
+The student is currently in Year ${targetYear} (Semester ${currentSemester}). 
+The text might contain events for multiple years (I, II, III, IV) or semesters.
+Extract ALL events that apply to Year ${targetYear} OR apply to all students generally. Ignore events explicitly meant ONLY for other years.
+
+The current year is typically the one mentioned in the text, assume events without years are for the current academic session.
+
+Return ONLY a valid JSON array of objects, with NO markdown formatting, NO backticks, and NO additional text. 
+Format of each object:
+{
+  "id": "generate_a_unique_string",
+  "title": "Event Name",
+  "date": "YYYY-MM-DD",
+  "targetYear": ${targetYear}
+}
+
+Here is the PDF text:
+---
+${pdfText.substring(0, 15000)} // Truncating to avoid huge payloads if PDF is massive
+---
+`;
+
+  try {
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
+        temperature: 0.1, // Low temperature for factual extraction
+        max_tokens: 3000,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Groq API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+    let content = data.choices[0]?.message?.content || '[]';
+    
+    // Clean up potential markdown wrapper from LLM response
+    content = content.replace(/```json/gi, '').replace(/```/gi, '').trim();
+    
+    const parsed = JSON.parse(content);
+    if (Array.isArray(parsed)) {
+      return parsed as import('../types').AcademicEvent[];
+    }
+    return [];
+  } catch (error) {
+    console.error('Failed to parse academic calendar:', error);
+    throw new Error('Failed to extract events. Please try again.');
+  }
+}

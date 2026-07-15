@@ -1,8 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { UserProfile, Semester, AttendanceSubject, Exam, Activity, CareerRoadmap, TimetableItem, HabitItem, CountdownItem } from '../types';
+import { UserProfile, Semester, AttendanceSubject, Exam, Activity, CareerRoadmap, TimetableItem, HabitItem, CountdownItem, AcademicEvent } from '../types';
 import { setItem, getItem, clearAll, migrateLocalStorageToPreferences } from '../services/storage';
 import { saveApiKey, getApiKey, removeApiKey } from '../services/secureStorage';
-import { scheduleExamNotifications, scheduleClassNotifications } from '../utils/notifications';
+import { scheduleExamNotifications, scheduleClassNotifications, scheduleAcademicNotifications } from '../utils/notifications';
 
 export interface ProfileData {
   username: string;
@@ -29,6 +29,7 @@ interface GradenceContextType {
   countdowns: CountdownItem[];
   habits: HabitItem[];
   codingProfiles: CodingProfilesState | null;
+  academicEvents: AcademicEvent[];
   isInitialized: boolean;
   isStorageLoading: boolean;
 
@@ -42,6 +43,7 @@ interface GradenceContextType {
   saveHabits: (list: HabitItem[]) => Promise<void>;
   saveCodingProfiles: (data: CodingProfilesState) => Promise<void>;
   saveRoadmaps: (roadmaps: CareerRoadmap[]) => Promise<void>;
+  saveAcademicEvents: (events: AcademicEvent[]) => Promise<void>;
   logActivity: (type: Activity['type'], title: string, detail: string) => Promise<void>;
   clearActivities: () => Promise<void>;
   resetData: () => Promise<void>;
@@ -65,6 +67,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   const [habits, setHabits] = useState<HabitItem[]>([]);
   const [codingProfiles, setCodingProfiles] = useState<CodingProfilesState | null>(null);
   const [resumeDraft, setResumeDraft] = useState<any | null>(null);
+  const [academicEvents, setAcademicEvents] = useState<AcademicEvent[]>([]);
   
   const [isInitialized, setIsInitialized] = useState(false);
   const [isStorageLoading, setIsStorageLoading] = useState(true);
@@ -86,6 +89,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         const storedHabits = await getItem('gradence_habits');
         const storedCoding = await getItem('gradence_coding_profiles');
         const storedResumeDraft = await getItem('gradence_resume_draft');
+        const storedAcademicEvents = await getItem('gradence_academic_events');
         const securedApiKey = await getApiKey();
 
         if (storedProfile) {
@@ -112,6 +116,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         if (storedHabits) setHabits(JSON.parse(storedHabits));
         if (storedCoding) setCodingProfiles(JSON.parse(storedCoding));
         if (storedResumeDraft) setResumeDraft(JSON.parse(storedResumeDraft));
+        if (storedAcademicEvents) setAcademicEvents(JSON.parse(storedAcademicEvents));
       } catch (e) {
         console.error('Failed to load storage values in GradenceContext', e);
       } finally {
@@ -236,6 +241,14 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     await setItem('gradence_habits', JSON.stringify(list));
   };
 
+  const saveAcademicEvents = async (events: AcademicEvent[]) => {
+    setAcademicEvents(events);
+    await setItem('gradence_academic_events', JSON.stringify(events));
+    
+    // Schedule push notifications for the events
+    scheduleAcademicNotifications(events);
+  };
+
   const saveCodingProfiles = async (data: CodingProfilesState) => {
     setCodingProfiles(data);
     await setItem('gradence_coding_profiles', JSON.stringify(data));
@@ -264,6 +277,7 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     setHabits([]);
     setCodingProfiles(null);
     setResumeDraft(null);
+    setAcademicEvents([]);
     setIsInitialized(false);
   };
 
@@ -278,7 +292,8 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
       timetable,
       countdowns,
       habits,
-      coding: codingProfiles
+      coding: codingProfiles,
+      academicEvents
     };
     return JSON.stringify(backupObj, null, 2);
   };
@@ -364,6 +379,11 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         setCodingProfiles(null);
       }
 
+      // Validate & restore academic events
+      const acaEvents = Array.isArray(parsed.academicEvents) ? parsed.academicEvents : [];
+      await setItem('gradence_academic_events', JSON.stringify(acaEvents));
+      setAcademicEvents(acaEvents);
+
       setIsInitialized(true);
       return true;
     } catch (e) {
@@ -402,8 +422,10 @@ export const GradenceProvider: React.FC<{ children: React.ReactNode }> = ({ chil
         saveHabits,
         saveCodingProfiles,
         saveRoadmaps,
+        saveAcademicEvents,
         saveResumeDraft,
         resumeDraft,
+        academicEvents,
         logActivity,
         clearActivities,
         resetData,

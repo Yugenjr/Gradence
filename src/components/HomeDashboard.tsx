@@ -375,6 +375,7 @@ export default function HomeDashboard({
           {[
             { id: 'cgpa' as ToolType, label: 'CGPA Calc', icon: Calculator },
             { id: 'attendance' as ToolType, label: 'Attendance', icon: CheckSquare },
+            { id: 'academic-calendar' as ToolType, label: 'Calendar', icon: Calendar },
             { id: 'gpa' as ToolType, label: 'Target GPA', icon: PieChart },
             { id: 'exam' as ToolType, label: 'Exam Plan', icon: Calendar },
             { id: 'converter' as ToolType, label: 'Converters', icon: Hash }

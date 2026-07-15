@@ -69,8 +69,15 @@ export interface CareerRoadmap {
   createdAt: string;
 }
 
+export interface AcademicEvent {
+  id: string;
+  date: string; // YYYY-MM-DD format
+  title: string;
+  targetYear?: number; // Optional, if the event is year-specific
+}
+
 export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
-export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps' | 'planner' | 'events' | 'resume';
+export type ToolType = 'cgpa' | 'attendance' | 'gpa' | 'exam' | 'converter' | 'coding' | 'roadmaps' | 'planner' | 'events' | 'resume' | 'academic-calendar';
 
 export interface TimetableItem {
   id: string;
