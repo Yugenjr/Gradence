@@ -85,46 +85,50 @@ export const scheduleClassNotifications = async (timetable: TimetableItem[]) => 
     let notificationsToSchedule = [];
 
     timetable.forEach((item, idx) => {
-      // parse time string like "09:30 AM"
+      // parse time string like "09:30 AM" or "9:30AM" or "14:30"
       try {
-        const [timeStr, modifier] = item.time.split(' ');
-        let [hours, minutes] = timeStr.split(':').map(Number);
+        const match = item.time.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)?$/i);
+        if (!match) {
+          console.warn(`Skipping invalid time format for class notification: ${item.time}`);
+          return;
+        }
+
+        let hours = parseInt(match[1], 10);
+        const minutes = parseInt(match[2], 10);
+        const modifier = match[3];
+
         if (modifier && modifier.toUpperCase() === 'PM' && hours < 12) hours += 12;
         if (modifier && modifier.toUpperCase() === 'AM' && hours === 12) hours = 0;
 
         // Schedule daily repeating notification 30 mins before
-        let t30 = new Date();
-        t30.setHours(hours, minutes - 30, 0, 0);
-        if (t30.getTime() <= Date.now()) {
-          t30.setDate(t30.getDate() + 1);
-        }
+        const temp30 = new Date();
+        temp30.setHours(hours, minutes - 30, 0, 0);
+        const h30 = temp30.getHours();
+        const m30 = temp30.getMinutes();
         
         notificationsToSchedule.push({
           id: 300000 + (idx * 10) + 1,
           title: 'Class Nearing 📚',
           body: `${item.subject} in Room ${item.room} starts in 30 minutes.`,
           schedule: { 
-            at: t30,
-            on: { hour: t30.getHours(), minute: t30.getMinutes() },
-            repeats: true 
+            on: { hour: h30, minute: m30 },
+            allowWhileIdle: true
           }
         });
 
         // 10 mins before
-        let t10 = new Date();
-        t10.setHours(hours, minutes - 10, 0, 0);
-        if (t10.getTime() <= Date.now()) {
-          t10.setDate(t10.getDate() + 1);
-        }
+        const temp10 = new Date();
+        temp10.setHours(hours, minutes - 10, 0, 0);
+        const h10 = temp10.getHours();
+        const m10 = temp10.getMinutes();
         
         notificationsToSchedule.push({
           id: 300000 + (idx * 10) + 2,
           title: 'Class Starting Soon! 🏃',
           body: `${item.subject} starts in 10 minutes.`,
           schedule: { 
-            at: t10,
-            on: { hour: t10.getHours(), minute: t10.getMinutes() },
-            repeats: true 
+            on: { hour: h10, minute: m10 },
+            allowWhileIdle: true
           }
         });
       } catch (e) {

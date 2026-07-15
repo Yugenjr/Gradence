@@ -50,10 +50,24 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
   // Actions
   const handleAddClass = () => {
     if (!classSubject.trim() || !classTime.trim()) return;
+
+    // Format classTime from 24h "HH:MM" to 12h "HH:MM AM/PM"
+    let formattedTime = classTime.trim();
+    const timeParts = classTime.match(/^(\d{2}):(\d{2})$/);
+    if (timeParts) {
+      let hours = parseInt(timeParts[1], 10);
+      const minutes = timeParts[2];
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12'
+      const hoursStr = hours < 10 ? `0${hours}` : `${hours}`;
+      formattedTime = `${hoursStr}:${minutes} ${ampm}`;
+    }
+
     const newItem: TimetableItem = {
       id: `class-${Date.now()}`,
       subject: classSubject.trim(),
-      time: classTime.trim(),
+      time: formattedTime,
       room: classRoom.trim() || 'General'
     };
     saveTimetable([...timetable, newItem]);
@@ -154,8 +168,7 @@ export default function DailyPlanner({ onBack }: DailyPlannerProps) {
                   className="bg-black border border-neutral-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none"
                 />
                 <input
-                  type="text"
-                  placeholder="e.g. 09:30 AM"
+                  type="time"
                   value={classTime}
                   onChange={(e) => setClassTime(e.target.value)}
                   className="bg-black border border-neutral-850 rounded-xl px-3 py-2 text-xs text-white focus:outline-none font-mono"
