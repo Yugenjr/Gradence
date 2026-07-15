@@ -65,7 +65,20 @@ export default function SettingsScreen({
   const handleBackup = async () => {
     try {
       const dataStr = await onExportData();
-      const filename = `gradence_backup_${new Date().toISOString().split('T')[0]}.json`;
+      const now = new Date();
+      const datePart = now.toISOString().split('T')[0];
+      const timePart = now.toTimeString().split(' ')[0].replace(/:/g, '-');
+      const filename = `gradence_backup_${datePart}_${timePart}.json`;
+
+      if (Capacitor.isNativePlatform()) {
+        let perm = await Filesystem.checkPermissions();
+        if (perm.publicStorage !== 'granted') {
+          perm = await Filesystem.requestPermissions();
+        }
+        if (perm.publicStorage !== 'granted') {
+          throw new Error('Storage permission denied by user.');
+        }
+      }
 
       // 1. Save backup as a physical JSON file using Capacitor Filesystem
       const result = await Filesystem.writeFile({

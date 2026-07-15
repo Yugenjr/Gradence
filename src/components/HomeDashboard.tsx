@@ -164,7 +164,7 @@ export default function HomeDashboard({
                         setHasUnread(false); 
                         setShowNotifications(false); 
                       }}
-                      className="text-[10px] !text-white hover:!text-neutral-200 !bg-[rgba(255,255,255,0.1)] hover:!bg-[rgba(255,255,255,0.2)] px-2 py-0.5 rounded cursor-pointer transition-colors"
+                      className="text-[10px] !text-red-500 hover:!text-red-400 !bg-[rgba(239,68,68,0.15)] hover:!bg-[rgba(239,68,68,0.25)] px-2 py-0.5 rounded cursor-pointer transition-colors font-bold uppercase tracking-widest"
                     >
                       Clear
                     </button>

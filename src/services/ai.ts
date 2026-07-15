@@ -361,11 +361,13 @@ export async function parseAcademicCalendar(
   const targetYear = Math.ceil(currentSemester / 2); // e.g. Sem 3 -> Year 2
 
   const prompt = `You are an AI assistant that extracts academic calendar events from PDF text.
-The student is currently in Year ${targetYear} (Semester ${currentSemester}). 
-The text might contain events for multiple years (I, II, III, IV) or semesters.
-Extract ALL events that apply to Year ${targetYear} OR apply to all students generally. Ignore events explicitly meant ONLY for other years.
+Extract EVERY SINGLE event from the text line by line, regardless of the year. DO NOT summarize or skip any events.
+Pay close attention to roman numerals (I, II, III, IV) or year indicators (e.g. "First Year", "Second Year"). 
+If an event is explicitly for a specific year, set the "targetYear" to that integer (1, 2, 3, or 4). 
+If an event applies to all students, or is general/unidentifiable (e.g. "Algosprint", general meetings, common holidays, etc.), set "targetYear" to null.
+If an event is a holiday, leave, or vacation, set "isHoliday" to true, otherwise false.
 
-The current year is typically the one mentioned in the text, assume events without years are for the current academic session.
+The current year is typically the one mentioned in the text.
 
 Return ONLY a valid JSON array of objects, with NO markdown formatting, NO backticks, and NO additional text. 
 Format of each object:
@@ -373,12 +375,13 @@ Format of each object:
   "id": "generate_a_unique_string",
   "title": "Event Name",
   "date": "YYYY-MM-DD",
-  "targetYear": ${targetYear}
+  "targetYear": null, 
+  "isHoliday": false
 }
 
 Here is the PDF text:
 ---
-${pdfText.substring(0, 15000)} // Truncating to avoid huge payloads if PDF is massive
+${pdfText.substring(0, 100000)}
 ---
 `;
 
@@ -393,7 +396,7 @@ ${pdfText.substring(0, 15000)} // Truncating to avoid huge payloads if PDF is ma
         model: 'llama-3.3-70b-versatile',
         messages: [{ role: 'user', content: prompt }],
         temperature: 0.1, // Low temperature for factual extraction
-        max_tokens: 3000,
+        max_tokens: 6000,
       }),
     });
 
@@ -407,13 +410,25 @@ ${pdfText.substring(0, 15000)} // Truncating to avoid huge payloads if PDF is ma
     // Clean up potential markdown wrapper from LLM response
     content = content.replace(/```json/gi, '').replace(/```/gi, '').trim();
     
+    // Attempt to extract the JSON array if there's conversational text
+    const jsonMatch = content.match(/\[[\s\S]*\]/);
+    if (jsonMatch) {
+      content = jsonMatch[0];
+    }
+    
     const parsed = JSON.parse(content);
     if (Array.isArray(parsed)) {
       return parsed as import('../types').AcademicEvent[];
     }
     return [];
-  } catch (error) {
+  } catch (error: any) {
     console.error('Failed to parse academic calendar:', error);
-    throw new Error('Failed to extract events. Please try again.');
+    
+    // Make JSON parsing errors user-friendly
+    if (error.message && error.message.includes('JSON')) {
+      throw new Error('Failed to extract events. The AI response was incomplete or malformed. Please try again.');
+    }
+    
+    throw new Error(`Failed to extract events: ${error.message || 'Unknown error'}`);
   }
 }

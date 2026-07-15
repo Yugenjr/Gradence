@@ -158,7 +158,10 @@ export const scheduleAcademicNotifications = async (events: AcademicEvent[]) => 
   if (!Capacitor.isNativePlatform()) return;
   
   try {
-    const perm = await LocalNotifications.checkPermissions();
+    let perm = await LocalNotifications.checkPermissions();
+    if (perm.display !== 'granted') {
+      perm = await LocalNotifications.requestPermissions();
+    }
     if (perm.display !== 'granted') return;
 
     // Clear previously scheduled academic notifications (ID starting with 40)
@@ -172,6 +175,9 @@ export const scheduleAcademicNotifications = async (events: AcademicEvent[]) => 
     const now = new Date();
 
     events.forEach((event, idx) => {
+      // Skip scheduling push notifications for holidays
+      if (event.isHoliday) return;
+
       const eventDate = new Date(event.date);
       if (isNaN(eventDate.getTime())) return;
       

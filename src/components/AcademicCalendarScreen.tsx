@@ -47,14 +47,22 @@ export default function AcademicCalendarScreen({ onBack }: AcademicCalendarScree
       
       // 2. Parse using AI
       const currentSem = profile?.currentSemester || 1;
+      const currentYear = Math.ceil(currentSem / 2);
       const parsedEvents = await parseAcademicCalendar(rawText, currentSem, profile.groqApiKey);
       
       if (!parsedEvents || parsedEvents.length === 0) {
-        throw new Error("AI could not find any academic events applicable to your year.");
+        throw new Error("AI could not find any academic events.");
+      }
+
+      // Filter events: keep only general events (targetYear is null/undefined) or events for the student's year
+      const relevantEvents = parsedEvents.filter(e => !e.targetYear || e.targetYear === currentYear);
+
+      if (relevantEvents.length === 0) {
+        throw new Error(`Found events, but none were applicable to Year ${currentYear} or all students.`);
       }
 
       // Add IDs if missing and sort by date
-      const completeEvents: AcademicEvent[] = parsedEvents.map(e => ({
+      const completeEvents: AcademicEvent[] = relevantEvents.map(e => ({
         ...e,
         id: e.id || `evt-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
       })).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
@@ -128,9 +136,9 @@ export default function AcademicCalendarScreen({ onBack }: AcademicCalendarScree
         />
 
         {error && (
-          <div className="bg-red-950/20 border border-red-900/50 p-4 rounded-2xl flex items-start gap-3">
+          <div className="bg-red-500/10 border border-red-500/20 p-4 rounded-2xl flex items-start gap-3">
             <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
-            <p className="text-sm text-red-200">{error}</p>
+            <p className="text-sm font-semibold text-red-500">{error}</p>
           </div>
         )}
 

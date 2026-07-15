@@ -73,7 +73,8 @@ export interface AcademicEvent {
   id: string;
   date: string; // YYYY-MM-DD format
   title: string;
-  targetYear?: number; // Optional, if the event is year-specific
+  targetYear?: number | null; // Optional, if the event is year-specific (1-4). null if for all.
+  isHoliday?: boolean; // True if event is a holiday or leave
 }
 
 export type TabType = 'home' | 'tools' | 'progress' | 'settings' | 'ai';
