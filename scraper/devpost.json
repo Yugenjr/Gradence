@@ -69,29 +69,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30086",
-    "title": "Reddit’s Games with a Hook Hackathon",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://redditgameswithahook.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/669/093/datas/medium_square.png",
-    "start_date": "Jun 17 - Jul 15, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Gaming",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29613",
     "title": "CockroachDB × AWS Hackathon - Build with Agentic Memory",
     "description": "Machine Learning/AI",
@@ -198,6 +175,29 @@
     "tags": [
       "Machine Learning/AI",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30518",
+    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://youcam-api.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
+    "start_date": "Jul 06 - Aug 17, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "AR/VR",
+      "E-commerce/Retail"
     ],
     "team_size": "",
     "eligibility": "",
