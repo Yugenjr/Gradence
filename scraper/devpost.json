@@ -159,28 +159,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30091",
-    "title": "Africa Deep Tech Challenge 2026",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://adtc-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/739/255/datas/medium_square.png",
-    "start_date": "Jun 17 - Aug 25, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>16,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30518",
     "title": "YouCam API Skin AI & Apparel VTO Hackathon",
     "description": "Machine Learning/AI",
@@ -198,6 +176,28 @@
       "Machine Learning/AI",
       "AR/VR",
       "E-commerce/Retail"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30091",
+    "title": "Africa Deep Tech Challenge 2026",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://adtc-2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/739/255/datas/medium_square.png",
+    "start_date": "Jun 17 - Aug 25, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>16,500</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
