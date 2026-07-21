@@ -273,27 +273,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "h2s_solutionschallenge2025",
-    "title": "Solutionschallenge2025",
-    "description": "Hack2Skill Event: Solutionschallenge2025",
-    "platform": "Hack2Skill",
-    "url": "https://hack2skill.com/event/solutionschallenge2025",
-    "image_url": "https://hack2skill.com/images/logo.png",
-    "start_date": "",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon/Event",
-    "mode": "Online/Offline",
-    "location": "",
-    "prize_pool": "Check Website",
-    "tags": [
-      "Hack2Skill"
-    ],
-    "team_size": "Check Website",
-    "eligibility": "Open to all",
-    "registration_status": "Open"
-  },
-  {
     "id": "h2s_hack2skilltechcampgenai",
     "title": "Hack2Skilltechcampgenai",
     "description": "Hack2Skill Event: Hack2Skilltechcampgenai",
@@ -1034,6 +1013,27 @@
     "description": "Hack2Skill Event: Chennai Bootcamp",
     "platform": "Hack2Skill",
     "url": "https://hack2skill.com/event/chennai-bootcamp",
+    "image_url": "https://hack2skill.com/images/logo.png",
+    "start_date": "",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon/Event",
+    "mode": "Online/Offline",
+    "location": "",
+    "prize_pool": "Check Website",
+    "tags": [
+      "Hack2Skill"
+    ],
+    "team_size": "Check Website",
+    "eligibility": "Open to all",
+    "registration_status": "Open"
+  },
+  {
+    "id": "h2s_googlecloudagenticaiday2025",
+    "title": "Googlecloudagenticaiday2025",
+    "description": "Hack2Skill Event: Googlecloudagenticaiday2025",
+    "platform": "Hack2Skill",
+    "url": "https://hack2skill.com/event/googlecloudagenticaiday2025",
     "image_url": "https://hack2skill.com/images/logo.png",
     "start_date": "",
     "end_date": "",
