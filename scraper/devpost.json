@@ -46,29 +46,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29966",
-    "title": "Global AI Hackathon Series with Qwen Cloud",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://qwencloud-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/706/870/datas/medium_square.png",
-    "start_date": "May 26 - Jul 20, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>45,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Design",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29613",
     "title": "CockroachDB × AWS Hackathon - Build with Agentic Memory",
     "description": "Machine Learning/AI",
@@ -86,27 +63,6 @@
       "Machine Learning/AI",
       "Databases",
       "DevOps"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_30218",
-    "title": "Arm Create: AI Optimization Challenge",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://arm-ai-optimization-challenge.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/715/320/datas/medium_square.png",
-    "start_date": "Jun 04 - Aug 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>8,000</span>",
-    "tags": [
-      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
@@ -136,23 +92,21 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30518",
-    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
+    "id": "devpost_30218",
+    "title": "Arm Create: AI Optimization Challenge",
     "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://youcam-api.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
-    "start_date": "Jul 06 - Aug 17, 2026",
+    "url": "https://arm-ai-optimization-challenge.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/715/320/datas/medium_square.png",
+    "start_date": "Jun 04 - Aug 14, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "prize_pool": "$<span data-currency-value>8,000</span>",
     "tags": [
-      "Machine Learning/AI",
-      "AR/VR",
-      "E-commerce/Retail"
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
@@ -198,6 +152,52 @@
     "tags": [
       "Machine Learning/AI",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30518",
+    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://youcam-api.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
+    "start_date": "Jul 06 - Aug 17, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "AR/VR",
+      "E-commerce/Retail"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29884",
+    "title": "VoltHacks",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://volthacks.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
+    "start_date": "May 22 - Sep 05, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>32,585</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
