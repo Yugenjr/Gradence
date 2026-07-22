@@ -181,23 +181,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30586",
-    "title": "ML Empowerment Build Challenge 2.0",
-    "description": "Beginner Friendly",
+    "id": "devpost_30501",
+    "title": "3D Websites Hackathon",
+    "description": "Design",
     "platform": "Devpost",
-    "url": "https://ml-empowerment-2.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/851/313/datas/medium_square.png",
-    "start_date": "Jun 30 - Aug 15, 2026",
+    "url": "https://3d-websites-hackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/799/053/datas/medium_square.png",
+    "start_date": "Jun 22 - Jul 31, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,000</span>",
+    "prize_pool": "$<span data-currency-value>55</span>",
     "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Social Good"
+      "Design",
+      "Web",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
