@@ -1,28 +1,5 @@
 [
   {
-    "id": "devpost_30223",
-    "title": "OpenAI Build Week",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://openai.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/872/093/datas/medium_square.png",
-    "start_date": "2021-07-13T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>100,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "DevOps",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29541",
     "title": "Build with Gemini XPRIZE",
     "description": "Machine Learning/AI",
@@ -198,6 +175,29 @@
       "IoT",
       "Machine Learning/AI",
       "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30586",
+    "title": "ML Empowerment Build Challenge 2.0",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://ml-empowerment-2.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/851/313/datas/medium_square.png",
+    "start_date": "Jun 30 - Aug 15, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,000</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Social Good"
     ],
     "team_size": "",
     "eligibility": "",
