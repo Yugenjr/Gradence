@@ -23,75 +23,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30223",
-    "title": "OpenAI Build Week",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://openai.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/872/093/datas/medium_square.png",
-    "start_date": "2021-07-13T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>100,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "DevOps",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_29966",
-    "title": "Global AI Hackathon Series with Qwen Cloud",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://qwencloud-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/706/870/datas/medium_square.png",
-    "start_date": "May 26 - Jul 20, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>45,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Design",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_30086",
-    "title": "Reddit’s Games with a Hook Hackathon",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://redditgameswithahook.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/669/093/datas/medium_square.png",
-    "start_date": "Jun 17 - Jul 15, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Gaming",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29613",
     "title": "CockroachDB × AWS Hackathon - Build with Agentic Memory",
     "description": "Machine Learning/AI",
@@ -109,6 +40,29 @@
       "Machine Learning/AI",
       "Databases",
       "DevOps"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_28039",
+    "title": "Build with DataHub: The Agent Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://datahub.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/821/843/datas/medium_square.png",
+    "start_date": "Jul 06 - Aug 10, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>20,500</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "DevOps",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
@@ -159,29 +113,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_28039",
-    "title": "Build with DataHub: The Agent Hackathon",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://datahub.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/821/843/datas/medium_square.png",
-    "start_date": "Jul 06 - Aug 10, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>20,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "DevOps",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30091",
     "title": "Africa Deep Tech Challenge 2026",
     "description": "Machine Learning/AI",
@@ -198,6 +129,75 @@
     "tags": [
       "Machine Learning/AI",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30518",
+    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://youcam-api.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
+    "start_date": "Jul 06 - Aug 17, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "AR/VR",
+      "E-commerce/Retail"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29884",
+    "title": "VoltHacks",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://volthacks.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
+    "start_date": "May 22 - Sep 05, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>32,585</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
+      "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30501",
+    "title": "3D Websites Hackathon",
+    "description": "Design",
+    "platform": "Devpost",
+    "url": "https://3d-websites-hackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/799/053/datas/medium_square.png",
+    "start_date": "Jun 22 - Jul 31, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>55</span>",
+    "tags": [
+      "Design",
+      "Web",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
