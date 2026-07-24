@@ -46,7 +46,12 @@ We believe that tracking your academic journey should not require giving up owne
 ### GPA & CGPA Tracking
 * **The Outcome**: Gain a clear, visual understanding of your historical and projected academic standing.
 * **Why It Matters**: Standard tools calculate GPAs in isolation. Gradence archives your course credits, grade points, and semester history into a central database.
-* **The Benefit**: Instantly view your cumulative GPA trends across semesters and project future performance using the built-in target estimator.
+* **The Benefit**: Instantly view cumulative GPA trends across semesters and project required future performance using the target estimator.
+
+### Target GPA Predictor
+* **The Outcome**: Forecast required future academic performance.
+* **Why It Matters**: Students often struggle to know what GPA they need in upcoming semesters to meet their graduation targets.
+* **The Benefit**: Run real-time projections to see exactly what SGPAs you need in remaining semesters to achieve your target graduation CGPA.
 
 ### Attendance Management
 * **The Outcome**: Avoid academic penalties with predictive attendance forecasting.
@@ -83,15 +88,43 @@ We believe that tracking your academic journey should not require giving up owne
 * **Why It Matters**: Visualizing your progress helps maintain momentum.
 * **The Benefit**: Comprehensive analytics charts map your GPA progression and average subject attendance to help you identify trends.
 
+### Academic Converters
+* **The Outcome**: Fast, local grade and credit calculations.
+* **Why It Matters**: Students frequently need to translate grade systems or estimate immediate CGPA changes.
+* **The Benefit**: Instantly convert CGPA to percentage (and vice versa), map grades to point scales (10-point / 4-point), and simulate credit weightage impacts of new courses on overall CGPA.
+
+### Coding Profiles Tracker
+* **The Outcome**: Real-time monitoring of your programming growth across competitive platforms.
+* **Why It Matters**: Managing multiple coding handles leads to fragmented views of progress.
+* **The Benefit**: Consolidate and automatically pull solved problem counts, ratings, and repository statuses from **LeetCode**, **Codeforces**, **GitHub**, and **CodeChef** directly into your workspace.
+
+### Campus & External Events
+* **The Outcome**: Discover hackathons, challenges, and campus activities in one place.
+* **Why It Matters**: Students miss key opportunities due to information dispersion.
+* **The Benefit**: Browse local Sri Eshwar campus events (pulled dynamically via Google Apps Script) alongside global hackathons and assessments fetched from **Unstop**.
+
+### AI Academic Calendar
+* **The Outcome**: Transform official PDF calendar schedules into structured digital events.
+* **Why It Matters**: Parsing static academic PDFs for relevant dates is tedious.
+* **The Benefit**: Upload an academic calendar PDF to extract calendar events locally via PDF.js, structure them with Groq AI, and filter them for your current semester and target year.
+
+### Resume Builder & SECE Standards Alignment
+* **The Outcome**: Build professional, print-ready engineering resumes locally.
+* **Why It Matters**: Creating resumes from scratch is prone to formatting and standard alignment errors.
+* **The Benefit**: Create and edit structured resumes matching SECE format standards with interactive forms, live previews, and local PDF rendering.
+
+### AI-Powered Academic Assistance & ATS Scorer
+* **The Outcome**: Generate tailored career roadmaps and evaluate resume compatibility.
+* **Why It Matters**: Aligning college study with specific industrial job descriptions requires expert guidance.
+* **The Benefit**:
+  * **Roadmaps Manager**: Generate step-by-step career path roadmaps using the local Groq Llama interface and track active goals.
+  * **ATS Scorer**: Upload your resume (PDF/TXT) and input a job description to calculate an ATS compatibility score, identify matched/missing keywords, and receive tailored advice.
+  * **Placement OS Modules**: Audit skills compatibility, project tech stack alignment, and resume structure using AI endpoints.
+
 ### Backup & Restore
 * **The Outcome**: Complete ownership and portability of your academic data.
 * **Why It Matters**: You should never lose your records due to device changes or application updates.
 * **The Benefit**: Export your entire database to a physical JSON file in your Documents folder using the native Filesystem API, or copy it to your clipboard for easy transfer.
-
-### AI-Powered Academic Assistance
-* **The Outcome**: Generate customized learning roadmaps for your career goals.
-* **Why It Matters**: Translating academic classes into industry skills can be challenging.
-* **The Benefit**: Query the local Groq Llama interface using your own API key to generate stage-by-stage learning plans. You can follow these roadmaps and track your progress in the Roadmaps Manager.
 
 ---
 
@@ -152,9 +185,9 @@ Detailed setup, installation, and update guidelines are documented in our [Insta
 
 ## 11. Tech Stack
 
-* **Frontend**: React 19, Vite, Tailwind CSS, Lucide icons, Framer Motion
-* **Native Runtime**: Capacitor Android (with native Preferences, Filesystem, and Secure Storage plugins)
-* **API Integration**: Groq Cloud SDK (Llama inference)
+* **Frontend**: React 19, Vite, Tailwind CSS, Lucide icons, Framer Motion, PDF.js (`pdfjs-dist`), jsPDF
+* **Native Runtime**: Capacitor (with native Preferences, Filesystem, Secure Storage, Local Notifications, and File Opener plugins)
+* **API & External Integrations**: Groq Cloud SDK (Llama inference), Google Apps Script Web App (Campus Events API), Unstop API (External Hackathons)
 * **Build System**: Gradle (for Android compilation)
 
 ---
