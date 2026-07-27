@@ -181,23 +181,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30501",
-    "title": "3D Websites Hackathon",
-    "description": "Design",
+    "id": "devpost_30479",
+    "title": "Prometheus July AI Challenge",
+    "description": "Beginner Friendly",
     "platform": "Devpost",
-    "url": "https://3d-websites-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/799/053/datas/medium_square.png",
-    "start_date": "Jun 22 - Jul 31, 2026",
+    "url": "https://prometheus-july-ai-challenge.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/829/207/datas/medium_square.png",
+    "start_date": "2030-07-17T20:26:00",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>55</span>",
+    "prize_pool": "$<span data-currency-value>1,500</span>",
     "tags": [
+      "Beginner Friendly",
       "Design",
-      "Web",
-      "Beginner Friendly"
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
