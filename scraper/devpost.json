@@ -102,7 +102,7 @@
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>10,000</span>",
+    "prize_pool": "$<span data-currency-value>15,000</span>",
     "tags": [
       "Databases",
       "Machine Learning/AI",
