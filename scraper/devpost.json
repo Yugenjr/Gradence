@@ -69,27 +69,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30218",
-    "title": "Arm Create: AI Optimization Challenge",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://arm-ai-optimization-challenge.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/715/320/datas/medium_square.png",
-    "start_date": "Jun 04 - Aug 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>8,000</span>",
-    "tags": [
-      "Machine Learning/AI"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30721",
     "title": "Agentic Cinema: The Blockbuster Hackathon",
     "description": "Databases",
@@ -107,6 +86,27 @@
       "Databases",
       "Machine Learning/AI",
       "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30218",
+    "title": "Arm Create: AI Optimization Challenge",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://arm-ai-optimization-challenge.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/715/320/datas/medium_square.png",
+    "start_date": "Jun 04 - Aug 14, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>8,000</span>",
+    "tags": [
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
