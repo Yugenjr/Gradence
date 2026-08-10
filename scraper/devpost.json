@@ -181,23 +181,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30518",
-    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
-    "description": "Machine Learning/AI",
+    "id": "devpost_30845",
+    "title": "All Things Agentic Hackathon",
+    "description": "Enterprise",
     "platform": "Devpost",
-    "url": "https://youcam-api.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
-    "start_date": "Jul 06 - Aug 17, 2026",
+    "url": "https://allthingsagentichackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/067/604/datas/medium_square.png",
+    "start_date": "2031-08-04T20:26:00",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "prize_pool": "$<span data-currency-value>180,000</span>",
     "tags": [
+      "Enterprise",
       "Machine Learning/AI",
-      "AR/VR",
-      "E-commerce/Retail"
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
