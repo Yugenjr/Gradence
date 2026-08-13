@@ -52,7 +52,7 @@
     "platform": "Devpost",
     "url": "https://agentic-cinema.devpost.com/",
     "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/901/608/datas/medium_square.jpg",
-    "start_date": "Jul 27 - Sep 07, 2026",
+    "start_date": "Jul 27 - Sep 09, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
@@ -159,29 +159,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30518",
-    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://youcam-api.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
-    "start_date": "Jul 06 - Aug 17, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>6,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "AR/VR",
-      "E-commerce/Retail"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30317",
     "title": "Agents for Humans Hackathon",
     "description": "Beginner Friendly",
@@ -199,6 +176,29 @@
       "Beginner Friendly",
       "Machine Learning/AI",
       "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30518",
+    "title": "YouCam API Skin AI & Apparel VTO Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://youcam-api.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/868/331/datas/medium_square.png",
+    "start_date": "Jul 06 - Aug 17, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "AR/VR",
+      "E-commerce/Retail"
     ],
     "team_size": "",
     "eligibility": "",
