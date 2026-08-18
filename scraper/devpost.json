@@ -1,28 +1,5 @@
 [
   {
-    "id": "devpost_29541",
-    "title": "Build with Gemini XPRIZE",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://xprize.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/686/462/datas/medium_square.png",
-    "start_date": "May 19 - Aug 17, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,000,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Education",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29969",
     "title": "RevenueCat Shipaton 2026",
     "description": "Design",
@@ -92,29 +69,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30317",
-    "title": "Agents for Humans Hackathon",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://agentsforhumans.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/064/760/datas/medium_square.jpg",
-    "start_date": "Aug 10 - Sep 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29613",
     "title": "CockroachDB × AWS Hackathon - Build with Agentic Memory",
     "description": "Machine Learning/AI",
@@ -132,6 +86,29 @@
       "Machine Learning/AI",
       "Databases",
       "DevOps"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30317",
+    "title": "Agents for Humans Hackathon",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://agentsforhumans.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/064/760/datas/medium_square.jpg",
+    "start_date": "Aug 10 - Sep 14, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>40,000</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
@@ -195,11 +172,34 @@
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,067,700</span>",
+    "prize_pool": "$<span data-currency-value>1,096,950</span>",
     "tags": [
       "Beginner Friendly",
       "Machine Learning/AI",
       "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29884",
+    "title": "VoltHacks",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://volthacks.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
+    "start_date": "May 22 - Sep 05, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>32,785</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
