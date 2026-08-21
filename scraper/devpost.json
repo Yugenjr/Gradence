@@ -149,11 +149,34 @@
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,206,164</span>",
+    "prize_pool": "$<span data-currency-value>2,208,664</span>",
     "tags": [
       "Beginner Friendly",
       "Machine Learning/AI",
       "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30452",
+    "title": "AI Builders Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://ai-builders-hackathon-2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/783/650/datas/medium_square.png",
+    "start_date": "Aug 21 - Sep 15, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>33,900</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Open Ended",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
@@ -176,29 +199,6 @@
     "tags": [
       "IoT",
       "Machine Learning/AI",
-      "Beginner Friendly"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_30501",
-    "title": "3D Websites Hackathon",
-    "description": "Design",
-    "platform": "Devpost",
-    "url": "https://3d-websites-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/799/053/datas/medium_square.png",
-    "start_date": "Jun 22 - Aug 31, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>55</span>",
-    "tags": [
-      "Design",
-      "Web",
       "Beginner Friendly"
     ],
     "team_size": "",
