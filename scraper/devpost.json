@@ -115,29 +115,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30198",
-    "title": "Reverie Hacks 2026",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://reverie-hacks-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/705/305/datas/medium_square.png",
-    "start_date": "2024-08-02T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>3,118,714</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30452",
     "title": "AI Builders Hackathon",
     "description": "Machine Learning/AI",
@@ -199,6 +176,29 @@
     "tags": [
       "IoT",
       "Machine Learning/AI",
+      "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30501",
+    "title": "3D Websites Hackathon",
+    "description": "Design",
+    "platform": "Devpost",
+    "url": "https://3d-websites-hackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/799/053/datas/medium_square.png",
+    "start_date": "Jun 22 - Aug 31, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>55</span>",
+    "tags": [
+      "Design",
+      "Web",
       "Beginner Friendly"
     ],
     "team_size": "",
