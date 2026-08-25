@@ -138,28 +138,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30091",
-    "title": "Africa Deep Tech Challenge 2026",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://adtc-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/739/255/datas/medium_square.png",
-    "start_date": "Jun 17 - Aug 25, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>16,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_29884",
     "title": "VoltHacks",
     "description": "IoT",
@@ -200,6 +178,29 @@
       "Design",
       "Web",
       "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29151",
+    "title": "Hack for Humanity | Summer 2026 (+13 non-cash prizes)",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://hack-for-humanity-summer-26.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/429/605/datas/medium_square.png",
+    "start_date": "Aug 07 - Sep 04, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>100</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Health",
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
