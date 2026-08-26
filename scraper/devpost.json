@@ -161,6 +161,29 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_31011",
+    "title": "The WebMCP Challenge",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://webmcp.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/133/267/datas/medium_square.png",
+    "start_date": "Aug 25 - Sep 03, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>35,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "E-commerce/Retail",
+      "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_30501",
     "title": "3D Websites Hackathon",
     "description": "Design",
@@ -178,29 +201,6 @@
       "Design",
       "Web",
       "Beginner Friendly"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_29151",
-    "title": "Hack for Humanity | Summer 2026 (+13 non-cash prizes)",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://hack-for-humanity-summer-26.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/429/605/datas/medium_square.png",
-    "start_date": "Aug 07 - Sep 04, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>100</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Health",
-      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
