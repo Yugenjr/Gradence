@@ -138,29 +138,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29884",
-    "title": "VoltHacks",
-    "description": "IoT",
-    "platform": "Devpost",
-    "url": "https://volthacks.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
-    "start_date": "May 22 - Sep 05, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>35,785</span>",
-    "tags": [
-      "IoT",
-      "Machine Learning/AI",
-      "Beginner Friendly"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31011",
     "title": "The WebMCP Challenge",
     "description": "Machine Learning/AI",
@@ -178,6 +155,29 @@
       "Machine Learning/AI",
       "E-commerce/Retail",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29884",
+    "title": "VoltHacks",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://volthacks.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
+    "start_date": "May 22 - Sep 05, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>35,785</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
