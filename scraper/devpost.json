@@ -92,29 +92,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30579",
-    "title": "CALL-E: Your Code Is Calling",
-    "description": "Communication",
-    "platform": "Devpost",
-    "url": "https://call-e.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/977/426/datas/medium_square.png",
-    "start_date": "Jul 23 - Sep 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>10,000</span>",
-    "tags": [
-      "Communication",
-      "Enterprise",
-      "Machine Learning/AI"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31011",
     "title": "The WebMCP Challenge",
     "description": "Machine Learning/AI",
@@ -132,6 +109,29 @@
       "Machine Learning/AI",
       "E-commerce/Retail",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30579",
+    "title": "CALL-E: Your Code Is Calling",
+    "description": "Communication",
+    "platform": "Devpost",
+    "url": "https://call-e.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/977/426/datas/medium_square.png",
+    "start_date": "Jul 23 - Sep 14, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>10,000</span>",
+    "tags": [
+      "Communication",
+      "Enterprise",
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
