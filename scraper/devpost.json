@@ -92,29 +92,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30686",
-    "title": "TikTok TechJam 2026",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://tiktoktechjam2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/031/051/datas/medium_square.png",
-    "start_date": "Aug 29 - Sep 01, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>34,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Cybersecurity",
-      "E-commerce/Retail"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31011",
     "title": "The WebMCP Challenge",
     "description": "Machine Learning/AI",
@@ -132,6 +109,29 @@
       "Machine Learning/AI",
       "E-commerce/Retail",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30686",
+    "title": "TikTok TechJam 2026",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://tiktoktechjam2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/031/051/datas/medium_square.png",
+    "start_date": "Aug 29 - Sep 01, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>34,500</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Cybersecurity",
+      "E-commerce/Retail"
     ],
     "team_size": "",
     "eligibility": "",
