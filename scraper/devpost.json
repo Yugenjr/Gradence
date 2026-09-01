@@ -23,29 +23,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30845",
-    "title": "All Things Agentic Hackathon",
-    "description": "Enterprise",
-    "platform": "Devpost",
-    "url": "https://allthingsagentichackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/067/604/datas/medium_square.png",
-    "start_date": "2031-08-04T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>180,000</span>",
-    "tags": [
-      "Enterprise",
-      "Machine Learning/AI",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30721",
     "title": "Agentic Cinema: The Blockbuster Hackathon",
     "description": "Databases",
@@ -200,6 +177,29 @@
     "tags": [
       "Machine Learning/AI",
       "Open Ended",
+      "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29884",
+    "title": "VoltHacks",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://volthacks.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
+    "start_date": "May 22 - Sep 05, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>35,785</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
       "Beginner Friendly"
     ],
     "team_size": "",
