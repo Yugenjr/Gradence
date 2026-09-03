@@ -46,29 +46,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30317",
-    "title": "Agents for Humans Hackathon",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://agentsforhumans.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/064/760/datas/medium_square.jpg",
-    "start_date": "Aug 10 - Sep 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31011",
     "title": "The WebMCP Challenge",
     "description": "Machine Learning/AI",
@@ -86,6 +63,29 @@
       "Machine Learning/AI",
       "E-commerce/Retail",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30317",
+    "title": "Agents for Humans Hackathon",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://agentsforhumans.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/064/760/datas/medium_square.jpg",
+    "start_date": "Aug 10 - Sep 14, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>40,000</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29242",
-    "title": "DevNetwork [API + Cloud + AI] Hackathon 2026",
-    "description": "IoT",
+    "id": "devpost_30992",
+    "title": "Build, Ship, Shape: Amazon Developer Hackathon",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://api-cloud-ai-hackathon-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/648/675/datas/medium_square.jpg",
-    "start_date": "Aug 17 - Sep 03, 2026",
+    "url": "https://amazonappdev2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/173/047/datas/medium_square.png",
+    "start_date": "Aug 31 - Oct 23, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
-    "location": "Santa Clara Convention Center and Online",
-    "prize_pool": "$<span data-currency-value>39,500</span>",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>138,000</span>",
     "tags": [
-      "IoT",
-      "Low/No Code",
-      "Machine Learning/AI"
+      "Machine Learning/AI",
+      "Open Ended",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
