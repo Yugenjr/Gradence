@@ -46,29 +46,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31011",
-    "title": "The WebMCP Challenge",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://webmcp.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/133/267/datas/medium_square.png",
-    "start_date": "Aug 25 - Sep 04, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>35,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "E-commerce/Retail",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30317",
     "title": "Agents for Humans Hackathon",
     "description": "Beginner Friendly",
@@ -161,6 +138,29 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_30992",
+    "title": "Build, Ship, Shape: Amazon Developer Hackathon",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://amazonappdev2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/173/047/datas/medium_square.png",
+    "start_date": "Aug 31 - Oct 23, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>138,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Open Ended",
+      "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_29884",
     "title": "VoltHacks",
     "description": "IoT",
@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30992",
-    "title": "Build, Ship, Shape: Amazon Developer Hackathon",
-    "description": "Machine Learning/AI",
+    "id": "devpost_29151",
+    "title": "Hack for Humanity | Summer 2026 (+13 non-cash prizes)",
+    "description": "Beginner Friendly",
     "platform": "Devpost",
-    "url": "https://amazonappdev2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/173/047/datas/medium_square.png",
-    "start_date": "Aug 31 - Oct 23, 2026",
+    "url": "https://hack-for-humanity-summer-26.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/429/605/datas/medium_square.png",
+    "start_date": "Aug 07 - Sep 04, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>138,000</span>",
+    "prize_pool": "$<span data-currency-value>100</span>",
     "tags": [
-      "Machine Learning/AI",
-      "Open Ended",
-      "Productivity"
+      "Beginner Friendly",
+      "Health",
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
