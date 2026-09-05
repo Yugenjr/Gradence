@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29151",
-    "title": "Hack for Humanity | Summer 2026 (+13 non-cash prizes)",
-    "description": "Beginner Friendly",
+    "id": "devpost_30984",
+    "title": "OpenCV AI Competition 2026, powered by AWS",
+    "description": "IoT",
     "platform": "Devpost",
-    "url": "https://hack-for-humanity-summer-26.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/429/605/datas/medium_square.png",
-    "start_date": "Aug 07 - Sep 04, 2026",
+    "url": "https://opencv26.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/087/526/datas/medium_square.png",
+    "start_date": "Aug 26 - Oct 27, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>100</span>",
+    "prize_pool": "$<span data-currency-value>20,250</span>",
     "tags": [
-      "Beginner Friendly",
-      "Health",
-      "Machine Learning/AI"
+      "IoT",
+      "Machine Learning/AI",
+      "Serverless"
     ],
     "team_size": "",
     "eligibility": "",
