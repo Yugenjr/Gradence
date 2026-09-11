@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30767",
-    "title": "GatewayHacks 2026 | Software & AI",
-    "description": "Beginner Friendly",
+    "id": "devpost_30408",
+    "title": "Global Innovation Build Challenge V2",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://gatewayhacks-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/932/136/datas/medium_square.png",
-    "start_date": "Sep 01 - Oct 02, 2026",
+    "url": "https://gibc-v2.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/835/213/datas/medium_square.png",
+    "start_date": "Jul 11 - Oct 01, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,007,085</span>",
+    "prize_pool": "$<span data-currency-value>156,525</span>",
     "tags": [
-      "Beginner Friendly",
       "Machine Learning/AI",
-      "Open Ended"
+      "Social Good",
+      "Beginner Friendly"
     ],
     "team_size": "",
     "eligibility": "",
