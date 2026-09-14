@@ -138,29 +138,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29884",
-    "title": "VoltHacks",
-    "description": "IoT",
-    "platform": "Devpost",
-    "url": "https://volthacks.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/620/967/datas/medium_square.png",
-    "start_date": "May 22 - Sep 13, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>35,785</span>",
-    "tags": [
-      "IoT",
-      "Machine Learning/AI",
-      "Beginner Friendly"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30984",
     "title": "OpenCV AI Competition 2026, powered by AWS",
     "description": "IoT",
@@ -201,6 +178,29 @@
       "Machine Learning/AI",
       "Social Good",
       "Beginner Friendly"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30878",
+    "title": "NextStep Hacks 2026",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://nextstep2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/044/459/datas/medium_square.png",
+    "start_date": "Aug 21 - Sep 20, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,750</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Social Good"
     ],
     "team_size": "",
     "eligibility": "",
