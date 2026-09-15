@@ -127,7 +127,7 @@
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>156,525</span>",
+    "prize_pool": "$<span data-currency-value>0</span>",
     "tags": [
       "Machine Learning/AI",
       "Social Good",
@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30892",
-    "title": "Beginner's Paradise - FirstCommit",
-    "description": "Beginner Friendly",
+    "id": "devpost_31052",
+    "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
+    "description": "Communication",
     "platform": "Devpost",
-    "url": "https://firstcommit.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/152/414/datas/medium_square.png",
-    "start_date": "Aug 21 - Sep 30, 2026",
+    "url": "https://aws-cds-partner.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/155/384/datas/medium_square.png",
+    "start_date": "Sep 14 - Oct 28, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,024</span>",
+    "prize_pool": "$<span data-currency-value>40,000</span>",
     "tags": [
-      "Beginner Friendly",
+      "Communication",
       "Mobile",
-      "Web"
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
