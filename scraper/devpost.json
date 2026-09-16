@@ -69,29 +69,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30452",
-    "title": "AI Builders Hackathon",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://ai-builders-hackathon-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/783/650/datas/medium_square.png",
-    "start_date": "Aug 21 - Sep 15, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>33,900</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Open Ended",
-      "Beginner Friendly"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30984",
     "title": "OpenCV AI Competition 2026, powered by AWS",
     "description": "IoT",
@@ -201,6 +178,29 @@
       "Health",
       "Machine Learning/AI",
       "Social Good"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30892",
+    "title": "Beginner's Paradise - FirstCommit",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://firstcommit.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/152/414/datas/medium_square.png",
+    "start_date": "Aug 21 - Sep 30, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,024</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Mobile",
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
