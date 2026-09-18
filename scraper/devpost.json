@@ -115,29 +115,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30878",
-    "title": "NextStep Hacks 2026",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://nextstep2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/044/459/datas/medium_square.png",
-    "start_date": "Aug 21 - Sep 20, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,750</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Social Good"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31052",
     "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
     "description": "Communication",
@@ -155,6 +132,29 @@
       "Communication",
       "Mobile",
       "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30878",
+    "title": "NextStep Hacks 2026",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://nextstep2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/044/459/datas/medium_square.png",
+    "start_date": "Aug 21 - Sep 20, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,750</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Social Good"
     ],
     "team_size": "",
     "eligibility": "",
