@@ -138,6 +138,28 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_16116",
+    "title": "Hack the North 2026",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://hackthenorth2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/253/069/datas/medium_square.png",
+    "start_date": "2020-09-18T20:26:00",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Offline",
+    "location": "University of Waterloo — E5/PSE",
+    "prize_pool": "$<span data-currency-value>0</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_30878",
     "title": "NextStep Hacks 2026",
     "description": "Beginner Friendly",
@@ -178,29 +200,6 @@
       "Beginner Friendly",
       "Mobile",
       "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_29359",
-    "title": "OneAquaHealth IEEE Global Hackathon",
-    "description": "Health",
-    "platform": "Devpost",
-    "url": "https://oneaquahealth-ieee-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/514/502/datas/medium_square.png",
-    "start_date": "Sep 14 - Oct 01, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>3,500</span>",
-    "tags": [
-      "Health",
-      "Machine Learning/AI",
-      "Social Good"
     ],
     "team_size": "",
     "eligibility": "",
