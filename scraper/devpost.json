@@ -184,22 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31113",
-    "title": "MLAI Hackathon 2026",
-    "description": "Databases",
+    "id": "devpost_30447",
+    "title": "Build With AI: Basics",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://mlai-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/165/208/datas/medium_square.jpg",
-    "start_date": "Sep 18 - Oct 16, 2026",
+    "url": "https://learn-ai-basics.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/318/datas/medium_square.png",
+    "start_date": "Sep 22 - Oct 26, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>0</span>",
+    "prize_pool": "$<span data-currency-value>2,500</span>",
     "tags": [
-      "Databases",
-      "Machine Learning/AI"
+      "Machine Learning/AI",
+      "Beginner Friendly",
+      "Education"
     ],
     "team_size": "",
     "eligibility": "",
