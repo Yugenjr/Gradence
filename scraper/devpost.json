@@ -115,6 +115,29 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_30447",
+    "title": "Build With AI: Basics",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://learn-ai-basics.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/318/datas/medium_square.png",
+    "start_date": "Sep 22 - Oct 26, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>2,500</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Beginner Friendly",
+      "Education"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_31052",
     "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
     "description": "Communication",
@@ -178,29 +201,6 @@
       "Health",
       "Machine Learning/AI",
       "Social Good"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_30447",
-    "title": "Build With AI: Basics",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://learn-ai-basics.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/318/datas/medium_square.png",
-    "start_date": "Sep 22 - Oct 26, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Beginner Friendly",
-      "Education"
     ],
     "team_size": "",
     "eligibility": "",
