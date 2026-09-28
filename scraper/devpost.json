@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29359",
-    "title": "OneAquaHealth IEEE Global Hackathon",
-    "description": "Health",
+    "id": "devpost_31024",
+    "title": "Meta VR Start Developer Competition 2026",
+    "description": "AR/VR",
     "platform": "Devpost",
-    "url": "https://oneaquahealth-ieee-hackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/514/502/datas/medium_square.png",
-    "start_date": "Sep 14 - Oct 05, 2026",
+    "url": "https://start-developer-competition-26.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/374/843/datas/medium_square.png",
+    "start_date": "Sep 24 - Nov 18, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>3,500</span>",
+    "prize_pool": "$<span data-currency-value>1,000,000</span>",
     "tags": [
-      "Health",
+      "AR/VR",
       "Machine Learning/AI",
-      "Social Good"
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
