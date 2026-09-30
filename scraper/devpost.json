@@ -184,23 +184,21 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30892",
-    "title": "Beginner's Paradise - FirstCommit",
-    "description": "Beginner Friendly",
+    "id": "devpost_31481",
+    "title": "Multimodal AI Hackathon 2026",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://firstcommit.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/152/414/datas/medium_square.png",
-    "start_date": "Aug 21 - Sep 30, 2026",
+    "url": "https://multimodal-ai-hackathon-2026-7.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/176/datas/medium_square.jpg",
+    "start_date": "Sep 29 - Oct 14, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,024</span>",
+    "prize_pool": "₹ <span data-currency-value>100,000</span>",
     "tags": [
-      "Beginner Friendly",
-      "Mobile",
-      "Web"
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
