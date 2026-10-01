@@ -1,28 +1,5 @@
 [
   {
-    "id": "devpost_29969",
-    "title": "RevenueCat Shipaton 2026",
-    "description": "Design",
-    "platform": "Devpost",
-    "url": "https://revenuecat-shipaton-2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/663/632/datas/medium_square.jpg",
-    "start_date": "Jul 31 - Oct 01, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>740,000</span>",
-    "tags": [
-      "Design",
-      "Gaming",
-      "Mobile"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30992",
     "title": "Build, Ship, Shape: Amazon Developer Hackathon",
     "description": "Machine Learning/AI",
@@ -40,6 +17,29 @@
       "Machine Learning/AI",
       "Open Ended",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_29969",
+    "title": "RevenueCat Shipaton 2026",
+    "description": "Design",
+    "platform": "Devpost",
+    "url": "https://revenuecat-shipaton-2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/663/632/datas/medium_square.jpg",
+    "start_date": "Jul 31 - Oct 01, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>740,000</span>",
+    "tags": [
+      "Design",
+      "Gaming",
+      "Mobile"
     ],
     "team_size": "",
     "eligibility": "",
@@ -161,6 +161,27 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_31481",
+    "title": "Multimodal AI Hackathon 2026",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://multimodal-ai-hackathon-2026-7.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/176/datas/medium_square.jpg",
+    "start_date": "Sep 29 - Oct 14, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "₹ <span data-currency-value>100,000</span>",
+    "tags": [
+      "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_31052",
     "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
     "description": "Communication",
@@ -177,27 +198,6 @@
     "tags": [
       "Communication",
       "Mobile",
-      "Machine Learning/AI"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_31481",
-    "title": "Multimodal AI Hackathon 2026",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://multimodal-ai-hackathon-2026-7.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/176/datas/medium_square.jpg",
-    "start_date": "Sep 29 - Oct 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "₹ <span data-currency-value>100,000</span>",
-    "tags": [
       "Machine Learning/AI"
     ],
     "team_size": "",
