@@ -46,6 +46,29 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_31302",
+    "title": "PayPal AI Hackathon",
+    "description": "Low/No Code",
+    "platform": "Devpost",
+    "url": "https://paypalaihackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/288/985/datas/medium_square.png",
+    "start_date": "Oct 01 - Nov 12, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>67,500</span>",
+    "tags": [
+      "Low/No Code",
+      "Machine Learning/AI",
+      "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_30984",
     "title": "OpenCV AI Competition 2026, powered by AWS",
     "description": "IoT",
@@ -107,29 +130,6 @@
     "prize_pool": "$<span data-currency-value>1,000,000</span>",
     "tags": [
       "AR/VR",
-      "Machine Learning/AI",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_31302",
-    "title": "PayPal AI Hackathon",
-    "description": "Low/No Code",
-    "platform": "Devpost",
-    "url": "https://paypalaihackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/288/985/datas/medium_square.png",
-    "start_date": "Oct 01 - Nov 12, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>67,500</span>",
-    "tags": [
-      "Low/No Code",
       "Machine Learning/AI",
       "Web"
     ],
