@@ -92,29 +92,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30447",
-    "title": "Build With AI: Basics",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://learn-ai-basics.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/318/datas/medium_square.png",
-    "start_date": "Sep 22 - Oct 26, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,500</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Beginner Friendly",
-      "Education"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31024",
     "title": "Meta VR Start Developer Competition 2026",
     "description": "AR/VR",
@@ -132,6 +109,29 @@
       "AR/VR",
       "Machine Learning/AI",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30447",
+    "title": "Build With AI: Basics",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://learn-ai-basics.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/366/318/datas/medium_square.png",
+    "start_date": "Sep 22 - Oct 26, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>2,500</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Beginner Friendly",
+      "Education"
     ],
     "team_size": "",
     "eligibility": "",
@@ -159,29 +159,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31052",
-    "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
-    "description": "Communication",
-    "platform": "Devpost",
-    "url": "https://aws-cds-partner.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/155/384/datas/medium_square.png",
-    "start_date": "Sep 14 - Oct 28, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
-    "tags": [
-      "Communication",
-      "Mobile",
-      "Machine Learning/AI"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31103",
     "title": "WarriorHacks 2.0",
     "description": "Beginner Friendly",
@@ -199,6 +176,29 @@
       "Beginner Friendly",
       "Machine Learning/AI",
       "Open Ended"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31052",
+    "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
+    "description": "Communication",
+    "platform": "Devpost",
+    "url": "https://aws-cds-partner.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/155/384/datas/medium_square.png",
+    "start_date": "Sep 14 - Oct 28, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>40,000</span>",
+    "tags": [
+      "Communication",
+      "Mobile",
+      "Machine Learning/AI"
     ],
     "team_size": "",
     "eligibility": "",
