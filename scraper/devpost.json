@@ -92,29 +92,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31024",
-    "title": "Meta VR Start Developer Competition 2026",
-    "description": "AR/VR",
-    "platform": "Devpost",
-    "url": "https://start-developer-competition-26.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/374/843/datas/medium_square.png",
-    "start_date": "Sep 24 - Nov 18, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>1,000,000</span>",
-    "tags": [
-      "AR/VR",
-      "Machine Learning/AI",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_30447",
     "title": "Build With AI: Basics",
     "description": "Machine Learning/AI",
@@ -132,6 +109,29 @@
       "Machine Learning/AI",
       "Beginner Friendly",
       "Education"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31024",
+    "title": "Meta VR Start Developer Competition 2026",
+    "description": "AR/VR",
+    "platform": "Devpost",
+    "url": "https://start-developer-competition-26.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/374/843/datas/medium_square.png",
+    "start_date": "Sep 24 - Nov 18, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,000,000</span>",
+    "tags": [
+      "AR/VR",
+      "Machine Learning/AI",
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
@@ -182,23 +182,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31052",
-    "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
-    "description": "Communication",
+    "id": "devpost_31503",
+    "title": "Life After Code",
+    "description": "DevOps",
     "platform": "Devpost",
-    "url": "https://aws-cds-partner.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/155/384/datas/medium_square.png",
-    "start_date": "Sep 14 - Oct 28, 2026",
+    "url": "https://gitlab-transcend.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/376/754/datas/medium_square.png",
+    "start_date": "2027-10-05T20:26:00",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>40,000</span>",
+    "prize_pool": "$<span data-currency-value>45,000</span>",
     "tags": [
-      "Communication",
-      "Mobile",
-      "Machine Learning/AI"
+      "DevOps",
+      "Machine Learning/AI",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
