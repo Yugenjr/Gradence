@@ -159,6 +159,29 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_30858",
+    "title": "ForgeHacks Online 2026",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://forgehacks-2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/034/742/datas/medium_square.png",
+    "start_date": "2010-10-01T20:26:00",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>1,382,700</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Lifehacks",
+      "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_31503",
     "title": "Life After Code",
     "description": "DevOps",
@@ -176,29 +199,6 @@
       "DevOps",
       "Machine Learning/AI",
       "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_31103",
-    "title": "WarriorHacks 2.0",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://warriorhacks-2-0.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/267/082/datas/medium_square.png",
-    "start_date": "Sep 28 - Oct 14, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>0</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
