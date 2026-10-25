@@ -159,29 +159,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_29871",
-    "title": "Cal Hacks 13.0",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://cal-hacks-13-0.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/519/078/datas/medium_square.png",
-    "start_date": "2025-10-23T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Offline",
-    "location": "Palace of Fine Arts",
-    "prize_pool": "$<span data-currency-value>159,822</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Social Good",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31052",
     "title": "AWS Communication Developer Services (CDS) Agentic AI Partner Hackathon",
     "description": "Communication",
@@ -198,6 +175,29 @@
     "tags": [
       "Communication",
       "Mobile",
+      "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31400",
+    "title": "YouCam API Skin AI & eCommerce VTO Hackathon",
+    "description": "AR/VR",
+    "platform": "Devpost",
+    "url": "https://youcam-api-skin-ai-ecommerce.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/375/196/datas/medium_square.png",
+    "start_date": "Sep 29 - Nov 02, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>6,000</span>",
+    "tags": [
+      "AR/VR",
+      "E-commerce/Retail",
       "Machine Learning/AI"
     ],
     "team_size": "",
