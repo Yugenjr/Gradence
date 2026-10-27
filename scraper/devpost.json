@@ -46,29 +46,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30984",
-    "title": "OpenCV AI Competition 2026, powered by AWS",
-    "description": "IoT",
-    "platform": "Devpost",
-    "url": "https://opencv26.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/087/526/datas/medium_square.png",
-    "start_date": "Aug 26 - Oct 27, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>20,250</span>",
-    "tags": [
-      "IoT",
-      "Machine Learning/AI",
-      "Serverless"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31024",
     "title": "Meta VR Start Developer Competition 2026",
     "description": "AR/VR",
@@ -199,6 +176,29 @@
       "Communication",
       "Mobile",
       "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31659",
+    "title": "Learn AR with SPECS",
+    "description": "AR/VR",
+    "platform": "Devpost",
+    "url": "https://learn-specs.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/541/121/datas/medium_square.png",
+    "start_date": "Oct 15 - Nov 09, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>2,500</span>",
+    "tags": [
+      "AR/VR",
+      "Machine Learning/AI",
+      "Design"
     ],
     "team_size": "",
     "eligibility": "",
