@@ -69,29 +69,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31503",
-    "title": "Life After Code",
-    "description": "DevOps",
-    "platform": "Devpost",
-    "url": "https://gitlab-transcend.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/376/754/datas/medium_square.png",
-    "start_date": "2027-10-05T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>45,000</span>",
-    "tags": [
-      "DevOps",
-      "Machine Learning/AI",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31054",
     "title": "Qloo Agentic Hackathon",
     "description": "Machine Learning/AI",
@@ -199,6 +176,29 @@
       "AR/VR",
       "Machine Learning/AI",
       "Design"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31552",
+    "title": "UGREEN Hackathon 2026 on AI NAS",
+    "description": "Lifehacks",
+    "platform": "Devpost",
+    "url": "https://ugreenhackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/624/690/datas/medium_square.png",
+    "start_date": "Oct 22 - Nov 16, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>46,000</span>",
+    "tags": [
+      "Lifehacks",
+      "Machine Learning/AI",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
