@@ -182,23 +182,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30500",
-    "title": "DSH Hacks V2 ($100k+ in prizes!)",
-    "description": "Beginner Friendly",
+    "id": "devpost_31572",
+    "title": "Codegeist 2026: Build with context. Ship with confidence.",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://dsh-hacks-v2.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/152/677/datas/medium_square.png",
-    "start_date": "Jun 24 - Nov 15, 2026",
+    "url": "https://codegeist2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/624/479/datas/medium_square.png",
+    "start_date": "Oct 27 - Dec 22, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>0</span>",
+    "prize_pool": "$<span data-currency-value>120,000</span>",
     "tags": [
-      "Beginner Friendly",
-      "Low/No Code",
-      "Open Ended"
+      "Machine Learning/AI",
+      "Enterprise",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
