@@ -1,28 +1,5 @@
 [
   {
-    "id": "devpost_30790",
-    "title": "Nebius x NVIDIA Global AI Hackathon",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://nebiusglobalaihackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/173/025/datas/medium_square.png",
-    "start_date": "Aug 26 - Oct 30, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>50,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Beginner Friendly",
-      "Robotic Process Automation"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31302",
     "title": "PayPal AI Hackathon",
     "description": "Low/No Code",
@@ -63,6 +40,29 @@
       "AR/VR",
       "Machine Learning/AI",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31667",
+    "title": "Kiroween 2026",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://kiroween.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/585/149/datas/medium_square.png",
+    "start_date": "Oct 30 - Dec 04, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>100,000</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
