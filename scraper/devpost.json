@@ -138,29 +138,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31659",
-    "title": "Learn AR with SPECS",
-    "description": "AR/VR",
-    "platform": "Devpost",
-    "url": "https://learn-specs.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/541/121/datas/medium_square.png",
-    "start_date": "Oct 15 - Nov 09, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>2,500</span>",
-    "tags": [
-      "AR/VR",
-      "Machine Learning/AI",
-      "Design"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31552",
     "title": "UGREEN Hackathon 2026 on AI NAS",
     "description": "Lifehacks",
@@ -178,6 +155,29 @@
       "Lifehacks",
       "Machine Learning/AI",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31659",
+    "title": "Learn AR with SPECS",
+    "description": "AR/VR",
+    "platform": "Devpost",
+    "url": "https://learn-specs.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/541/121/datas/medium_square.png",
+    "start_date": "Oct 15 - Nov 09, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>2,500</span>",
+    "tags": [
+      "AR/VR",
+      "Machine Learning/AI",
+      "Design"
     ],
     "team_size": "",
     "eligibility": "",
