@@ -184,23 +184,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30789",
-    "title": "Arbiter Hacks V1",
-    "description": "Beginner Friendly",
+    "id": "devpost_31642",
+    "title": "AWS MSP AI Hackathon",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://arbiter-hacks-v1.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/995/823/datas/medium_square.jpg",
-    "start_date": "Oct 20 - Dec 21, 2026",
+    "url": "https://aws-agentic-msp.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/715/013/datas/medium_square.png",
+    "start_date": "Nov 02 - Dec 11, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>7,800</span>",
+    "prize_pool": "$<span data-currency-value>64,000</span>",
     "tags": [
-      "Beginner Friendly",
       "Machine Learning/AI",
-      "Open Ended"
+      "Productivity",
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
