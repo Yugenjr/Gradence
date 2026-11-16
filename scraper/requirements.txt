@@ -4,4 +4,4 @@ playwright==1.42.0
 asyncio==3.4.3
 python-dateutil==2.9.0
 pytz==2024.1
-curl-cffi==0.6.2
+curl-cffi==0.7.0b4
