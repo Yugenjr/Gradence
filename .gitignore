@@ -14,4 +14,4 @@ android/captures/
 
 # IDE
 .idea/
-.vscode/
+config.bat
