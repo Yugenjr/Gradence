@@ -23,29 +23,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31572",
-    "title": "Codegeist 2026: Build with context. Ship with confidence.",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://codegeist2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/624/479/datas/medium_square.png",
-    "start_date": "Oct 27 - Dec 22, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>120,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Enterprise",
-      "Productivity"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31808",
     "title": "#BuildHybridAI 2026",
     "description": "Machine Learning/AI",
@@ -63,6 +40,29 @@
       "Machine Learning/AI",
       "Mobile",
       "Web"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31572",
+    "title": "Codegeist 2026: Build with context. Ship with confidence.",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://codegeist2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/624/479/datas/medium_square.png",
+    "start_date": "Oct 27 - Dec 22, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>120,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Enterprise",
+      "Productivity"
     ],
     "team_size": "",
     "eligibility": "",
