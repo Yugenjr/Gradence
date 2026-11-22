@@ -160,29 +160,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30789",
-    "title": "Arbiter Hacks V1",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://arbiter-hacks-v1.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/995/823/datas/medium_square.jpg",
-    "start_date": "Oct 20 - Dec 21, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>7,800</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Machine Learning/AI",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31571",
     "title": "Cloud9 x JetBrains: Sky's The Limit Hackathon 2026",
     "description": "Databases",
@@ -200,6 +177,29 @@
       "Databases",
       "Gaming",
       "Machine Learning/AI"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_30789",
+    "title": "Arbiter Hacks V1",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://arbiter-hacks-v1.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/995/823/datas/medium_square.jpg",
+    "start_date": "Oct 20 - Dec 21, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>7,800</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Machine Learning/AI",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
