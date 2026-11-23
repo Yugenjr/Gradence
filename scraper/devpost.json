@@ -69,6 +69,28 @@
     "registration_status": "Open"
   },
   {
+    "id": "devpost_31644",
+    "title": "Reddit’s Game of the Day Hackathon",
+    "description": "Beginner Friendly",
+    "platform": "Devpost",
+    "url": "https://redditgameofday2026.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/533/494/datas/medium_square.png",
+    "start_date": "Nov 11 - Dec 08, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>35,000</span>",
+    "tags": [
+      "Beginner Friendly",
+      "Gaming"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
     "id": "devpost_31083",
     "title": "QNX Global Hackathon",
     "description": "IoT",
@@ -86,28 +108,6 @@
       "IoT",
       "Machine Learning/AI",
       "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
-    "id": "devpost_31644",
-    "title": "Reddit’s Game of the Day Hackathon",
-    "description": "Beginner Friendly",
-    "platform": "Devpost",
-    "url": "https://redditgameofday2026.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/533/494/datas/medium_square.png",
-    "start_date": "Nov 11 - Dec 08, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>35,000</span>",
-    "tags": [
-      "Beginner Friendly",
-      "Gaming"
     ],
     "team_size": "",
     "eligibility": "",
