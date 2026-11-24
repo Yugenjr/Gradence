@@ -23,29 +23,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31808",
-    "title": "#BuildHybridAI 2026",
-    "description": "Machine Learning/AI",
-    "platform": "Devpost",
-    "url": "https://firebasehybridaihackathon.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/784/130/datas/medium_square.png",
-    "start_date": "2030-11-11T20:26:00",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>30,000</span>",
-    "tags": [
-      "Machine Learning/AI",
-      "Mobile",
-      "Web"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_31572",
     "title": "Codegeist 2026: Build with context. Ship with confidence.",
     "description": "Machine Learning/AI",
@@ -63,6 +40,29 @@
       "Machine Learning/AI",
       "Enterprise",
       "Productivity"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31808",
+    "title": "#BuildHybridAI 2026",
+    "description": "Machine Learning/AI",
+    "platform": "Devpost",
+    "url": "https://firebasehybridaihackathon.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/784/130/datas/medium_square.png",
+    "start_date": "2030-11-11T20:26:00",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>30,000</span>",
+    "tags": [
+      "Machine Learning/AI",
+      "Mobile",
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
@@ -114,29 +114,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31973",
-    "title": "Deck the Pixels",
-    "description": "Design",
-    "platform": "Devpost",
-    "url": "https://deckthepixels.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/779/699/datas/medium_square.png",
-    "start_date": "Nov 10 - Dec 07, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>25,000</span>",
-    "tags": [
-      "Design",
-      "Machine Learning/AI",
-      "Low/No Code"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_32026",
     "title": "Open Agentic Web Challenge",
     "description": "Machine Learning/AI",
@@ -154,6 +131,29 @@
       "Machine Learning/AI",
       "Web",
       "Social Good"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31973",
+    "title": "Deck the Pixels",
+    "description": "Design",
+    "platform": "Devpost",
+    "url": "https://deckthepixels.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/779/699/datas/medium_square.png",
+    "start_date": "Nov 10 - Dec 07, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>25,000</span>",
+    "tags": [
+      "Design",
+      "Machine Learning/AI",
+      "Low/No Code"
     ],
     "team_size": "",
     "eligibility": "",
@@ -183,23 +183,23 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_30789",
-    "title": "Arbiter Hacks V1",
-    "description": "Beginner Friendly",
+    "id": "devpost_31642",
+    "title": "AWS MSP AI Hackathon",
+    "description": "Machine Learning/AI",
     "platform": "Devpost",
-    "url": "https://arbiter-hacks-v1.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/004/995/823/datas/medium_square.jpg",
-    "start_date": "Oct 20 - Dec 21, 2026",
+    "url": "https://aws-agentic-msp.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/715/013/datas/medium_square.png",
+    "start_date": "Nov 02 - Dec 11, 2026",
     "end_date": "",
     "registration_deadline": "",
     "event_type": "Hackathon",
     "mode": "Online",
     "location": "Online",
-    "prize_pool": "$<span data-currency-value>7,800</span>",
+    "prize_pool": "$<span data-currency-value>64,000</span>",
     "tags": [
-      "Beginner Friendly",
       "Machine Learning/AI",
-      "Open Ended"
+      "Productivity",
+      "Web"
     ],
     "team_size": "",
     "eligibility": "",
