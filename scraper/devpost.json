@@ -91,29 +91,6 @@
     "registration_status": "Open"
   },
   {
-    "id": "devpost_31083",
-    "title": "QNX Global Hackathon",
-    "description": "IoT",
-    "platform": "Devpost",
-    "url": "https://qnx.devpost.com/",
-    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/522/477/datas/medium_square.jpg",
-    "start_date": "Nov 02 - Dec 15, 2026",
-    "end_date": "",
-    "registration_deadline": "",
-    "event_type": "Hackathon",
-    "mode": "Online",
-    "location": "Online",
-    "prize_pool": "$<span data-currency-value>50,000</span>",
-    "tags": [
-      "IoT",
-      "Machine Learning/AI",
-      "Open Ended"
-    ],
-    "team_size": "",
-    "eligibility": "",
-    "registration_status": "Open"
-  },
-  {
     "id": "devpost_32026",
     "title": "Open Agentic Web Challenge",
     "description": "Machine Learning/AI",
@@ -131,6 +108,29 @@
       "Machine Learning/AI",
       "Web",
       "Social Good"
+    ],
+    "team_size": "",
+    "eligibility": "",
+    "registration_status": "Open"
+  },
+  {
+    "id": "devpost_31083",
+    "title": "QNX Global Hackathon",
+    "description": "IoT",
+    "platform": "Devpost",
+    "url": "https://qnx.devpost.com/",
+    "image_url": "https://d112y698adiu2z.cloudfront.net/photos/production/challenge_thumbnails/005/522/477/datas/medium_square.jpg",
+    "start_date": "Nov 02 - Dec 15, 2026",
+    "end_date": "",
+    "registration_deadline": "",
+    "event_type": "Hackathon",
+    "mode": "Online",
+    "location": "Online",
+    "prize_pool": "$<span data-currency-value>50,000</span>",
+    "tags": [
+      "IoT",
+      "Machine Learning/AI",
+      "Open Ended"
     ],
     "team_size": "",
     "eligibility": "",
